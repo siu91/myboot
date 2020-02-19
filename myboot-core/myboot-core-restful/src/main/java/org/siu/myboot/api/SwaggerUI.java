@@ -3,7 +3,7 @@
  *
  * Copyright 2018 CEC(Fujian) Healthcare Big Data Operation Service Co., Ltd. All rights reserved.
  */
-package org.siu.api;
+package org.siu.myboot.api;
 
 
 import io.swagger.annotations.Api;

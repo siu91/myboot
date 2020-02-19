@@ -1,4 +1,4 @@
-package org.siu.myboot.entity;
+package org.siu.myboot.model;
 
 import org.siu.myboot.annotation.TableField;
 import org.springframework.util.StringUtils;
@@ -12,17 +12,17 @@ import org.siu.myboot.utils.Strings;
 
 
 /**
+ * 基础数据对象
+ *
  * @Author Siu
  * @Date 2020/2/18 15:27
  * @Version 0.0.1
  */
-public class BaseEntity {
+public class BaseDataObject {
 
     public String baseColumnList() {
         List<String> columns = new ArrayList<>();
         Field[] fs = this.getClass().getDeclaredFields();
-        //设置私有属性的访问权限
-        // Field.setAccessible(true);
         for (Field f : fs) {
             boolean add = true;
             String columnName = null;

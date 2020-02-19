@@ -1,0 +1,7 @@
+# 服务启动的端口
+server:
+  port: 8082
+# 指定环境
+spring:
+  profiles:
+    active: dev
