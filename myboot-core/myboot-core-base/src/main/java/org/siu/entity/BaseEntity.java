@@ -1,4 +1,4 @@
-package org.siu.model;
+package org.siu.entity;
 
 import org.siu.annotation.TableField;
 import org.springframework.util.StringUtils;
