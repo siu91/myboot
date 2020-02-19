@@ -2,7 +2,7 @@
 
 
 ## 简介
-myboot是一个基于springboot脚手架。
+myboot是一个基于springboot的项目脚手架。
 <img src="./LOGO.png" alt="myboot" style="zoom:75%;" />
 
 
