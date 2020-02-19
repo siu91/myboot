@@ -15,17 +15,15 @@
     <packaging>pom</packaging>
     <description>组件模块，如缓存、消息中间件、对象存储OSS</description>
 
-    <dependencies>
+    <modules>
+        <module>myboot-component-cache</module>
+    </modules>
 
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
-
     </dependencies>
-
-    <modules>
-        <module>myboot-component-cache</module>
-    </modules>
 
 </project>

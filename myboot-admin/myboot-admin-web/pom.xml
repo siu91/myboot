@@ -9,7 +9,6 @@
         <version>0.0.1</version>
     </parent>
 
-
     <groupId>org.siu</groupId>
     <artifactId>myboot-admin-web</artifactId>
     <packaging>jar</packaging>
@@ -17,19 +16,12 @@
     <name>myboot-admin-web</name>
     <description>myboot-admin-web</description>
 
-
-    <dependencies>
-
-
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -38,9 +30,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
 
 </project>

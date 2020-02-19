@@ -9,8 +9,26 @@
     <packaging>pom</packaging>
 
     <name>myboot</name>
-    <description>myboot</description>
+    <description>myboot是一个基于springboot脚手架</description>
+    <url>https://github.com/siu91/myboot</url>
 
+    <developers>
+        <developer>
+            <id>siu91</id>
+            <name>Siu</name>
+            <email>gshiwen@gmail.com</email>
+            <url>http://www.myboot.club</url>
+            <organization>GitHub</organization>
+            <organizationUrl>https://github.com/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>China/Fuzhou</timezone>
+            <properties>
+                <picUrl>https://avatars2.githubusercontent.com/u/4889213?s=460</picUrl>
+            </properties>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,16 +44,10 @@
         <springboot.version>2.2.4.RELEASE</springboot.version>
     </properties>
 
-    <dependencies>
-
-
-    </dependencies>
-
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${springboot.version}</version>
@@ -45,14 +57,12 @@
         </dependencies>
     </dependencyManagement>
 
-
     <modules>
         <module>myboot-admin</module>
         <module>myboot-combusi</module>
         <module>myboot-component</module>
         <module>myboot-core</module>
     </modules>
-
 
     <!--	<distributionManagement>
             <repository>

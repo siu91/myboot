@@ -15,12 +15,11 @@
     <url>https://github.com/siu91/myboot</url>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
             <version>1.4.5.RELEASE</version>
         </dependency>
-
     </dependencies>
+
 </project>

@@ -2,7 +2,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <parent>
         <groupId>org.siu</groupId>
         <artifactId>myboot-core</artifactId>
@@ -16,8 +15,7 @@
     <url>https://github.com/siu91/myboot</url>
 
     <dependencies>
-
-        <!--swagger-start   -->
+        <!--swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -28,8 +26,6 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
         </dependency>
-        <!--swagger-end   -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,12 +36,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.siu</groupId>
             <artifactId>myboot-core-auth</artifactId>
@@ -57,7 +51,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.siu</groupId>
             <artifactId>myboot-component-cache</artifactId>
@@ -69,6 +62,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
+
 </project>
