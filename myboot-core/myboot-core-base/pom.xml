@@ -1,39 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+
     <parent>
-        <artifactId>myboot</artifactId>
         <groupId>org.siu</groupId>
+        <artifactId>myboot-core</artifactId>
         <version>0.0.1</version>
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-core</artifactId>
-    <packaging>pom</packaging>
-    <name>myboot-core</name>
-    <description>核心模块</description>
+    <artifactId>myboot-core-base</artifactId>
+    <packaging>jar</packaging>
+    <name>myboot-core-base</name>
     <url>https://github.com/siu91/myboot</url>
 
     <dependencies>
-        <!--lombok 代码工具-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!--spring boot Web 依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--热部署开发工具-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!--spring boot 单元测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>myboot-core-base</module>
-        <module>myboot-core-datasource</module>
-        <module>myboot-core-mybatis</module>
-        <module>myboot-core-restful</module>
-        <module>myboot-core-auth</module>
-    </modules>
-
-
 </project>
+
