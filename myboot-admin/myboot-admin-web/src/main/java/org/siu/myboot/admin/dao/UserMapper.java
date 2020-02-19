@@ -1,7 +1,7 @@
 package org.siu.myboot.admin.dao;
 
 import org.siu.myboot.admin.model.po.User;
-import org.siu.myboot.admin.param.UserParam;
+import org.siu.myboot.admin.model.qo.UserParam;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

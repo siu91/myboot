@@ -2,7 +2,7 @@ package org.siu.myboot.admin.mapper;
 
 import org.siu.myboot.admin.dao.UserMapper;
 import org.siu.myboot.admin.model.po.User;
-import org.siu.myboot.admin.param.UserParam;
+import org.siu.myboot.admin.model.qo.UserParam;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

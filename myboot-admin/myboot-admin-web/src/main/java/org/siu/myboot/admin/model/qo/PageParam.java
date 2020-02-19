@@ -1,4 +1,4 @@
-package org.siu.myboot.admin.param;
+package org.siu.myboot.admin.model.qo;
 
 import lombok.Getter;
 import lombok.Setter;

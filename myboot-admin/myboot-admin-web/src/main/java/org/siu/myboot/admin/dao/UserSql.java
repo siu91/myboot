@@ -1,6 +1,6 @@
 package org.siu.myboot.admin.dao;
 
-import org.siu.myboot.admin.param.UserParam;
+import org.siu.myboot.admin.model.qo.UserParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.util.StringUtils;
