@@ -29,11 +29,11 @@ myboot是一个基于springboot脚手架。
 
   ~~~
    .
-├── LICENSE						license 文件
+├── LICENSE					license 文件
 ├── README.md					README
 ├── myboot-admin				后台系统demo
 ├── myboot-combusi				通用业务模块
-├── myboot-component			组件模块
+├── myboot-component			        组件模块
 └── myboot-core					核心模块
   ~~~
 
@@ -48,16 +48,6 @@ myboot是一个基于springboot脚手架。
 TODO:
 1. xx.
 
-
-
-## 帮助
-
-- [Siu](https://github.com/siu91/myboot)
-
-## Contribute
-
-xxx:
-* xxx
 
 ## Feedback
 
