@@ -1,4 +1,4 @@
-package org.siu.interceptor;
+package org.siu.myboot.interceptor;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,7 @@ import java.io.IOException;
  * @Date 2020/2/16 14:55
  * @Version 0.0.1
  */
-public class DemoFilter implements Filter {
+public class DemoFilter1 implements Filter {
     /**
      * 自定义 Filter
      * Filter 也称之为过滤器，可以在前端拦截所有用户的请求，可以认为是 Servlet 的一种加强版
@@ -31,7 +31,7 @@ public class DemoFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        System.out.println("this is DemoFilter,url :" + request.getRequestURI());
+        System.out.println("this is DemoFilter1,url :" + request.getRequestURI());
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

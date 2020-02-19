@@ -1,12 +1,15 @@
-package org.siu.entity;
+package org.siu.myboot.entity;
 
-import org.siu.annotation.TableField;
+import org.siu.myboot.annotation.TableField;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.siu.myboot.utils.Strings;
+
 
 /**
  * @Author Siu
@@ -45,37 +48,9 @@ public class BaseEntity {
             }
         }
 
-        return camel2Underline(StringUtils.collectionToDelimitedString(columns, ", "));
+        return Strings.camel2Underline(StringUtils.collectionToDelimitedString(columns, ", "));
 
     }
 
 
-    /**
-     * 驼峰转下划线
-     *
-     * @param camelStr
-     * @return
-     */
-    private String camel2Underline(String camelStr) {
-
-        if (StringUtils.isEmpty(camelStr)) {
-            return "";
-        }
-
-        int len = camelStr.length();
-        StringBuilder strb = new StringBuilder(len + len >> 1);
-        for (int i = 0; i < len; i++) {
-
-            char c = camelStr.charAt(i);
-            if (Character.isUpperCase(c)) {
-
-                strb.append("_");
-                strb.append(Character.toLowerCase(c));
-            } else {
-
-                strb.append(c);
-            }
-        }
-        return strb.toString();
-    }
 }
