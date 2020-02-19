@@ -1,4 +1,4 @@
-package org.siu.datasource.peoperties;
+package org.siu.myboot.datasource.peoperties;
 
 /**
  * @Author Siu
@@ -18,6 +18,6 @@ import org.springframework.stereotype.Component;
  * @Version 0.0.1
  */
 @Component
-@ConfigurationProperties(prefix = "spring.datasource.secondary")
-public class SecondaryDataSourceProperties extends DataSourceProperties {
+@ConfigurationProperties(prefix = "spring.datasource.primary")
+public class PrimaryDataSourceProperties extends DataSourceProperties {
 }

@@ -1,8 +1,8 @@
-package org.siu.config;
+package org.siu.myboot.config;
 
-import org.siu.datasource.peoperties.DataSourceProperties;
-import org.siu.datasource.peoperties.PrimaryDataSourceProperties;
-import org.siu.datasource.peoperties.SecondaryDataSourceProperties;
+import org.siu.myboot.datasource.peoperties.DataSourceProperties;
+import org.siu.myboot.datasource.peoperties.PrimaryDataSourceProperties;
+import org.siu.myboot.datasource.peoperties.SecondaryDataSourceProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
