@@ -16,6 +16,19 @@
     <name>myboot-admin-web</name>
     <description>myboot-admin-web</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-data-multids</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-data-multijpaem</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
