@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  * @Version 0.0.1
  */
 @Configuration
-@MapperScan(basePackages = "org.siu.**.mapper.primary", sqlSessionTemplateRef  = "primarySqlSessionTemplate")
+@MapperScan(basePackages = "org.siu.myboot.**.daoprimary", sqlSessionTemplateRef  = "primarySqlSessionTemplate")
 public class PrimarySqlSessionConfig {
 
     @Bean(name = "primarySqlSessionFactory")
