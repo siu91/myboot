@@ -1,7 +1,7 @@
 package org.siu.myboot.admin.model.po;
 
-import org.siu.myboot.annotation.TableField;
-import org.siu.myboot.model.BaseDataObject;
+import org.siu.myboot.core.annotation.TableField;
+import org.siu.myboot.core.model.BaseDataObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
