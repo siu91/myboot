@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactorySecondary",
         transactionManagerRef = "transactionManagerSecondary",
-        basePackages = {"org.siu.myboot.server.dao"}) //设置dao（repo）所在位置
+        basePackages = {"org.siu.myboot.server.daoprimary"}) //设置dao（repo）所在位置
 public class PrimaryEntityManagerConfig {
 
     @Autowired

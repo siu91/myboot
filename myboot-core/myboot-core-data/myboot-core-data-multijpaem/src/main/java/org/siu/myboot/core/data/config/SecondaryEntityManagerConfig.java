@@ -27,7 +27,7 @@ import java.util.Objects;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactorySecondary",
         transactionManagerRef = "transactionManagerSecondary",
-        basePackages = {"org.siu.myboot.server.dao.secondary"})
+        basePackages = {"org.siu.myboot.server.daosecondary"})
 public class SecondaryEntityManagerConfig {
 
     @Autowired
@@ -43,7 +43,7 @@ public class SecondaryEntityManagerConfig {
         return builder
                 .dataSource(secondaryDataSource)
                 .properties(vendorProperties)
-                .packages("org.siu.myboot.server.model.po.secondary")
+                .packages("org.siu.myboot.server.model.po")
                 .persistenceUnit("secondaryPersistenceUnit")
                 .build();
     }
