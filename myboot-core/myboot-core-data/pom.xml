@@ -21,11 +21,4 @@
         <module>myboot-core-data-multimbss</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>
