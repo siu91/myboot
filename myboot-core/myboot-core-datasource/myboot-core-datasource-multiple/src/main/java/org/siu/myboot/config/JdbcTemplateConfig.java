@@ -15,7 +15,7 @@ import javax.sql.DataSource;
  * @Date 2020/2/17 12:29
  * @Version 0.0.1
  */
-@Configuration
+/*@Configuration
 public class JdbcTemplateConfig {
 
 
@@ -30,4 +30,4 @@ public class JdbcTemplateConfig {
             @Qualifier("secondaryDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-}
+}*/
