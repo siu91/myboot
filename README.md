@@ -22,10 +22,10 @@ myboot是一个基于springboot的项目脚手架。
 | p6spy                | sql监控             | https://github.com/p6spy/p6spy                    |
 | Lombok               | 简化对象封装工具    | https://github.com/rzwitserloot/lombok            |
 | Swagger-UI           | API文档工具         | https://github.com/swagger-api/swagger-ui         |
-| RabbitMq             | 消息队列（待选型）  | https://www.rabbitmq.com/                         |
+| RabbitMq/Kafka       | 消息队列（待选型）  | https://www.rabbitmq.com/                         |
 | Redis                | 分布式缓存          | https://redis.io/                                 |
+| MinIO/FastDFS        | 对象存储（待选型）  | https://github.com/minio/minio                    |
 | Docker               | 应用容器引擎        | [https://www.docker.com](https://www.docker.com/) |
-| MinIO                | 对象存储（待选型）  | https://github.com/minio/minio                    |
 | Jenkins              | 自动化部署工具      | https://github.com/jenkinsci/jenkins              |
 
 ***
@@ -51,7 +51,10 @@ myboot是一个基于springboot的项目脚手架。
 ## 计划
 
 TODO:
-1. xx.
+1. 消息队列选型
+2. OSS选型
+3. 引入 p6spy、Querydsl
+4. 分库分表选型
 
 
 ## Feedback
