@@ -29,8 +29,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
         format_sql: true # SQL格式化
-        hbm2ddl:
-          auto: create
+        #hbm2ddl:
+          #auto: create
     show-sql: true # SQL输出
 
 

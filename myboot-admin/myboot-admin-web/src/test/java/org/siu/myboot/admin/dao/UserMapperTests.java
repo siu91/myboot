@@ -1,6 +1,5 @@
-package org.siu.myboot.admin.mapper;
+package org.siu.myboot.admin.dao;
 
-import org.siu.myboot.admin.dao.UserMapper;
 import org.siu.myboot.admin.model.po.User;
 import org.siu.myboot.admin.model.qo.UserParam;
 import org.junit.Assert;
