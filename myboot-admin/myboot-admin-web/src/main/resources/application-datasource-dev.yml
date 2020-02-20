@@ -1,11 +1,21 @@
 spring:
-  # 数据源配置
   datasource:
     # 1、默认的数据源配置（单数据源）
     url: jdbc:postgresql://localhost:5432/primary?currentSchema=public&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
     username: postgres
     password: 1229
     driver-class-name: org.postgresql.Driver
+    # 2、多数据源配置
+#    primary:
+#      url: jdbc:postgresql://localhost:5432/primary?currentSchema=public&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
+#      username: postgres
+#      password: 1229
+#      driver-class-name: org.postgresql.Driver
+#    secondary:
+#      url: jdbc:postgresql://localhost:5432/secondary?currentSchema=public&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
+#      username: postgres
+#      password: 1229
+#      driver-class-name: org.postgresql.Driver
     # Hikari 连接池配置
     hikari:
       # 最小空闲连接数量
