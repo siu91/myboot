@@ -1,4 +1,4 @@
-package org.siu.myboot.utils.date;
+package org.siu.myboot.core.utils.date;
 
 
 /**

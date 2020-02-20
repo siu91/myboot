@@ -1,6 +1,6 @@
-package org.siu.myboot.model;
+package org.siu.myboot.core.model;
 
-import org.siu.myboot.annotation.TableField;
+import org.siu.myboot.core.annotation.TableField;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.siu.myboot.utils.Strings;
+import org.siu.myboot.core.utils.Strings;
 
 
 /**

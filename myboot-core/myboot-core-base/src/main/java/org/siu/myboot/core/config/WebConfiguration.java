@@ -1,7 +1,7 @@
-package org.siu.myboot.config;
+package org.siu.myboot.core.config;
 
-import org.siu.myboot.interceptor.DemoFilter;
-import org.siu.myboot.interceptor.DemoFilter1;
+import org.siu.myboot.core.interceptor.DemoFilter;
+import org.siu.myboot.core.interceptor.DemoFilter1;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

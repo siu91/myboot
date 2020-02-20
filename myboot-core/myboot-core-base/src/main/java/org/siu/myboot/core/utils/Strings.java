@@ -1,4 +1,4 @@
-package org.siu.myboot.utils;
+package org.siu.myboot.core.utils;
 
 
 import org.springframework.util.StringUtils;
