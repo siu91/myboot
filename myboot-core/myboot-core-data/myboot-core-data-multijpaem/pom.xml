@@ -4,25 +4,20 @@
 
     <parent>
         <groupId>org.siu</groupId>
-        <artifactId>myboot-core</artifactId>
+        <artifactId>myboot-core-data</artifactId>
         <version>0.0.1</version>
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-core-datasource</artifactId>
-    <packaging>pom</packaging>
-    <name>myboot-core-datasource</name>
+    <artifactId>myboot-core-data-multijpaem</artifactId>
+    <packaging>jar</packaging>
+    <name>myboot-core-data-multijpaem</name>
+    <description>JPA:多entityManager</description>
     <url>https://github.com/siu91/myboot</url>
 
-    <modules>
-        <module>myboot-core-datasource-multiple</module>
-    </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
+
     </dependencies>
 
 </project>
