@@ -17,6 +17,7 @@
 
     <modules>
         <module>myboot-component-cache</module>
+        <module>myboot-component-oss</module>
     </modules>
 
     <dependencies>
