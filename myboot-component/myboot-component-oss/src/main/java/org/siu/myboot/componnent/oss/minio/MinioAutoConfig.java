@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * MinIO自动配置
@@ -20,12 +21,13 @@ import org.springframework.context.annotation.Bean;
  * @Date 2020/2/21 9:10
  * @Version 0.0.1
  */
+@Configuration
 @EnableConfigurationProperties(MinioProperties.class)
 @ConditionalOnProperty(name = {"minio.url"})
 public class MinioAutoConfig {
 
     @Autowired
-    MinioProperties minioProp;
+    MinioProperties minioProperties;
 
     /**
      * MinIo Client
@@ -36,6 +38,6 @@ public class MinioAutoConfig {
      */
     @Bean
     public MinioClient minioClient() throws InvalidPortException, InvalidEndpointException {
-        return new MinioClient(minioProp.url, minioProp.accessKey, minioProp.secretKey);
+        return new MinioClient(minioProperties.url, minioProperties.accessKey, minioProperties.secretKey);
     }
 }
