@@ -1,0 +1,6 @@
+minio:
+  url: http://localhost:9000
+  accessKey: admin
+  secretKey: admin123456
+  endpoint:
+    enable: true

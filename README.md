@@ -11,22 +11,22 @@ myboot是一个基于springboot的项目脚手架。
 
 
 
-| 技术                 | 说明                | 官网                                              |
-| -------------------- | ------------------- | ------------------------------------------------- |
-| SpringBoot           | 容器+MVC框架        | https://spring.io/projects/spring-boot            |
-| Spring Data JPA      | ORM框架             | https://spring.io/projects/spring-data-jpa        |
-| MyBatis              | ORM框架（考虑移掉） | http://www.mybatis.org/mybatis-3/zh/index.html    |
-| Hibernator-Validator | 验证框架            | http://hibernate.org/validator                    |
-| Querydsl             | 结构化查询工具      | http://www.querydsl.com/                          |
-| HikariCP             | 号称最快的连接池    | https://github.com/brettwooldridge/HikariCP       |
-| p6spy                | sql监控             | https://github.com/p6spy/p6spy                    |
-| Lombok               | 简化对象封装工具    | https://github.com/rzwitserloot/lombok            |
-| Swagger-UI           | API文档工具         | https://github.com/swagger-api/swagger-ui         |
-| RabbitMq/Kafka       | 消息队列（待选型）  | https://www.rabbitmq.com/                         |
-| Redis                | 分布式缓存          | https://redis.io/                                 |
-| MinIO/FastDFS        | 对象存储（待选型）  | https://github.com/minio/minio                    |
-| Docker               | 应用容器引擎        | [https://www.docker.com](https://www.docker.com/) |
-| Jenkins              | 自动化部署工具      | https://github.com/jenkinsci/jenkins              |
+| 技术                 | 说明                | 官网                                                         |
+| -------------------- | ------------------- | ------------------------------------------------------------ |
+| SpringBoot           | 容器+MVC框架        | https://spring.io/projects/spring-boot                       |
+| Spring Data JPA      | ORM框架             | https://spring.io/projects/spring-data-jpa                   |
+| MyBatis              | ORM框架（考虑移掉） | http://www.mybatis.org/mybatis-3/zh/index.html               |
+| Hibernator-Validator | 验证框架            | http://hibernate.org/validator                               |
+| Querydsl             | 结构化查询工具      | http://www.querydsl.com/                                     |
+| HikariCP             | 号称最快的连接池    | https://github.com/brettwooldridge/HikariCP                  |
+| p6spy                | sql监控             | https://github.com/p6spy/p6spy                               |
+| Lombok               | 简化对象封装工具    | https://github.com/rzwitserloot/lombok                       |
+| Swagger-UI           | API文档工具         | https://github.com/swagger-api/swagger-ui                    |
+| RabbitMq/Kafka       | 消息队列（待选型）  | https://www.rabbitmq.com/                                    |
+| Redis                | 分布式缓存          | https://redis.io/                                            |
+| MinIO/FastDFS        | 对象存储（待选型）  | https://github.com/minio/minio https://hub.docker.com/r/minio/minio/ |
+| Docker               | 应用容器引擎        | [https://www.docker.com](https://www.docker.com/)            |
+| Jenkins              | 自动化部署工具      | https://github.com/jenkinsci/jenkins                         |
 
 ***
 
