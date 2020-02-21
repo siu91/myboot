@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-combusi</artifactId>
+    <artifactId>myboot-commonbiz</artifactId>
     <packaging>pom</packaging>
     <description>通用业务模块：支付、第三方登录等</description>
 

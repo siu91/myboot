@@ -37,7 +37,7 @@ myboot是一个基于springboot的项目脚手架。
 ├── LICENSE					license 文件
 ├── README.md					README
 ├── myboot-admin				后台系统demo
-├── myboot-combusi				通用业务模块
+├── myboot-commonbiz				通用业务模块
 ├── myboot-component			        组件模块
 └── myboot-core					核心模块
   ~~~

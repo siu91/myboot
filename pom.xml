@@ -59,7 +59,7 @@
 
     <modules>
         <module>myboot-admin</module>
-        <module>myboot-combusi</module>
+        <module>myboot-commonbiz</module>
         <module>myboot-component</module>
         <module>myboot-core</module>
     </modules>
