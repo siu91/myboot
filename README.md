@@ -58,7 +58,9 @@ myboot是一个基于springboot的项目脚手架。
 TODO:
 1. 消息队列选型
 2. 引入 p6spy、Querydsl
-4. 分库分表选型
+3. 安全框架引入
+4. 前端技术选型 Vue/React
+5. 分库分表选型
 
 
 ## Feedback
