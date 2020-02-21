@@ -1,6 +1,8 @@
 package org.siu.myboot.server.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.server.model.po.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import java.util.List;
  * @Date 2020/2/15 23:18
  * @Version 0.0.1
  */
+@Slf4j
 @RestController
 public class DemoController {
     /**
@@ -26,9 +29,10 @@ public class DemoController {
      */
 
 
-
+    @Cacheable(cacheNames = "demo")
     @RequestMapping("/hello")
     public String hello(String name) {
+        log.info("没有走缓存");
         return "hello world1345645, " + name;
     }
 
@@ -56,10 +60,11 @@ public class DemoController {
     /**
      * 参数校验
      * Spring Boot 的参数校验依赖于 hibernate-validator 来进行
+     *
+     * @param user
+     * @param result
      * @Valid 参数前面添加 @Valid 注解，代表此对象使用了参数校验；
      * BindingResult 参数校验的结果会存储在此对象中，可以根据属性判断是否校验通过，校验不通过可以将错误信息打印出来
-     *
-     *
      * @Length(min=, max=)	属性（String）	检查字符串长度是否符合范围	列长度会被设到最大值
      * @Max(value=) 属性（以 numeric 或者 string 类型来表示一个数字）	检查值是否小于或等于最大值	对列增加一个检查约束
      * @Min(value=) 属性（以 numeric 或者 string 类型来表示一个数字）	检查值是否大于或等于最小值	对列增加一个检查约束
@@ -73,9 +78,6 @@ public class DemoController {
      * @AssertTrue 属性    检查方法的演算结果是否为 true（对以代码方式而不是注解表示的约束很有用）	无
      * @Valid 属性（object）	对关联对象递归进行验证。如果对象是集合或数组，就递归地验证其元素；如果对象是 Map，则递归验证其值元素	无
      * @Email 属性（String）	检查字符串是否符合有效的 email 地址规范	无
-     *
-     * @param user
-     * @param result
      */
     @RequestMapping("/saveUser")
     public void saveUser(@Valid User user, BindingResult result) {
