@@ -1,6 +1,7 @@
 package org.siu.myboot.core.data.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @Version 0.0.1
  */
 @Configuration
+@ConditionalOnProperty(name = {"spring.datasource.primary.url","spring.datasource.secondary.url"})
 public class JpaConfig {
 
     @Autowired

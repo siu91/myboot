@@ -8,6 +8,7 @@ package org.siu.myboot.core.data.config;
  * @Version 0.0.1
  */
 /*@Configuration
+@ConditionalOnProperty(name = {"spring.datasource.primary.url","spring.datasource.secondary.url"})
 public class JdbcTemplateConfig {
 
 

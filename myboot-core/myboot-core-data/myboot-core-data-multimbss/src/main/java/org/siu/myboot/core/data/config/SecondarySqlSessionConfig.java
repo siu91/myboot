@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
  * @Version 0.0.1
  */
 @Configuration
+@ConditionalOnProperty(name = {"spring.datasource.primary.url","spring.datasource.secondary.url"})
 @MapperScan(basePackages = "org.siu.myboot.**.daosecondary", sqlSessionTemplateRef = "secondarySqlSessionTemplate")
 public class SecondarySqlSessionConfig {
 

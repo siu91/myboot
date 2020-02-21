@@ -1,6 +1,7 @@
 package org.siu.myboot.core.data.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
  * @Version 0.0.1
  */
 @Configuration
+@ConditionalOnProperty(name = {"spring.datasource.primary.url","spring.datasource.secondary.url"})
 public class DataSourceTransactionManagerConfig {
 
 
