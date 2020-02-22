@@ -43,7 +43,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-        <!--myboot-core-->
+        <!--myboot 依赖-->
         <dependency>
             <groupId>org.siu</groupId>
             <artifactId>myboot-core-base</artifactId>
@@ -52,6 +52,17 @@
         <dependency>
             <groupId>org.siu</groupId>
             <artifactId>myboot-core-restful</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-component-oss</artifactId>
             <version>0.0.1</version>
             <exclusions>
                 <exclusion>
@@ -71,6 +82,19 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+
+
+        <!--Spring Boot Admin Client-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>-->
+        <!--Spring Boot Admin Client-->
     </dependencies>
 
     <build>
