@@ -18,6 +18,7 @@
     <modules>
         <module>myboot-component-cache</module>
         <module>myboot-component-oss</module>
+        <module>myboot-component-appmonitor</module>
     </modules>
 
     <dependencies>
