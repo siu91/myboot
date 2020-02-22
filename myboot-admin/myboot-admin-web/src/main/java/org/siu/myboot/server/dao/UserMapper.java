@@ -1,3 +1,4 @@
+/*
 package org.siu.myboot.server.dao;
 
 import org.siu.myboot.server.model.po.User;
@@ -7,11 +8,13 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/17 22:09
  * @Version 0.0.1
- */
+ *//*
+
 public interface UserMapper {
 
     @Select("SELECT * FROM users")
@@ -53,4 +56,4 @@ public interface UserMapper {
     @Delete("DELETE FROM users WHERE id =#{id}")
     void delete(Long id);
 
-}
+}*/

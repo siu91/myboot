@@ -1,3 +1,4 @@
+/*
 package org.siu.myboot.server.dao;
 
 import org.siu.myboot.server.model.qo.UserParam;
@@ -5,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.util.StringUtils;
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/18 15:17
  * @Version 0.0.1
- */
+ *//*
+
 @Slf4j
 public class UserSql {
 
@@ -26,3 +29,4 @@ public class UserSql {
         return sql;
     }
 }
+*/

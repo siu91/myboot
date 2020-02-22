@@ -1,3 +1,4 @@
+/*
 package org.siu.myboot.server.dao;
 
 
@@ -12,11 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.List;
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/18 9:58
  * @Version 0.0.1
- */
+ *//*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserMapperTests {
@@ -54,3 +57,4 @@ public class UserMapperTests {
 
 
 }
+*/
