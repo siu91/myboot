@@ -1,0 +1,48 @@
+# Spring Boot Admin Client 配置
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000  #监控-服务器地址
+        instance:
+          # service-base-url: http://127.0.0.1:8080  #自定义节点的ip地址
+          prefer-ip: true  #是否显示真实的ip地址
+          #元数据，用于配置monitor server访问client端的凭证
+  #          metadata:
+  #            user.name: user
+  #            user.password: 123456
+  #        #client可以连接到 server端的凭证
+  #        username: myboot
+  #        password: myboot
+  #        read-timeout: 10000  #读取超时时间
+  application:
+    #应用名
+    name: myboot-demo
+
+
+#公开所有的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        #展示某些端点（默认展示health,info，其余均禁止）
+        include: "*"   # health,info,metrics
+      # CORS跨域支持
+      cors:
+        allowed-origins: "*"
+        allowed-methods: GET,POST
+
+  #health端点的访问权限
+  endpoint:
+    health:
+      #选择展示
+      show-details: always
+#  health:
+#    mail:
+#      enabled: false  #不监控邮件服务器状态
+
+#自定义的健康信息，使用@Message@取得的是maven中的配置信息
+info:
+  version: @project.version@
+  groupId: @project.groupId@
+  artifactId: @project.artifactId@

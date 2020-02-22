@@ -1,4 +1,5 @@
-package org.siu.myboot.component.appmonitor.config;
+/*
+package org.siu.myboot.component.sbaserver.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.context.annotation.Configuration;
@@ -6,12 +7,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/22 14:56
  * @Version 0.0.1
- */
-@Configuration
+ *//*
+
+//@Configuration
 public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
 
     private final String adminContextPath;
@@ -38,3 +41,4 @@ public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
     }
 }
+*/
