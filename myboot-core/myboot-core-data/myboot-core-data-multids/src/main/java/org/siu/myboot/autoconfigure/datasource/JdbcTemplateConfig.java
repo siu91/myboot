@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.datasource;
 
 /**
  * JdbcTemplate 多数据源配置

@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
 /**
- * mybatis多数据源配置：SqlSession 配置 （secondary）
+ * mybatis多数据源配置：SqlSession 配置 （primary）
  *
  * @Author Siu
  * @Date 2020/2/18 13:47
@@ -21,20 +22,22 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ConditionalOnProperty(name = {"spring.datasource.primary.url","spring.datasource.secondary.url"})
-@MapperScan(basePackages = "org.siu.myboot.**.daosecondary", sqlSessionTemplateRef = "secondarySqlSessionTemplate")
-public class SecondarySqlSessionConfig {
+@MapperScan(basePackages = "org.siu.myboot.**.daoprimary", sqlSessionTemplateRef  = "primarySqlSessionTemplate")
+public class PrimarySqlSessionConfig {
 
-    @Bean(name = "secondarySqlSessionFactory")
-    public SqlSessionFactory buildSqlSessionFactory(@Qualifier("secondaryDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "primarySqlSessionFactory")
+    @Primary
+    public SqlSessionFactory buildSqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/secondary/*.xml"));
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/primary/*.xml"));
         return bean.getObject();
     }
 
 
-    @Bean(name = "secondarySqlSessionTemplate")
-    public SqlSessionTemplate buildSqlSessionTemplate(@Qualifier("secondarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+    @Bean(name = "primarySqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate buildSqlSessionTemplate(@Qualifier("primarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

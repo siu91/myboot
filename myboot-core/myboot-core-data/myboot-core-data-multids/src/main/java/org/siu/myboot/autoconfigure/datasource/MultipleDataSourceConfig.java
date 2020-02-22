@@ -1,8 +1,8 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.datasource;
 
-import org.siu.myboot.core.data.datasource.peoperties.DataSourceProperties;
-import org.siu.myboot.core.data.datasource.peoperties.PrimaryDataSourceProperties;
-import org.siu.myboot.core.data.datasource.peoperties.SecondaryDataSourceProperties;
+import org.siu.myboot.autoconfigure.datasource.peoperties.DataSourceProperties;
+import org.siu.myboot.autoconfigure.datasource.peoperties.PrimaryDataSourceProperties;
+import org.siu.myboot.autoconfigure.datasource.peoperties.SecondaryDataSourceProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;

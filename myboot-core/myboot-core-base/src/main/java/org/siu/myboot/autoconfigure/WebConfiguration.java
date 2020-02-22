@@ -1,4 +1,4 @@
-package org.siu.myboot.core.config;
+package org.siu.myboot.autoconfigure;
 
 import org.siu.myboot.core.interceptor.DemoFilter;
 import org.siu.myboot.core.interceptor.DemoFilter1;

@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.mybatis;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

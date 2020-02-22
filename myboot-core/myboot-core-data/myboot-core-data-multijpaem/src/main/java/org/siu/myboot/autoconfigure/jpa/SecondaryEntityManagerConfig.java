@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

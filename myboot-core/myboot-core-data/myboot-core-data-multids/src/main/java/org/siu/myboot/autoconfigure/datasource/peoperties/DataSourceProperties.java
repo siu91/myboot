@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.datasource.peoperties;
+package org.siu.myboot.autoconfigure.datasource.peoperties;
 
 /**
  * @Author Siu

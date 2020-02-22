@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config;
+package org.siu.myboot.autoconfigure.jpa;
 
 import java.util.Map;
 import java.util.Objects;
