@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-admin</artifactId>
+    <artifactId>myboot-demo</artifactId>
     <packaging>pom</packaging>
 
-    <name>myboot-admin</name>
+    <name>myboot-demo</name>
     <description>后台系统示例模块</description>
 
     <modules>
