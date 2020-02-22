@@ -1,0 +1,11 @@
+spring:
+  security:
+    user:
+      name: "myboot"
+      password: "myboot"
+
+server:
+  port: 8000 # 监听端口
+  
+  
+  
