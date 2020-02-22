@@ -2,7 +2,6 @@ package org.siu.myboot.server.controller;
 
 import org.siu.myboot.componnent.oss.minio.MinioTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

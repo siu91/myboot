@@ -1,4 +1,4 @@
-package org.siu.myboot.autoconfigure.oss.minio;
+package org.siu.myboot.componnent.oss.minio;
 
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
