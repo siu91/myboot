@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 public class P6SpyLogger implements MessageFormattingStrategy {
 
     @Override
-    public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql) {
+    public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
         return !"".equals(sql.trim()) ? "[ " + LocalDateTime.now() + " ] --- | took "
                 + elapsed + "ms | " + category + " | connection " + connectionId + "\n "
-                + sql + ";" : "";
+                + sql + ";" + url : "";
     }
 }
