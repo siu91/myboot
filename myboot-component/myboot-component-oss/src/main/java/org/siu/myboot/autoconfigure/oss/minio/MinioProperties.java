@@ -1,4 +1,4 @@
-package org.siu.myboot.componnent.oss.minio;
+package org.siu.myboot.autoconfigure.oss.minio;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
