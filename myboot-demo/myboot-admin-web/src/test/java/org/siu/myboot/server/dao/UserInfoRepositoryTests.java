@@ -3,8 +3,12 @@ package org.siu.myboot.server.dao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.siu.myboot.server.model.po.Oauths;
 import org.siu.myboot.server.model.po.UserInfo;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -23,6 +27,11 @@ public class UserInfoRepositoryTests {
 
     @Resource
     private UserInfoRepository userInfoRepository;
+    @Resource
+    private OauthsRepository oauthsRepository;
+
+    @Resource
+    private UserInfoRepositoryQueryDsl userInfoRepositoryQueryDsl;
 
 
     @Test
@@ -67,4 +76,44 @@ public class UserInfoRepositoryTests {
     }
 
 
+    @Test
+    public void testUserInfoRepositoryQueryDsl() {
+       /* // 插入数据
+        UserInfo u1 = new UserInfo();
+        u1.setUserName("user1");
+        u1.setPhone("138");
+        u1.setCreateTime(new Timestamp(new Date().getTime()));
+
+        UserInfo u2 = new UserInfo();
+        userInfoRepository.save(u1);
+        u2.setUserName("user2");
+        u2.setPhone("139");
+        u2.setCreateTime(new Timestamp(new Date().getTime()));
+        userInfoRepository.save(u2);
+
+        UserInfo u3 = new UserInfo();
+        u3.setUserName("user3");
+        u3.setPhone("140");
+        u3.setCreateTime(new Timestamp(new Date().getTime()));
+        userInfoRepository.save(u3);
+
+        // 查询所有
+        List<UserInfo> users = userInfoRepository.findAll();
+        for (UserInfo user : users) {
+            Oauths oauths1 = new Oauths();
+            oauths1.setUserId(user.getUserId());
+            oauths1.setOauthId("OauthId1");
+            oauths1.setUnionid("setUnionid");
+            oauths1.setOauthType((short) 0);
+            oauths1.setCredential("Credential");
+            oauthsRepository.save(oauths1);
+            oauthsRepository.save(oauths1);
+            oauthsRepository.save(oauths1);
+        }*/
+
+        Pageable pageable = QPageRequest.of(0, 10);
+        Page<UserInfo> page = userInfoRepositoryQueryDsl.queryUserOauths(pageable);
+        List<UserInfo> userInfoList = page.getContent();
+        System.out.println(userInfoList.size());
+    }
 }

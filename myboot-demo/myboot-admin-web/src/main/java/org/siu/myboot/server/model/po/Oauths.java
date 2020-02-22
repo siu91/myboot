@@ -1,9 +1,6 @@
 package org.siu.myboot.server.model.po;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -24,6 +21,8 @@ public class Oauths {
     private Timestamp updateTime;
 
     @Id
+    @SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
     @Column(name = "id")
     public long getId() {
         return id;

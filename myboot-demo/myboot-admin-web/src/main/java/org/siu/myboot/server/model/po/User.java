@@ -1,7 +1,5 @@
 package org.siu.myboot.server.model.po;
 
-import org.siu.myboot.core.annotation.TableField;
-import org.siu.myboot.core.model.BaseDataObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
@@ -17,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @Accessors(chain = true)
-public class User extends BaseDataObject {
+public class User {
     private Long id;
     @NotEmpty(message = "姓名不能为空")
     private String name;
@@ -28,14 +26,5 @@ public class User extends BaseDataObject {
     @Length(min = 6, message = "密码长度不能小于6位")
     private String pass;
 
-    @TableField(value = "test_1_2")
-    private String testCamlStyle;
-    @TableField(exist = false)
-    private String testCamlStyle2;
 
-
-    public static void main(String[] args) {
-        String test = new User().baseColumnList();
-        System.out.println(test);
-    }
 }
