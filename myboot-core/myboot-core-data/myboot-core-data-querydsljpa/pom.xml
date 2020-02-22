@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siu</groupId>
+        <artifactId>myboot-core-data</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <groupId>org.siu</groupId>
+    <artifactId>myboot-core-data-querydsljpa</artifactId>
+    <packaging>jar</packaging>
+    <name>myboot-core-data-querydsljpa</name>
+    <description>JPA 最佳实践：jpa + querydsl + p6spy</description>
+    <url>https://github.com/siu91/myboot</url>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+    </dependencies>
+
+</project>
