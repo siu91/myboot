@@ -19,7 +19,7 @@
         <module>myboot-core-data-multids</module>
         <module>myboot-core-data-multijpaem</module>
         <module>myboot-core-data-multimbss</module>
-        <module>myboot-core-data-querydsljpa</module>
+        <module>myboot-core-data-jpabp</module>
     </modules>
 
 </project>

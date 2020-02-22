@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-core-data-querydsljpa</artifactId>
+    <artifactId>myboot-core-data-jpabp</artifactId>
     <packaging>jar</packaging>
-    <name>myboot-core-data-querydsljpa</name>
-    <description>JPA 最佳实践：jpa + querydsl + p6spy</description>
+    <name>myboot-core-data-jpabp</name>
+    <description>JPA 最佳实践（JPA Best Practices）：jpa + querydsl + p6spy</description>
     <url>https://github.com/siu91/myboot</url>
 
 
