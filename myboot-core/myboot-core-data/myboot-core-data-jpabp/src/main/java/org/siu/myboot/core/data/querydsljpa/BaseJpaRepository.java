@@ -33,7 +33,7 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> {
     private final EntityPath<T> path;
     protected final Querydsl querydsl;
 
-    BaseJpaRepository(Class<T> domainClass, EntityManager em) {
+    public BaseJpaRepository(Class<T> domainClass, EntityManager em) {
         super(domainClass, em);
         this.em = em;
         this.jpaPredicateExecutor = new QuerydslJpaPredicateExecutor<>(JpaEntityInformationSupport.getEntityInformation(domainClass, em), em, SimpleEntityPathResolver.INSTANCE, getRepositoryMethodMetadata());
