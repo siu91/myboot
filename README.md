@@ -9,13 +9,13 @@ myboot是一个基于springboot的项目脚手架。
 
 ## 技术栈
 
-
+- 主要技术如下表：
 
 | 技术                 | 说明               | 官网                                                         |
 | -------------------- | ------------------ | ------------------------------------------------------------ |
 | SpringBoot           | 容器+MVC框架       | https://spring.io/projects/spring-boot                       |
 | Spring Data JPA      | ORM框架            | https://spring.io/projects/spring-data-jpa                   |
-| MyBatis              | ORM框架            | http://www.mybatis.org/mybatis-3/zh/index.html               |
+| MyBatis              | ORM框架（弃用）    | http://www.mybatis.org/mybatis-3/zh/index.html               |
 | Hibernator-Validator | 验证框架           | http://hibernate.org/validator                               |
 | QueryDSL             | 结构化查询工具     | http://www.querydsl.com/                                     |
 | HikariCP             | 号称最快的连接池   | https://github.com/brettwooldridge/HikariCP                  |
@@ -25,12 +25,15 @@ myboot是一个基于springboot的项目脚手架。
 | RabbitMq/Kafka       | 消息队列（待选型） | https://www.rabbitmq.com/                                    |
 | Redis                | 分布式缓存         | https://redis.io/                                            |
 | MinIO                | 对象存储           | https://github.com/minio/minio https://hub.docker.com/r/minio/minio/ |
+| apt-maven-plugin     | querydsl Maven插件 | https://github.com/querydsl/apt-maven-plugin                 |
 | Docker               | 应用容器引擎       | [https://www.docker.com](https://www.docker.com/)            |
 | Jenkins              | 自动化部署工具     | https://github.com/jenkinsci/jenkins                         |
 
 ***
 
-基本技术栈首选Spring 内的
+- 结构化查询：Spring JPA + QueryDSL + p6spy + 默认连接池HikariCP
+
+- 技术栈首选Spring 内成熟的技术
 
 ![spring-stack](./assets/spring-stack.png)
 
@@ -56,8 +59,8 @@ myboot是一个基于springboot的项目脚手架。
 ## 计划
 
 TODO:
-1. 消息队列选型
-2. 引入 p6spy、Querydsl
+1. 测试 p6spy
+2. 消息队列选型
 3. 安全框架引入
 4. 前端技术选型 Vue/React
 5. 分库分表选型
