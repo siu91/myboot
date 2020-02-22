@@ -1,0 +1,7 @@
+server:
+  port: 8000 # 监听端口
+  context-path: /
+  
+  
+  
+  

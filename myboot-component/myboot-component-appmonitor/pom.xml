@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siu</groupId>
+        <artifactId>myboot-component</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <groupId>org.siu</groupId>
+    <artifactId>myboot-component-appmonitor</artifactId>
+    <packaging>jar</packaging>
+    <name>myboot-component-appmonitor</name>
+    <url>https://github.com/siu91/myboot</url>
+
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-boot-admin.version>2.2.1</spring-boot-admin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
