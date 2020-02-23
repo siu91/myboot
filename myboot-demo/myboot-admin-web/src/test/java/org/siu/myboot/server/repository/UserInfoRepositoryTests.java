@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siu.myboot.server.entity.po.UserInfo;
+import org.siu.myboot.server.repository.dsl.UserInfoRepositoryQueryDsl;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

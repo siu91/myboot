@@ -1,3 +1,4 @@
+/*
 package org.siu.myboot.server.controller;
 
 import org.siu.myboot.server.entity.po.User;
@@ -5,13 +6,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+*/
 /**
  * RESTful API Demo
  *
  * @Author Siu
  * @Date 2020/2/16 19:11
  * @Version 0.0.1
- */
+ *//*
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -44,3 +47,4 @@ public class UserController {
 
 
 }
+*/

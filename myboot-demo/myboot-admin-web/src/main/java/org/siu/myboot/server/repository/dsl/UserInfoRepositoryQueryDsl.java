@@ -1,4 +1,4 @@
-package org.siu.myboot.server.repository;
+package org.siu.myboot.server.repository.dsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
