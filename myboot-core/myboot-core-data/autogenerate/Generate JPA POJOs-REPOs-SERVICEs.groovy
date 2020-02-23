@@ -558,7 +558,7 @@ class Utils {
 
     static def theFirstLetterLowercase(strs) {
         def part1 = strs.substring(0, 1).toLowerCase()
-        def part2 = strs.substring(1, strs.length() - 1)
+        def part2 = strs.substring(1, strs.length())
         return part1 + part2
 
     }
