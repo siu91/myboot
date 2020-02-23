@@ -3,7 +3,7 @@ package org.siu.myboot.core.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Data Object 基类
@@ -19,5 +19,5 @@ public class BaseEntity {
     private Integer version;
 
     @Column(name = "create_time")
-    private Timestamp createTime;
+    private Date createTime;
 }
