@@ -25,7 +25,7 @@ public class DemoControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(new DemoController()).build();
+       // mockMvc = MockMvcBuilders.standaloneSetup(new DemoController()).build();
     }
 
     @Test

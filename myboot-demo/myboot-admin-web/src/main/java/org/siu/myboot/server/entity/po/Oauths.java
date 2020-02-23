@@ -1,124 +1,80 @@
 package org.siu.myboot.server.entity.po;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Data;
+
+import java.io.Serializable;
+
 
 /**
- * @Author Siu
- * @Date 2020/2/20 11:33
+ * Oauths
+ *
+ * @author @Author Siu
+ * @Date 2020-02-23 15:13:42
  * @Version 0.0.1
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
-public class Oauths {
-    private long id;
-    private long userId;
-    private short oauthType;
-    private String oauthId;
-    private String unionid;
-    private String credential;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+@Table(name = "oauths")
+@ApiModel(value = "Oauths")
+public class Oauths extends BaseEntity implements Serializable {
 
-    @Id
-    @SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
+	/**
+	 * user_info表主键
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "user_info表主键")
+	@Column(name = "user_id", nullable = true)
+	private Long userId;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	/**
+	 * 1、微信，2、QQ，3、支付宝，4、其他
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "1、微信，2、QQ，3、支付宝，4、其他")
+	@Column(name = "oauth_type", nullable = true)
+	private Integer oauthType;
 
-    @Basic
-    @Column(name = "user_id")
-    public long getUserId() {
-        return userId;
-    }
+	/**
+	 * 第三方 uid 、openid 等
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "第三方 uid 、openid 等")
+	@Column(name = "oauth_id", nullable = true, length = 255)
+	private String oauthId;
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
+	/**
+	 * QQ / 微信同一主体下 Unionid 相同
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "QQ / 微信同一主体下 Unionid 相同")
+	@Column(name = "unionid", nullable = true, length = 255)
+	private String unionid;
 
-    @Basic
-    @Column(name = "oauth_type")
-    public short getOauthType() {
-        return oauthType;
-    }
+	/**
+	 * 密码凭证 /access_token (目前更多是存储在缓存里)
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "密码凭证 /access_token (目前更多是存储在缓存里)")
+	@Column(name = "credential", nullable = true, length = 255)
+	private String credential;
 
-    public void setOauthType(short oauthType) {
-        this.oauthType = oauthType;
-    }
-
-    @Basic
-    @Column(name = "oauth_id")
-    public String getOauthId() {
-        return oauthId;
-    }
-
-    public void setOauthId(String oauthId) {
-        this.oauthId = oauthId;
-    }
-
-    @Basic
-    @Column(name = "unionid")
-    public String getUnionid() {
-        return unionid;
-    }
-
-    public void setUnionid(String unionid) {
-        this.unionid = unionid;
-    }
-
-    @Basic
-    @Column(name = "credential")
-    public String getCredential() {
-        return credential;
-    }
-
-    public void setCredential(String credential) {
-        this.credential = credential;
-    }
-
-    @Basic
-    @Column(name = "create_time")
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
-
-    @Basic
-    @Column(name = "update_time")
-    public Timestamp getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Oauths oauths = (Oauths) o;
-        return id == oauths.id &&
-                userId == oauths.userId &&
-                oauthType == oauths.oauthType &&
-                Objects.equals(oauthId, oauths.oauthId) &&
-                Objects.equals(unionid, oauths.unionid) &&
-                Objects.equals(credential, oauths.credential) &&
-                Objects.equals(createTime, oauths.createTime) &&
-                Objects.equals(updateTime, oauths.updateTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userId, oauthType, oauthId, unionid, credential, createTime, updateTime);
-    }
+	/**
+	 * updateTime
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "updateTime")
+	@Column(name = "update_time", nullable = true)
+	private java.util.Date updateTime;
 }

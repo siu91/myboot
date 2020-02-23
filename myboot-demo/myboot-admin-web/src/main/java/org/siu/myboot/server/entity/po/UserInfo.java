@@ -1,117 +1,83 @@
 package org.siu.myboot.server.entity.po;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Data;
+
+import java.io.Serializable;
+
 
 /**
- * @Author Siu
- * @Date 2020/2/20 11:30
+ * UserInfo
+ *
+ * @author @Author Siu
+ * @Date 2020-02-23 15:13:42
  * @Version 0.0.1
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
-@Table(name = "user_info", schema = "public", catalog = "primary")
-public class UserInfo {
+@Table(name = "user_info")
+@ApiModel(value = "UserInfo")
+public class UserInfo extends BaseEntity implements Serializable {
 
+	/**
+	 * 用户ID（主键）
+	 * nullable : false
+	 * default  : nextval('public_seq'::regclass)
+	 */
+	@Id
+	@SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
+	@ApiModelProperty(value = "用户ID（主键）")
+	@Column(name = "user_id", nullable = true)
+	private Long userId;
 
-    private long userId;
-    private String userName;
-    private String avatarUrl;
-    private String phone;
-    private String password;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+	/**
+	 * 用户名
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "用户名")
+	@Column(name = "user_name", nullable = true, length = 64)
+	private String userName;
 
+	/**
+	 * 头像URL
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "头像URL")
+	@Column(name = "avatar_url", nullable = true, length = 255)
+	private String avatarUrl;
 
+	/**
+	 * 手机
+	 * nullable : false
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "手机")
+	@Column(name = "phone", nullable = true, length = 64)
+	private String phone;
 
-    @Id
-    @SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
-    @Column(name = "user_id")
-    public long getUserId() {
-        return userId;
-    }
+	/**
+	 * 密码
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "密码")
+	@Column(name = "password", nullable = true, length = 64)
+	private String password;
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "user_name")
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    @Basic
-    @Column(name = "avatar_url")
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    @Basic
-    @Column(name = "phone")
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Basic
-    @Column(name = "create_time")
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
-
-    @Basic
-    @Column(name = "update_time")
-    public Timestamp getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserInfo userInfo = (UserInfo) o;
-        return userId == userInfo.userId &&
-                Objects.equals(userName, userInfo.userName) &&
-                Objects.equals(avatarUrl, userInfo.avatarUrl) &&
-                Objects.equals(phone, userInfo.phone) &&
-                Objects.equals(password, userInfo.password) &&
-                Objects.equals(createTime, userInfo.createTime) &&
-                Objects.equals(updateTime, userInfo.updateTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, userName, avatarUrl, phone, password, createTime, updateTime);
-    }
+	/**
+	 * 更新时间
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "更新时间")
+	@Column(name = "update_time", nullable = true)
+	private java.util.Date updateTime;
 }
