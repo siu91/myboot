@@ -40,8 +40,9 @@ public class MinIOController {
         return "fail";
     }
 
-    @RestfulApi
+
     @GetMapping("/test")
+    @RestfulApi
     public String test(String name) {
         return "Hello " + name;
     }

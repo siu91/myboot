@@ -27,10 +27,8 @@ public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
 
 
     @Override
-    public boolean supportsReturnType(MethodParameter returnType) {
-        /** 包含RestfulApi注解时，该处理生效*/
-         return null != returnType.getMethod().getDeclaringClass().getAnnotation(RestfulApi.class)
-                || null != returnType.getMethodAnnotation(RestfulApi.class);
+    public boolean supportsReturnType(MethodParameter methodParameter) {
+        return methodParameter.hasMethodAnnotation(RestfulApi.class);
     }
 
     @Override

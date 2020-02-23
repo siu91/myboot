@@ -9,6 +9,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.siu.myboot.core.web.handlers.JsonReturnHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -19,22 +20,38 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <code>WebMvcConfig</code>
- * mvc 配置
- *
- * @author dengrijin<dengrijin @ cecdat.com>
- * @version v0.1 2018/10/11
- * @see
- * @since JDK1.8
- */
 
+/**
+ * @Author Siu
+ * @Date 2020/2/15 23:18
+ * @Version 0.0.1
+ */
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
+
+
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @PostConstruct
+    public void init() {
+        // 获取当前 HandlerMethodReturnValueHandler 所有的 Handler 对象
+        List<HandlerMethodReturnValueHandler> handlers =
+                requestMappingHandlerAdapter.getReturnValueHandlers();
+        List<HandlerMethodReturnValueHandler> newHandlers = new ArrayList<>(handlers == null ? 1 : handlers.size() + 1);
+        // 添加 PropertiesHandlerMethodReturnValueHandler 到集合首位
+        newHandlers.add(new JsonReturnHandler());
+        // 添加 已注册的 Handler 对象集合
+        newHandlers.addAll(handlers);
+        // 重新设置 Handler 对象集合
+        requestMappingHandlerAdapter.setReturnValueHandlers(newHandlers);
+    }
 
 
     @Override
