@@ -211,8 +211,7 @@ class Gen {
             writer.writeLine "\tpublic final NumberPath<Long> ${field.name} = createNumber(\"${field.name}\", Long.class);"
         } else if ("Integer" == field.type) {
             writer.writeLine "\tpublic final NumberPath<Integer> ${field.name} = createNumber(\"${field.name}\", Integer.class);"
-
-        } else if ("Date" == field.type) {
+        } else if ("Date" == field.type || "java.util.Date" == field.type) {
             writer.writeLine "\tpublic final DateTimePath<java.util.Date> ${field.name} = createDateTime(\"${field.name}\", java.util.Date.class);"
         } else if ("Double" == field.type) {
             writer.writeLine "\tpublic final NumberPath<Double> ${field.name} = createNumber(\"${field.name}\", Double.class);"
