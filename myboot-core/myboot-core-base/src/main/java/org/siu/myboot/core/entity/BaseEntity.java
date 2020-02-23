@@ -1,4 +1,4 @@
-package org.siu.myboot.entity;
+package org.siu.myboot.core.entity;
 
 import lombok.Data;
 
