@@ -1,7 +1,5 @@
 package org.siu.myboot.server.dao;
 
-import com.querydsl.core.types.Template;
-import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.server.model.po.QOauths;
@@ -9,9 +7,7 @@ import org.siu.myboot.server.model.po.QUserInfo;
 import org.siu.myboot.server.model.po.UserInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 
@@ -25,8 +21,8 @@ import javax.persistence.EntityManager;
 @Repository
 public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Integer> {
 
-    public UserInfoRepositoryQueryDsl(EntityManager em) {
-        super(UserInfo.class, em);
+    public UserInfoRepositoryQueryDsl(EntityManager entityManager) {
+        super(UserInfo.class, entityManager);
     }
 
     /**
@@ -42,9 +38,6 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Inte
                 select(qUserInfo.userId, qUserInfo.avatarUrl)
                 .from(qUserInfo)
                 .leftJoin(qOauths).on(qUserInfo.userId.eq(qOauths.userId));
-
-
-        JPQLQuery query = querydsl.applyPagination(pageable, countQuery);
-        return PageableExecutionUtils.getPage(query.fetch(), pageable, countQuery::fetchCount);
+        return basePageQuery(countQuery, pageable);
     }
 }

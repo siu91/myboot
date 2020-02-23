@@ -34,12 +34,12 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> {
     private final EntityPath<T> path;
     protected final Querydsl querydsl;
 
-    public BaseJpaRepository(Class<T> dataObject, EntityManager em) {
-        super(dataObject, em);
+    public BaseJpaRepository(Class<T> domainClass, EntityManager em) {
+        super(domainClass, em);
         this.em = em;
-        this.jpaPredicateExecutor = new QuerydslJpaPredicateExecutor<>(JpaEntityInformationSupport.getEntityInformation(dataObject, em), em, SimpleEntityPathResolver.INSTANCE, getRepositoryMethodMetadata());
+        this.jpaPredicateExecutor = new QuerydslJpaPredicateExecutor<>(JpaEntityInformationSupport.getEntityInformation(domainClass, em), em, SimpleEntityPathResolver.INSTANCE, getRepositoryMethodMetadata());
         this.jpaQueryFactory = new JPAQueryFactory(em);
-        this.path = SimpleEntityPathResolver.INSTANCE.createPath(dataObject);
+        this.path = SimpleEntityPathResolver.INSTANCE.createPath(domainClass);
         this.querydsl = new Querydsl(em, new PathBuilder<T>(path.getType(), path.getMetadata()));
     }
 
