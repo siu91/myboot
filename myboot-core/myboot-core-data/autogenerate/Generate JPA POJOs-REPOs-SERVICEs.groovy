@@ -27,7 +27,7 @@ config = [
                         // 父类名称
                         name      : "BaseEntity",
                         // 父类包名
-                        package   : "org.siu.myboot.core.model",
+                        package   : "org.siu.myboot.core.entity",
                         // 父类的属性，父类已有属性不在出现在生成的实体内
                         properties: ["id", "createTime", "version"],
                 ],
