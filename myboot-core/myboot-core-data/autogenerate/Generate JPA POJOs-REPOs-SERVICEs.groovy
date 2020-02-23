@@ -3,6 +3,7 @@ import com.intellij.database.model.ObjectKind
 import com.intellij.database.util.Case
 import com.intellij.database.util.DasUtil
 
+import javax.annotation.Generated
 import javax.swing.*
 import java.awt.Dialog
 import java.lang.reflect.Method
@@ -10,13 +11,15 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
+
 config = [
         // 生成开关
         generate  : [
-                entity            : true,
-                repository        : true,
-                repositoryQueryDSL: true,
-                service           : true
+                entity            : false,
+                entityQueryDSL    : true,
+                repository        : false,
+                repositoryQueryDSL: false,
+                service           : false
         ],
         // 实体生成设置
         entity    : [
@@ -121,6 +124,15 @@ class Gen {
             }
         }
 
+        // entityQueryDSL
+        if (config.generate.entityQueryDSL) {
+            // 生成 queryDSl 工具对象
+            Utils.createPath("${dir}\\entity")
+            Utils.createFile("${dir}\\entity\\po", "Q${entityName}.java").withWriter("utf8") {
+                writer -> genEntityQueryDSL(writer, config, config.entity.parent, table, entityName, fields, basePackage)
+            }
+        }
+
 
         // rep
         if (config.generate.repository) {
@@ -144,6 +156,72 @@ class Gen {
         }
 
     }
+
+    // 生成实体 QueryDSL
+    def static genEntityQueryDSL(writer, config, parentConfig, table, entityName, fieldList, basePackage) {
+
+        def lEntityName = Utils.theFirstLetterLowercase(entityName)
+
+        writer.writeLine "package ${basePackage}.entity.po;"
+        writer.writeLine ""
+        writer.writeLine "import static com.querydsl.core.types.PathMetadataFactory.*;"
+        writer.writeLine "import com.querydsl.core.types.dsl.*;"
+        writer.writeLine "import com.querydsl.core.types.PathMetadata;"
+        writer.writeLine "import javax.annotation.Generated;"
+        writer.writeLine "import com.querydsl.core.types.Path;"
+        writer.writeLine ""
+        writer.writeLine ""
+        writer.writeLine "/**"
+        writer.writeLine " * QUserInfo is a Querydsl query type for UserInfo"
+        writer.writeLine " */"
+        writer.writeLine "@Generated(\"com.querydsl.codegen.EntitySerializer\")"
+        writer.writeLine "public class Q${entityName} extends EntityPathBase<${entityName}> {"
+        writer.writeLine ""
+        writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
+        writer.writeLine ""
+        writer.writeLine "\tpublic static final ${basePackage}.entity.po.Q${entityName} ${lEntityName} = new ${basePackage}.entity.po.Q${entityName}(\"${lEntityName}\");"
+
+        fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
+
+        writer.writeLine ""
+        writer.writeLine "\tpublic Q${entityName}(String variable) {"
+        writer.writeLine "\t\tsuper(${entityName}.class, forVariable(variable));"
+        writer.writeLine "\t}"
+
+        writer.writeLine ""
+        writer.writeLine "\tpublic Q${entityName}(Path<? extends ${entityName}> path) {"
+        writer.writeLine "\t\tsuper(path.getType(), path.getMetadata());"
+        writer.writeLine "\t}"
+
+        writer.writeLine ""
+        writer.writeLine "\tpublic Q${entityName}(PathMetadata metadata) {"
+        writer.writeLine "\t\tsuper(${entityName}.class, metadata);"
+        writer.writeLine "\t}"
+
+        writer.writeLine "}"
+    }
+
+    // 实体属性 QueryDSL
+    def static genQueryDSLEntityProperties(writer, config, parentConfig, field) {
+        writer.writeLine ""
+        if ("String" == field.type) {
+            writer.writeLine "\tpublic final StringPath ${field.name} = createString(\"${field.name}\");"
+        } else if ("Long" == field.type) {
+            writer.writeLine "\tpublic final NumberPath<Long> ${field.name} = createNumber(\"${field.name}\", Long.class);"
+        } else if ("Integer" == field.type) {
+            writer.writeLine "\tpublic final NumberPath<Integer> ${field.name} = createNumber(\"${field.name}\", Integer.class);"
+
+        } else if ("Date" == field.type) {
+            writer.writeLine "\tpublic final DateTimePath<java.util.Date> ${field.name} = createDateTime(\"${field.name}\", java.util.Date.class);"
+        } else if ("Double" == field.type) {
+            writer.writeLine "\tpublic final NumberPath<Double> ${field.name} = createNumber(\"${field.name}\", Double.class);"
+        } else if ("Boolean" == field.type) {
+            writer.writeLine "\tpublic final BooleanPath ${field.name} = createBoolean(\"${field.name}\");"
+        } else {
+            writer.writeLine "\tpublic final StringPath ${field.name} = createString(\"${field.name}\");"
+        }
+    }
+
 
     // 生成实体
     def static genEntity(writer, config, parentConfig, table, entityName, fieldList, basePackage) {
@@ -475,5 +553,12 @@ class Utils {
                 .replace("::", "")
                 .replace("'", "")
                 .replace("regclass", "")
+    }
+
+    static def theFirstLetterLowercase(strs) {
+        def part1 = strs.substring(0, 1).toLowerCase()
+        def part2 = strs.substring(1, strs.length() - 1)
+        return part1 + part2
+
     }
 }
