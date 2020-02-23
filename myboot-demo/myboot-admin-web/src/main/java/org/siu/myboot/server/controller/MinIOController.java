@@ -1,11 +1,9 @@
 package org.siu.myboot.server.controller;
 
 import org.siu.myboot.componnent.oss.minio.MinioTemplate;
+import org.siu.myboot.core.annotation.RestfulApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +38,12 @@ public class MinIOController {
             e.printStackTrace();
         }
         return "fail";
+    }
+
+    @RestfulApi
+    @GetMapping("/test")
+    public String test(String name) {
+        return "Hello " + name;
     }
 
 

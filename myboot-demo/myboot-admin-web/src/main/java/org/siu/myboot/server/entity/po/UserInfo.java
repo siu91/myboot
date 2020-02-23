@@ -2,9 +2,7 @@ package org.siu.myboot.server.entity.po;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,15 +12,14 @@ import java.io.Serializable;
  * UserInfo
  *
  * @author @Author Siu
- * @Date 2020-02-23 15:13:42
+ * @Date 2020-02-23 20:14:03
  * @Version 0.0.1
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "user_info")
 @ApiModel(value = "UserInfo")
-public class UserInfo extends BaseEntity implements Serializable {
+public class UserInfo implements Serializable {
 
 	/**
 	 * 用户ID（主键）
@@ -71,6 +68,15 @@ public class UserInfo extends BaseEntity implements Serializable {
 	@ApiModelProperty(value = "密码")
 	@Column(name = "password", nullable = true, length = 64)
 	private String password;
+
+	/**
+	 * 创建时间
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "创建时间")
+	@Column(name = "create_time", nullable = true)
+	private java.util.Date createTime;
 
 	/**
 	 * 更新时间

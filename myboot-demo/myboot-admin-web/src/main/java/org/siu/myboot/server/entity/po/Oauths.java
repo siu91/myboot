@@ -2,9 +2,7 @@ package org.siu.myboot.server.entity.po;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,15 +12,26 @@ import java.io.Serializable;
  * Oauths
  *
  * @author @Author Siu
- * @Date 2020-02-23 15:13:42
+ * @Date 2020-02-23 20:14:03
  * @Version 0.0.1
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "oauths")
 @ApiModel(value = "Oauths")
-public class Oauths extends BaseEntity implements Serializable {
+public class Oauths implements Serializable {
+
+	/**
+	 * id
+	 * nullable : false
+	 * default  : nextval('public_seq'::regclass)
+	 */
+	@Id
+	@SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
+	@ApiModelProperty(value = "id")
+	@Column(name = "id", nullable = true)
+	private Long id;
 
 	/**
 	 * user_info表主键
@@ -68,6 +77,15 @@ public class Oauths extends BaseEntity implements Serializable {
 	@ApiModelProperty(value = "密码凭证 /access_token (目前更多是存储在缓存里)")
 	@Column(name = "credential", nullable = true, length = 255)
 	private String credential;
+
+	/**
+	 * createTime
+	 * nullable : true
+	 * default  : null
+	 */
+	@ApiModelProperty(value = "createTime")
+	@Column(name = "create_time", nullable = true)
+	private java.util.Date createTime;
 
 	/**
 	 * updateTime
