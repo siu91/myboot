@@ -1,4 +1,4 @@
-package org.siu.myboot.core.interceptor;
+package org.siu.myboot.core.web.interceptor;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
