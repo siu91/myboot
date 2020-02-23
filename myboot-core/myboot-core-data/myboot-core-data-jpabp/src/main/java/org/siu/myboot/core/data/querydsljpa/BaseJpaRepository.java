@@ -17,6 +17,7 @@ import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Objects;
 
 /**
  * BaseJpaRepository （JPA + QueryDSL）
@@ -33,20 +34,80 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> {
     private final EntityPath<T> path;
     protected final Querydsl querydsl;
 
-    public BaseJpaRepository(Class<T> domainClass, EntityManager em) {
-        super(domainClass, em);
+    public BaseJpaRepository(Class<T> dataObject, EntityManager em) {
+        super(dataObject, em);
         this.em = em;
-        this.jpaPredicateExecutor = new QuerydslJpaPredicateExecutor<>(JpaEntityInformationSupport.getEntityInformation(domainClass, em), em, SimpleEntityPathResolver.INSTANCE, getRepositoryMethodMetadata());
+        this.jpaPredicateExecutor = new QuerydslJpaPredicateExecutor<>(JpaEntityInformationSupport.getEntityInformation(dataObject, em), em, SimpleEntityPathResolver.INSTANCE, getRepositoryMethodMetadata());
         this.jpaQueryFactory = new JPAQueryFactory(em);
-        this.path = SimpleEntityPathResolver.INSTANCE.createPath(domainClass);
+        this.path = SimpleEntityPathResolver.INSTANCE.createPath(dataObject);
         this.querydsl = new Querydsl(em, new PathBuilder<T>(path.getType(), path.getMetadata()));
     }
 
-    protected Page<T> findAll(Predicate predicate, Pageable pageable, OrderSpecifier<?>... orders) {
-        final JPAQuery countQuery = jpaQueryFactory.selectFrom(path);
-        countQuery.where(predicate);
-        JPQLQuery<T> query = querydsl.applyPagination(pageable, countQuery);
-        query.orderBy(orders);
-        return PageableExecutionUtils.getPage(query.fetch(), pageable, countQuery::fetchCount);
+
+    /**
+     * 基础分页查询
+     *
+     * @param pageable 分页对象
+     * @return
+     */
+    protected Page<T> basePageQuery(Pageable pageable) {
+        return this.basePageQuery(jpaQueryFactory.selectFrom(path), pageable);
+
     }
+
+
+    /**
+     * 基础分页查询
+     *
+     * @param countQuery count查询对象（可能包括完整的sql）
+     * @param pageable   分页对象
+     * @return
+     */
+    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable) {
+        return this.basePageQuery(countQuery, pageable, null);
+
+    }
+
+
+    /**
+     * 基础分页查询
+     *
+     * @param countQuery count查询对象（可能包括完整的sql）
+     * @param pageable   分页对象
+     * @return
+     */
+    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable, Predicate predicate) {
+        return this.basePageQuery(countQuery, pageable, predicate, null);
+
+    }
+
+    /**
+     * 基础分页查询
+     *
+     * @param countQuery count查询对象（可能包括完整的sql）
+     * @param pageable   分页对象
+     * @param predicate  where条件
+     * @param orders     排序
+     * @return
+     */
+    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable, Predicate predicate, OrderSpecifier<?>... orders) {
+        if (Objects.isNull(countQuery)) {
+            throw new NullPointerException("countQuery 不能为空");
+        }
+        // 加where入条件
+        if (Objects.nonNull(predicate)) {
+            countQuery.where(predicate);
+        }
+        // 转成查询对象
+        JPQLQuery<T> query = querydsl.applyPagination(pageable, countQuery);
+        // 查询对象增加排序
+        if (Objects.nonNull(orders)) {
+            query.orderBy(orders);
+        }
+        // 返回分页查询
+        return PageableExecutionUtils.getPage(query.fetch(), pageable, countQuery::fetchCount);
+
+    }
+
+
 }
