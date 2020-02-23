@@ -7,4 +7,4 @@
  * @Date 2020/2/19 19:57
  * @Version 0.0.1
  */
-package org.siu.myboot.server.dao;
+package org.siu.myboot.server.repository;

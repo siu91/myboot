@@ -1,10 +1,10 @@
-package org.siu.myboot.server.dao;
+package org.siu.myboot.server.repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
-import org.siu.myboot.server.model.po.QOauths;
-import org.siu.myboot.server.model.po.QUserInfo;
-import org.siu.myboot.server.model.po.UserInfo;
+import org.siu.myboot.server.entity.po.QOauths;
+import org.siu.myboot.server.entity.po.QUserInfo;
+import org.siu.myboot.server.entity.po.UserInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

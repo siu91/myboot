@@ -1,6 +1,6 @@
-package org.siu.myboot.server.daoprimary;
+package org.siu.myboot.server.repository;
 
-import org.siu.myboot.server.model.po.UserInfo;
+import org.siu.myboot.server.entity.po.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Timestamp;
@@ -19,7 +19,7 @@ import java.util.List;
  * @Date 2020/2/20 11:41
  * @Version 0.0.1
  */
-public interface UserInfoRepository1 extends JpaRepository<UserInfo, Long> {
+public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
     UserInfo findByUserName(String userName);
 
     UserInfo findByUserNameOrPhone(String userName, String phone);

@@ -1,11 +1,7 @@
-package org.siu.myboot.server.dao;
+package org.siu.myboot.server.repository;
 
-import org.siu.myboot.server.model.po.Oauths;
-import org.siu.myboot.server.model.po.UserInfo;
+import org.siu.myboot.server.entity.po.Oauths;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * Spring Data JPA 可以根据接口方法名来实现数据库操作

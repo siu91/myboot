@@ -1,6 +1,6 @@
 package org.siu.myboot.server.controller;
 
-import org.siu.myboot.server.model.po.User;
+import org.siu.myboot.server.entity.po.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

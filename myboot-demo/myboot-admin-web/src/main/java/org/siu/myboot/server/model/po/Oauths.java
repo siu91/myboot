@@ -1,4 +1,4 @@
-package org.siu.myboot.server.model.po;
+package org.siu.myboot.server.entity.po;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

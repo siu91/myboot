@@ -9,4 +9,4 @@
  * @Date 2020/2/19 8:55
  * @Version 0.0.1
  */
-package org.siu.myboot.server.model.po;
+package org.siu.myboot.server.entity.po;

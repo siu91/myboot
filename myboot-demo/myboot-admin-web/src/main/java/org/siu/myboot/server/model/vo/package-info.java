@@ -7,4 +7,4 @@
  * @Date 2020/2/19 20:44
  * @Version 0.0.1
  */
-package org.siu.myboot.server.model.vo;
+package org.siu.myboot.server.entity.vo;

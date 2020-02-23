@@ -1,7 +1,7 @@
 package org.siu.myboot.server.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.server.model.po.User;
+import org.siu.myboot.server.entity.po.User;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
