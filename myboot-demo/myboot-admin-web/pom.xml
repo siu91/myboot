@@ -83,7 +83,7 @@
             <!--QueryDSL 插件-->
             <!--https://mvnrepository.com/artifact/com.mysema.maven/maven-apt-plugin/1.0.4-->
             <!--https://github.com/querydsl/apt-maven-plugin-->
-            <plugin>
+            <!--<plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>
                 <version>1.0.4</version>
@@ -105,7 +105,7 @@
                         <version>4.2.2</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>-->
             <!-- Docker maven plugin -->
             <!-- <plugin>
                  <groupId>com.spotify</groupId>

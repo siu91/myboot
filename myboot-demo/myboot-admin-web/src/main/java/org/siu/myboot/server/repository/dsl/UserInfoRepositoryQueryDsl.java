@@ -2,9 +2,9 @@ package org.siu.myboot.server.repository.dsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;;
-import org.siu.myboot.server.entity.po.QOauths;
-import org.siu.myboot.server.entity.po.QUserInfo;
 import org.siu.myboot.server.entity.po.UserInfo;
+import org.siu.myboot.server.entity.qo.QOauths;
+import org.siu.myboot.server.entity.qo.QUserInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -33,7 +33,7 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
 
     public Page<UserInfo> queryUserOauths(Pageable pageable) {
         JPAQuery countQuery = jpaQueryFactory
-                .select(qUserInfo.avatarUrl, qUserInfo.createTime).from(qUserInfo)
+                .select(qUserInfo.avatarUrl).from(qUserInfo)
                 .leftJoin(qOauths).on(qUserInfo.userId.eq(qOauths.userId));
         return basePageQuery(countQuery, pageable);
 
