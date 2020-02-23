@@ -180,7 +180,7 @@ class Gen {
         writer.writeLine ""
         writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
         writer.writeLine ""
-        writer.writeLine "\tpublic static final ${basePackage}.entity.po.Q${entityName} ${lEntityName} = new ${basePackage}.entity.po.Q${entityName}(\"${lEntityName}\");"
+        writer.writeLine "\tpublic static final ${basePackage}.entity.qo.Q${entityName} ${lEntityName} = new ${basePackage}.entity.qo.Q${entityName}(\"${lEntityName}\");"
 
         fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
 
