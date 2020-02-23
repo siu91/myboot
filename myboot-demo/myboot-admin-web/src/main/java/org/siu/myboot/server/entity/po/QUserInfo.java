@@ -1,4 +1,4 @@
-package org.siu.myboot.server.entity.qo;
+package org.siu.myboot.server.entity.po;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 import com.querydsl.core.types.dsl.*;
@@ -16,7 +16,7 @@ public class QUserInfo extends EntityPathBase<UserInfo> {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final org.siu.myboot.server.entity.qo.QUserInfo userInfo = new org.siu.myboot.server.entity.qo.QUserInfo("userInfo");
+	public static final org.siu.myboot.server.entity.po.QUserInfo userInfo = new org.siu.myboot.server.entity.po.QUserInfo("userInfo");
 
 	public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
@@ -28,9 +28,9 @@ public class QUserInfo extends EntityPathBase<UserInfo> {
 
 	public final StringPath password = createString("password");
 
-	public final StringPath createTime = createString("createTime");
+	public final DateTimePath<java.util.Date> createTime = createDateTime("createTime", java.util.Date.class);
 
-	public final StringPath updateTime = createString("updateTime");
+	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
 
 	public QUserInfo(String variable) {
 		super(UserInfo.class, forVariable(variable));
