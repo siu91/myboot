@@ -2,6 +2,7 @@ package org.siu.myboot.core.web.handlers;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.siu.myboot.core.annotation.RestfulApi;
 import org.siu.myboot.core.constant.ResultConstant;
 import org.siu.myboot.core.restful.result.Result;
 import org.siu.myboot.core.restful.result.ResultBuilder;
@@ -13,10 +14,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
-//import org.siu.myboot.core.annotation.RestfulApi;
 
 /**
  * @Author Siu
@@ -29,10 +28,9 @@ public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
 
     @Override
     public boolean supportsReturnType(MethodParameter returnType) {
-        /** 包含RestApi注解时，该处理生效*/
-        // return null != returnType.getMethod().getDeclaringClass().getAnnotation(RestfulApi.class)
-        //        || null != returnType.getMethodAnnotation(RestfulApi.class);
-        return true;
+        /** 包含RestfulApi注解时，该处理生效*/
+         return null != returnType.getMethod().getDeclaringClass().getAnnotation(RestfulApi.class)
+                || null != returnType.getMethodAnnotation(RestfulApi.class);
     }
 
     @Override
