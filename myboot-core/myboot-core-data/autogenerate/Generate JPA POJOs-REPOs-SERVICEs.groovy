@@ -128,7 +128,7 @@ class Gen {
         if (config.generate.entityQueryDSL) {
             // 生成 queryDSl 工具对象
             Utils.createPath("${dir}\\entity")
-            Utils.createFile("${dir}\\entity\\qo", "Q${entityName}.java").withWriter("utf8") {
+            Utils.createFile("${dir}\\entity\\po", "Q${entityName}.java").withWriter("utf8") {
                 writer -> genEntityQueryDSL(writer, config, config.entity.parent, table, entityName, fields, basePackage)
             }
         }
@@ -162,7 +162,7 @@ class Gen {
 
         def lEntityName = Utils.theFirstLetterLowercase(entityName)
 
-        writer.writeLine "package ${basePackage}.entity.qo;"
+        writer.writeLine "package ${basePackage}.entity.po;"
         writer.writeLine ""
         writer.writeLine "import static com.querydsl.core.types.PathMetadataFactory.*;"
         writer.writeLine "import com.querydsl.core.types.dsl.*;"
@@ -180,7 +180,7 @@ class Gen {
         writer.writeLine ""
         writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
         writer.writeLine ""
-        writer.writeLine "\tpublic static final ${basePackage}.entity.qo.Q${entityName} ${lEntityName} = new ${basePackage}.entity.qo.Q${entityName}(\"${lEntityName}\");"
+        writer.writeLine "\tpublic static final ${basePackage}.entity.po.Q${entityName} ${lEntityName} = new ${basePackage}.entity.po.Q${entityName}(\"${lEntityName}\");"
 
         fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
 
