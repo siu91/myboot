@@ -24,7 +24,7 @@ config = [
         // 生成开关
         generate  : [
                 entity            : false,
-                entityQueryDSL    : false,
+                entityQueryDSL    : true,
                 repository        : true,
                 repositoryQueryDSL: false,
                 service           : false
@@ -190,7 +190,7 @@ class Gen {
         writer.writeLine ""
         writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
         writer.writeLine ""
-        writer.writeLine "\tpublic static final ${lEntityName} = new Q${entityName}(\"${lEntityName}\");"
+        writer.writeLine "\tpublic static final Q${entityName} ${lEntityName} = new Q${entityName}(\"${lEntityName}\");"
 
         fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
 
