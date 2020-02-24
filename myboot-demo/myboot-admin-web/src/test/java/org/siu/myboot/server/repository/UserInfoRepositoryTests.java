@@ -113,7 +113,7 @@ public class UserInfoRepositoryTests {
         }
 
         Pageable pageable = QPageRequest.of(0, 10);
-        Page<UserInfo> page = userInfoRepositoryQueryDsl.queryUserOauths(pageable);
+        Page<UserInfo> page = userInfoRepositoryQueryDsl.queryExample(pageable);
         List<UserInfo> userInfoList = page.getContent();
         System.out.println(userInfoList.size());
     }

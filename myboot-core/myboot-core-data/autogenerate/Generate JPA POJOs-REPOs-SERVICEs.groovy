@@ -24,9 +24,9 @@ config = [
         // 生成开关
         generate  : [
                 entity            : false,
-                entityQueryDSL    : true,
-                repository        : true,
-                repositoryQueryDSL: false,
+                entityQueryDSL    : false,
+                repository        : false,
+                repositoryQueryDSL: true,
                 service           : false
         ],
         // 实体生成设置
@@ -497,7 +497,7 @@ class Gen {
         writer.writeLine ""
         writer.writeLine "import com.querydsl.jpa.impl.JPAQuery;"
         writer.writeLine "import $parentConfig.package.$parentConfig.name;;"
-        // writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
+        writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import org.springframework.data.domain.Page;"
         writer.writeLine "import org.springframework.data.domain.Pageable;"
@@ -519,10 +519,23 @@ class Gen {
         writer.writeLine "\t\tsuper(${entityName}.class, entityManager);"
         writer.writeLine "\t}"
         writer.writeLine ""
-        writer.writeLine "/**"
-        writer.writeLine " * Q${entityName} QueryDSL Object: Use jpaQueryFactory build JPAQuery"
-        writer.writeLine " */"
-        writer.writeLine "//private static final Q${entityName} q${entityName} = Q${entityName}.${entityName};"
+        writer.writeLine "\t/**"
+        writer.writeLine "\t * Q${entityName} QueryDSL Object: Use jpaQueryFactory build JPAQuery"
+        writer.writeLine "\t */"
+        def lEntityName = Utils.theFirstLetterLowercase(entityName)
+        writer.writeLine "\tprivate static final Q${entityName} q${entityName} = Q${entityName}.${lEntityName};"
+        writer.writeLine ""
+        writer.writeLine "\t/**"
+        writer.writeLine "\t * queryExample"
+        writer.writeLine "\t *"
+        writer.writeLine "\t * @param pageable"
+        writer.writeLine "\t * @return"
+        writer.writeLine "\t */"
+        writer.writeLine "\tpublic Page<${entityName}> queryExample(Pageable pageable) {"
+        writer.writeLine "\t\tJPAQuery countQuery = jpaQueryFactory.selectFrom(q${entityName});"
+        writer.writeLine "\t\treturn basePageQuery(countQuery, pageable);"
+        writer.writeLine "\t}"
+
         writer.writeLine "}"
     }
 
