@@ -41,19 +41,20 @@ public class UserInfoRepositoryTests {
         UserInfo u1 = new UserInfo();
         u1.setUserName("user1");
         u1.setPhone("138");
-        u1.setCreateTime(new Timestamp(new Date().getTime()));
+        u1.setSoftDelete(0L);
+        userInfoRepository.save(u1);
 
         UserInfo u2 = new UserInfo();
-        userInfoRepository.save(u1);
+
         u2.setUserName("user2");
         u2.setPhone("139");
-        u2.setCreateTime(new Timestamp(new Date().getTime()));
+        u2.setSoftDelete(0L);
         userInfoRepository.save(u2);
 
         UserInfo u3 = new UserInfo();
         u3.setUserName("user3");
         u3.setPhone("140");
-        u3.setCreateTime(new Timestamp(new Date().getTime()));
+        u3.setSoftDelete(0L);
         userInfoRepository.save(u3);
 
 

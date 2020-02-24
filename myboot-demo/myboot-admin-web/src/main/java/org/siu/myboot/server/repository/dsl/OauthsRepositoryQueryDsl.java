@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
  * Oauths 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-24 16:44:19
+ * @Date 2020-02-24 23:46:44
  * @Version 0.0.1
  */
 @Repository

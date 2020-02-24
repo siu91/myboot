@@ -4,21 +4,27 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import lombok.Data;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
 
 /**
- * Oauths
+ * 第三方授权表
  *
  * @author @Author Siu
- * @Date 2020-02-23 20:14:03
+ * @Date 2020-02-24 23:46:44
  * @Version 0.0.1
  */
 @Data
+@Accessors(chain = true)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "oauths")
-@ApiModel(value = "Oauths")
+@ApiModel(value = "第三方授权表")
 public class Oauths implements Serializable {
 
 	/**
@@ -30,7 +36,7 @@ public class Oauths implements Serializable {
 	@SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
 	@ApiModelProperty(value = "id")
-	@Column(name = "id", nullable = true)
+	@Column(name = "id", nullable = false)
 	private Long id;
 
 	/**
@@ -39,7 +45,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "user_info表主键")
-	@Column(name = "user_id", nullable = true)
+	@Column(name = "user_id", nullable = false)
 	private Long userId;
 
 	/**
@@ -48,7 +54,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "1、微信，2、QQ，3、支付宝，4、其他")
-	@Column(name = "oauth_type", nullable = true)
+	@Column(name = "oauth_type", nullable = false)
 	private Integer oauthType;
 
 	/**
@@ -57,7 +63,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "第三方 uid 、openid 等")
-	@Column(name = "oauth_id", nullable = true, length = 255)
+	@Column(name = "oauth_id", nullable = false, length = 255)
 	private String oauthId;
 
 	/**
@@ -66,7 +72,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "QQ / 微信同一主体下 Unionid 相同")
-	@Column(name = "unionid", nullable = true, length = 255)
+	@Column(name = "unionid", nullable = false, length = 255)
 	private String unionid;
 
 	/**
@@ -84,6 +90,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "createTime")
+	@CreatedDate
 	@Column(name = "create_time", nullable = true)
 	private java.util.Date createTime;
 
@@ -93,6 +100,7 @@ public class Oauths implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "updateTime")
+	@LastModifiedDate
 	@Column(name = "update_time", nullable = true)
 	private java.util.Date updateTime;
 }

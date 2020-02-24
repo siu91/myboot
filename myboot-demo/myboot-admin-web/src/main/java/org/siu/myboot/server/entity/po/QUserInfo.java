@@ -31,6 +31,8 @@ public class QUserInfo extends EntityPathBase<UserInfo> {
 
 	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
 
+	public final NumberPath<Long> softDelete = createNumber("softDelete", Long.class);
+
 	public QUserInfo(String variable) {
 		super(UserInfo.class, forVariable(variable));
 	}
