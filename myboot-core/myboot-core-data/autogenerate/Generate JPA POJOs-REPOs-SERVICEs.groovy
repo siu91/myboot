@@ -26,11 +26,11 @@ import java.util.stream.Collectors
 config = [
         // 生成开关
         generate  : [
-                entity            : false,
-                entityQueryDSL    : false,
-                repository        : false,
+                entity            : true,
+                entityQueryDSL    : true,
+                repository        : true,
                 repositoryQueryDSL: true,
-                service           : false
+                service           : true
         ],
         // 实体生成设置
         entity    : [
@@ -256,6 +256,7 @@ class Gen {
                 writer.writeLine "import lombok.EqualsAndHashCode;"
             }
             writer.writeLine "import lombok.Data;"
+            writer.writeLine "import lombok.experimental.Accessors;"
             writer.writeLine ""
         }
         if (config.entity.impSerializable) {
@@ -277,6 +278,7 @@ class Gen {
                 writer.writeLine "@EqualsAndHashCode(callSuper = true)"
             }
             writer.writeLine "@Data"
+            writer.writeLine "@Accessors(chain = true)"
         }
         if (config.entity.jpa) {
             writer.writeLine "@Entity"
@@ -339,7 +341,7 @@ class Gen {
             if (field.len.toInteger() >= 0 && !field.type.contains("java")) {
                 lenStr = ", length = $field.len"
             }
-            writer.writeLine "\t@Column(name = \"${field.column}\", nullable = ${!field.isNotNull}$lenStr)"
+            writer.writeLine "\t@Column(name = \"${field.column}\", nullable = ${field.nullable}$lenStr)"
         }
         writer.writeLine "\tprivate ${field.type} ${field.name};"
     }
