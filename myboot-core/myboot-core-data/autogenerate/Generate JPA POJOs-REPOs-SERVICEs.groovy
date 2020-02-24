@@ -12,7 +12,12 @@ import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 /**
- * @Author Siu* @Date 2020/2/23 23:18
+ * 自动生成代码脚本：JPA + QueryDSL版本
+ *
+ * intellij API源码在(com.intellij.database) 源码包在JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
+ *
+ * @Author Siu
+ * @Date 2020/2/23 23:18
  * @Version 0.0.1
  */
 config = [
@@ -107,6 +112,8 @@ def calcFields(table) {
                            comment     : col.getComment(),
                            nullable    : !col.isNotNull(),
                            isPrimaryKey: null != pk && pk == col.getName(),
+                           schemaName  : DasUtil.getSchema(table),
+                           catalog     : DasUtil.getCatalog(table)
                    ]]
     }
 }
