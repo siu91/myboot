@@ -179,7 +179,7 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.PathMetadata;"
         writer.writeLine "import javax.annotation.Generated;"
         writer.writeLine "import com.querydsl.core.types.Path;"
-        writer.writeLine "import ${basePackage}.entity.po.${entityName};"
+        //writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine ""
         writer.writeLine ""
         writer.writeLine "/**"
@@ -190,7 +190,7 @@ class Gen {
         writer.writeLine ""
         writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
         writer.writeLine ""
-        writer.writeLine "\tpublic static final ${basePackage}.entity.po.Q${entityName} ${lEntityName} = new ${basePackage}.entity.po.Q${entityName}(\"${lEntityName}\");"
+        writer.writeLine "\tpublic static final ${lEntityName} = new Q${entityName}(\"${lEntityName}\");"
 
         fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
 
