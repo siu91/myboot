@@ -5,7 +5,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import org.siu.myboot.server.entity.po.UserInfo;
 
 
 /**
@@ -16,7 +15,7 @@ public class QUserInfo extends EntityPathBase<UserInfo> {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final org.siu.myboot.server.entity.po.QUserInfo userInfo = new org.siu.myboot.server.entity.po.QUserInfo("userInfo");
+	public static final QUserInfo userInfo = new QUserInfo("userInfo");
 
 	public final NumberPath<Long> userId = createNumber("userId", Long.class);
 

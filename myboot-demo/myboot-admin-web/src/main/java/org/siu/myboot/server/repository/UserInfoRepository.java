@@ -10,7 +10,7 @@ import java.util.List;
  * UserInfo Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-24 12:34:01
+ * @Date 2020-02-24 16:20:36
  * @Version 0.0.1
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
@@ -55,7 +55,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 	 *@return
 	 */
 	List<UserInfo> findByUpdateTimeAfter(Date updateTime);
-// findByUserNameOrPhone(String userName,String phone)
 
 	/**
 	 * findByUserNameOrPhone

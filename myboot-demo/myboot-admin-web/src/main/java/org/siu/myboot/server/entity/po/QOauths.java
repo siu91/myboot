@@ -5,7 +5,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import org.siu.myboot.server.entity.po.Oauths;
 
 
 /**
@@ -16,7 +15,7 @@ public class QOauths extends EntityPathBase<Oauths> {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final org.siu.myboot.server.entity.po.QOauths oauths = new org.siu.myboot.server.entity.po.QOauths("oauths");
+	public static final QOauths oauths = new QOauths("oauths");
 
 	public final NumberPath<Long> id = createNumber("id", Long.class);
 

@@ -10,7 +10,7 @@ import java.util.List;
  * Oauths Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-24 12:34:01
+ * @Date 2020-02-24 16:20:35
  * @Version 0.0.1
  */
 public interface OauthsRepository extends JpaRepository<Oauths, Long> {
@@ -41,6 +41,5 @@ public interface OauthsRepository extends JpaRepository<Oauths, Long> {
 	 *@return
 	 */
 	List<Oauths> findByUpdateTimeAfter(Date updateTime);
-// findBy(
 
 }
