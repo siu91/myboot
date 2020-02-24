@@ -287,9 +287,11 @@ class Gen {
             writer.writeLine "@Data"
             writer.writeLine "@Accessors(chain = true)"
         }
-        if (config.entity.jpa && config.entity.autoFill) {
+        if (config.entity.jpa) {
             writer.writeLine "@Entity"
-            writer.writeLine "@EntityListeners(AuditingEntityListener.class)"
+            if (config.entity.autoFill) {
+                writer.writeLine "@EntityListeners(AuditingEntityListener.class)"
+            }
             writer.writeLine "@Table(name = \"${table.name}\")"
         }
         if (config.entity.useSwagger) {
@@ -344,16 +346,17 @@ class Gen {
             writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
         }
 
-        if (config.entity.jpa && config.entity.autoFill) {
-            // create_time update_time 自动填充
-            if ("Date" == field.type || "java.util.Date" == field.type || field.type.contains("Date")) {
-                if (field.name.contains("Create") || field.name.contains("create") ||
-                        field.name.contains("Insert") || field.name.contains("insert")) {
-                    writer.writeLine "\t@CreatedDate"
-                } else if (field.name.contains("Update") || field.name.contains("update") ||
-                        field.name.contains("Modif") || field.name.contains("nodif")) {
-                    writer.writeLine "\t@LastModifiedDate"
-
+        if (config.entity.jpa) {
+            if (config.entity.autoFill) {
+                // create_time update_time 自动填充
+                if ("Date" == field.type || "java.util.Date" == field.type || field.type.contains("Date")) {
+                    if (field.name.contains("Create") || field.name.contains("create") ||
+                            field.name.contains("Insert") || field.name.contains("insert")) {
+                        writer.writeLine "\t@CreatedDate"
+                    } else if (field.name.contains("Update") || field.name.contains("update") ||
+                            field.name.contains("Modif") || field.name.contains("nodif")) {
+                        writer.writeLine "\t@LastModifiedDate"
+                    }
                 }
             }
 
