@@ -35,7 +35,7 @@ config = [
         // 实体生成设置
         entity    : [
                 // 继承父类设置
-                parent         : [
+                parent             : [
                         // 是否继承父类
                         enable    : false,
                         // 父类名称
@@ -46,17 +46,24 @@ config = [
                         properties: ["version"],
                 ],
                 // 数据库类型
-                dbType         : "postgres",
+                dbType             : "postgres",
                 // 是否序列化
-                impSerializable: true,
+                impSerializable    : true,
                 // 是否生成 jpa 相关内容，设置为 false 可以生成与 jpa 无关的实体
-                jpa            : true,
+                jpa                : true,
                 // 是否生成 swagger 文档相关注解，相关说明来数据库注释
-                useSwagger     : true,
+                useSwagger         : true,
                 // 是否使用 lombok 注解代替 get、set方法
-                useLombok      : true,
+                useLombok          : true,
                 // 是否自动填充创建时间/更新时间
-                autoFill       : true
+                autoFill           : true,
+                // 是否配置软删除
+                softDelete         : true,
+                // 软删除字段名: soft_delete 设计为int8，0-未删除，其他-删除；与需要唯一约束的字段组成联合唯一
+                softDeleteFieldName: "soft_delete",
+                // 软删除更新使用的序列/自增
+                softDeleteSeqName: "public_soft_delete_seq"
+
         ],
         // repository 生成设置
         repository: [
@@ -241,6 +248,27 @@ class Gen {
     // 生成实体
     def static genEntity(writer, config, parentConfig, table, entityName, fieldList, basePackage) {
 
+        // 配置软删除标记
+        def softDeleteFlag = false
+        def pkName = null
+        if (config.entity.softDelete) {
+            // 遍历字段判断是否有软删除定义的字段
+            fieldList.each() { field ->
+                if (config.entity.softDeleteFieldName == field.column) {
+                    if (field.type == "Long") {
+                        softDeleteFlag = true
+                    }
+                }
+                if (field.isPrimaryKey) {
+                    pkName = field.column
+                }
+            }
+        }
+        if (pkName == null) {
+            softDeleteFlag = false
+        }
+
+        //writer.writeLine "// ${softDeleteFlag}"
         writer.writeLine "package ${basePackage}.entity.po;"
         writer.writeLine ""
         if (config.entity.useSwagger) {
@@ -252,6 +280,10 @@ class Gen {
         }
         if (config.entity.jpa) {
             writer.writeLine "import javax.persistence.*;"
+        }
+        if (softDeleteFlag) {
+            writer.writeLine "import org.hibernate.annotations.SQLDelete;"
+            writer.writeLine "import org.hibernate.annotations.Where;"
         }
         if (config.entity.useLombok) {
             if (parentConfig.enable) {
@@ -296,6 +328,11 @@ class Gen {
         }
         if (config.entity.useSwagger) {
             writer.writeLine "@ApiModel(value = \"${tableComment}\")"
+        }
+
+        if (softDeleteFlag) {
+            writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = nextval( '${config.entity.softDeleteSeqName}' ) WHERE ${pkName} = ?\")"
+            writer.writeLine "@Where(clause = \"soft_delete = 0\")"
         }
 
         def extendsStr = parentConfig.enable ? " extends $parentConfig.name" : "",
