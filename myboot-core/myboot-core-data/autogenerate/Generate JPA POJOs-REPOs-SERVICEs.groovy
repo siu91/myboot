@@ -54,7 +54,9 @@ config = [
                 // 是否生成 swagger 文档相关注解，相关说明来数据库注释
                 useSwagger     : true,
                 // 是否使用 lombok 注解代替 get、set方法
-                useLombok      : true
+                useLombok      : true,
+                // 是否自动填充创建时间/更新时间
+                autoFill       : true
         ],
         // repository 生成设置
         repository: [
@@ -257,6 +259,11 @@ class Gen {
             }
             writer.writeLine "import lombok.Data;"
             writer.writeLine "import lombok.experimental.Accessors;"
+            if (config.entity.jpa && config.entity.autoFill) {
+                writer.writeLine "import org.springframework.data.annotation.CreatedDate;"
+                writer.writeLine "import org.springframework.data.annotation.LastModifiedDate;"
+                writer.writeLine "import org.springframework.data.jpa.domain.support.AuditingEntityListener;"
+            }
             writer.writeLine ""
         }
         if (config.entity.impSerializable) {
@@ -280,8 +287,9 @@ class Gen {
             writer.writeLine "@Data"
             writer.writeLine "@Accessors(chain = true)"
         }
-        if (config.entity.jpa) {
+        if (config.entity.jpa && config.entity.autoFill) {
             writer.writeLine "@Entity"
+            writer.writeLine "@EntityListeners(AuditingEntityListener.class)"
             writer.writeLine "@Table(name = \"${table.name}\")"
         }
         if (config.entity.useSwagger) {
@@ -336,7 +344,19 @@ class Gen {
             writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
         }
 
-        if (config.entity.jpa) {
+        if (config.entity.jpa && config.entity.autoFill) {
+            // create_time update_time 自动填充
+            if ("Date" == field.type || "java.util.Date" == field.type || field.type.contains("Date")) {
+                if (field.name.contains("Create") || field.name.contains("create") ||
+                        field.name.contains("Insert") || field.name.contains("insert")) {
+                    writer.writeLine "\t@CreatedDate"
+                } else if (field.name.contains("Update") || field.name.contains("update") ||
+                        field.name.contains("Modif") || field.name.contains("nodif")) {
+                    writer.writeLine "\t@LastModifiedDate"
+
+                }
+            }
+
             def lenStr = ""
             if (field.len.toInteger() >= 0 && !field.type.contains("java")) {
                 lenStr = ", length = $field.len"
