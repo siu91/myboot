@@ -11,13 +11,16 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-
+/**
+ * @Author Siu* @Date 2020/2/23 23:18
+ * @Version 0.0.1
+ */
 config = [
         // 生成开关
         generate  : [
                 entity            : false,
-                entityQueryDSL    : true,
-                repository        : false,
+                entityQueryDSL    : false,
+                repository        : true,
                 repositoryQueryDSL: false,
                 service           : false
         ],
@@ -26,13 +29,13 @@ config = [
                 // 继承父类设置
                 parent         : [
                         // 是否继承父类
-                        enable    : true,
+                        enable    : false,
                         // 父类名称
                         name      : "BaseEntity",
                         // 父类包名
                         package   : "org.siu.myboot.core.entity",
                         // 父类的属性，父类已有属性不在出现在生成的实体内
-                        properties: ["id", "createTime", "version"],
+                        properties: ["version"],
                 ],
                 // 数据库类型
                 dbType         : "postgres",
@@ -137,7 +140,7 @@ class Gen {
         // rep
         if (config.generate.repository) {
             Utils.createFile("${dir}\\repository", "${entityName}Repository.java").withWriter("utf8") {
-                writer -> genRepository(writer, config, entityName, basePackage, pkType)
+                writer -> genRepository(writer, config, entityName, fields, basePackage, pkType)
             }
         }
 
@@ -383,13 +386,14 @@ class Gen {
     }
 
     // 生成rep
-    def static genRepository(writer, config, entityName, basePackage, pkType) {
-        // def customStr = config.generate.repositoryCustom ? ", ${entityName}RepositoryCustom" : ""
-
+    def static genRepository(writer, config, entityName, fieldList, basePackage, pkType) {
         writer.writeLine "package ${basePackage}.repository;"
         writer.writeLine ""
         writer.writeLine "import ${basePackage}.entity.po.$entityName;"
         writer.writeLine "import org.springframework.data.jpa.repository.JpaRepository;"
+        writer.writeLine ""
+        writer.writeLine "import java.util.Date;"
+        writer.writeLine "import java.util.List;"
         writer.writeLine ""
         writer.writeLine "/**"
         writer.writeLine " * $entityName Repository\u5c42"
@@ -400,7 +404,83 @@ class Gen {
         writer.writeLine " */"
         writer.writeLine "public interface ${entityName}Repository extends JpaRepository<$entityName, $pkType> {"
         writer.writeLine ""
+        // 增加模板代码
+        fieldList.each() { field -> genRepositoryExampleQuery(writer, config, entityName, field) }
+        // 4、多个唯一类型生成Or（未实现） UserInfo findByUserNameOrPhone(String userName, String phone);
+        def orMethodName = "findBy"
+        def orParms = "("
+        fieldList.each() { field ->
+            // 非主键
+            if (!field.isPrimaryKey) {
+                // 唯一字段无法从定义中获取，只能用注释标记”唯一“（field.comment）
+                if (field.comment != null && field.comment.contains("\u552f\u4e00")) {
+                    orMethodName = orMethodName + Utils.theFirstLetterUppercase(field.name) + "Or"
+                    orParms = orParms + field.type + " " + field.name + ","
+                }
+            }
+
+        }
+        if (orMethodName.endsWith("Or") && orParms.endsWith(",")) {
+            orMethodName = orMethodName.substring(0, orMethodName.length() - 2)
+            orParms = orParms.substring(0, orParms.length() - 1) + ")"
+        }
+
+        if (orMethodName.contains("Or") && orParms.contains(",")) {
+            // 方法注释
+            writer.writeLine ""
+            writer.writeLine "\t/**"
+            writer.writeLine "\t * ${orMethodName}"
+            writer.writeLine "\t *@return"
+            writer.writeLine "\t */"
+            writer.writeLine "\t${entityName} ${orMethodName}${orParms};"
+        }
+        // 增加模板代码结束
+        writer.writeLine ""
         writer.writeLine "}"
+    }
+
+    // 生成repo 模板查询代码
+    // 1、唯一字段类型 findByxxx(type field); eg: UserInfo findByUserName(String userName);
+    // 2、时间类型 List<UserInfo> findByCreateTimeBefore(Date createTime);
+    // 3、时间类型 List<UserInfo> findByCreateTimeAfter(Date createTime);
+
+    def static genRepositoryExampleQuery(writer, config, entityName, field) {
+        // 非主键
+        if (!field.isPrimaryKey) {
+            //writer.writeLine "// ${field.comment}"
+            def methodName = Utils.theFirstLetterUppercase(field.name)
+            def comment = Utils.getDefaultValIfCurrentValIsBlank(field.comment, field.name)
+            // 唯一字段无法从定义中获取，只能用注释标记”唯一“（field.comment）
+            if (field.comment != null && field.comment.contains("\u552f\u4e00")) {
+                // 方法注释
+                writer.writeLine ""
+                writer.writeLine "\t/**"
+                writer.writeLine "\t * ${comment}"
+                writer.writeLine "\t *@param ${field.name}"
+                writer.writeLine "\t *@return"
+                writer.writeLine "\t */"
+                writer.writeLine "\t${entityName} findBy${methodName}(${field.type} ${field.name});"
+            } else if ("Date" == field.type || "java.util.Date" == field.type) {
+                // 方法注释
+                writer.writeLine "\t/**"
+                writer.writeLine "\t * ${comment}"
+                writer.writeLine "\t *@param ${field.name}"
+                writer.writeLine "\t *@return"
+                writer.writeLine "\t */"
+                writer.writeLine "\tList<${entityName}> findBy${methodName}Before(Date ${field.name});"
+                writer.writeLine ""
+                // 方法注释
+                writer.writeLine "\t/**"
+                writer.writeLine "\t * ${comment}"
+                writer.writeLine "\t *@param ${field.name}"
+                writer.writeLine "\t *@return"
+                writer.writeLine "\t */"
+                writer.writeLine "\tList<${entityName}> findBy${methodName}After(Date ${field.name});"
+            }
+
+
+        }
+
     }
 
 
@@ -557,6 +637,13 @@ class Utils {
 
     static def theFirstLetterLowercase(strs) {
         def part1 = strs.substring(0, 1).toLowerCase()
+        def part2 = strs.substring(1, strs.length())
+        return part1 + part2
+
+    }
+
+    static def theFirstLetterUppercase(strs) {
+        def part1 = strs.substring(0, 1).toUpperCase()
         def part2 = strs.substring(1, strs.length())
         return part1 + part2
 
