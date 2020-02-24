@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.support.Querydsl;
 import org.springframework.data.jpa.repository.support.QuerydslJpaPredicateExecutor;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.querydsl.SimpleEntityPathResolver;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
@@ -26,7 +27,7 @@ import java.util.Objects;
  * @Date 2020/2/22 16:48
  * @Version 0.0.1
  */
-public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> {
+public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> implements QueryByExampleExecutor<T> {
 
     protected final JPAQueryFactory jpaQueryFactory;
     protected final QuerydslJpaPredicateExecutor<T> jpaPredicateExecutor;
