@@ -14,6 +14,9 @@ import java.util.stream.Collectors
 /**
  * 自动生成代码脚本：JPA + QueryDSL版本
  *
+ * 使用方法：
+ * 将此groovy脚本放到 \.IntelliJIdea2019.3\config\extensions\com.intellij.database\schema
+ *
  * intellij API源码在(com.intellij.database) 源码包在JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
  *
  * @Author Siu
