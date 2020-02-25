@@ -2,12 +2,12 @@ package org.siu.myboot.core.web.handlers;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.core.annotation.RestfulApi;
 import org.siu.myboot.core.constant.ResultConstant;
-import org.siu.myboot.core.restful.result.Result;
+import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.restful.result.ResultBuilder;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -28,7 +28,11 @@ public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
 
     @Override
     public boolean supportsReturnType(MethodParameter methodParameter) {
-        return methodParameter.hasMethodAnnotation(RestfulApi.class);
+        return methodParameter.hasMethodAnnotation(GetMapping.class)
+                || methodParameter.hasMethodAnnotation(PostMapping.class)
+                || methodParameter.hasMethodAnnotation(PutMapping.class)
+                || methodParameter.hasMethodAnnotation(PatchMapping.class)
+                || methodParameter.hasMethodAnnotation(DeleteMapping.class);
     }
 
     @Override
