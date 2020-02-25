@@ -24,12 +24,17 @@ import java.util.stream.Collectors
  * @Version 0.0.1
  */
 config = [
-        // 生成开关
-        generate  : [
+        // 自动生成开关
+        generate: [
+                // 实体对象，对应 DO/PO
                 entity            : true,
+                // JPA QueryDSL 工具实体对象
                 entityQueryDSL    : true,
+                // 数据访问对象 DAO
                 repository        : true,
+                // JPA QueryDSL 数据访问对象
                 repositoryQueryDSL: true,
+                // 服务层对象
                 service           : true
         ],
         // 实体生成设置
@@ -45,24 +50,30 @@ config = [
                         // 父类的属性，父类已有属性不在出现在生成的实体内
                         properties: ["version"],
                 ],
+                // jpa相关设置
+                jpaConfig: [
+                        // 是否使用jpa，设置为 false 可以生成与 jpa 无关的实体
+                        enable                            : true,
+                        // 是否自动填充时间类型字段
+                        autoFillDateTypeField             : true,
+                        // 自动填充的字段名称
+                        autoFillFieldCreatedDateNames     : ["create_time", "insert_time", "add_time"],
+                        autoFillFieldLastModifiedDateNames: ["update_time", "modified_time"],
+                        // 是否配置软删除
+                        softDelete                        : true,
+                        // 软删除字段名: soft_delete 设计为int8，0-未删除，其他-删除；与需要唯一约束的字段组成联合唯一
+                        softDeleteFieldName               : "soft_delete",
+                        // 软删除更新使用的序列/自增,未配置为空，将使用 ”set softDeleteFieldName = 1“
+                        softDeleteSeqName                 : "public_soft_delete_seq"
+                ],
                 // 数据库类型
                 dbType             : "postgres",
                 // 是否序列化
                 impSerializable    : true,
-                // 是否生成 jpa 相关内容，设置为 false 可以生成与 jpa 无关的实体
-                jpa                : true,
                 // 是否生成 swagger 文档相关注解，相关说明来数据库注释
                 useSwagger         : true,
                 // 是否使用 lombok 注解代替 get、set方法
-                useLombok          : true,
-                // 是否自动填充创建时间/更新时间
-                autoFill           : true,
-                // 是否配置软删除
-                softDelete         : true,
-                // 软删除字段名: soft_delete 设计为int8，0-未删除，其他-删除；与需要唯一约束的字段组成联合唯一
-                softDeleteFieldName: "soft_delete",
-                // 软删除更新使用的序列/自增
-                softDeleteSeqName: "public_soft_delete_seq"
+                useLombok          : true
 
         ],
         // repository 生成设置
@@ -251,10 +262,10 @@ class Gen {
         // 配置软删除标记
         def softDeleteFlag = false
         def pkName = null
-        if (config.entity.softDelete) {
+        if (config.entity.jpaConfig.enable && config.entity.jpaConfig.softDelete) {
             // 遍历字段判断是否有软删除定义的字段
             fieldList.each() { field ->
-                if (config.entity.softDeleteFieldName == field.column) {
+                if (config.entity.jpaConfig.softDeleteFieldName == field.column) {
                     if (field.type == "Long") {
                         softDeleteFlag = true
                     }
@@ -278,7 +289,7 @@ class Gen {
         if (parentConfig.enable) {
             writer.writeLine "import ${parentConfig.package}.${parentConfig.name};"
         }
-        if (config.entity.jpa) {
+        if (config.entity.jpaConfig.enable) {
             writer.writeLine "import javax.persistence.*;"
         }
         if (softDeleteFlag) {
@@ -291,7 +302,7 @@ class Gen {
             }
             writer.writeLine "import lombok.Data;"
             writer.writeLine "import lombok.experimental.Accessors;"
-            if (config.entity.jpa && config.entity.autoFill) {
+            if (config.entity.jpaConfig.enable && config.entity.jpaConfig.autoFillDateTypeField) {
                 writer.writeLine "import org.springframework.data.annotation.CreatedDate;"
                 writer.writeLine "import org.springframework.data.annotation.LastModifiedDate;"
                 writer.writeLine "import org.springframework.data.jpa.domain.support.AuditingEntityListener;"
@@ -319,9 +330,9 @@ class Gen {
             writer.writeLine "@Data"
             writer.writeLine "@Accessors(chain = true)"
         }
-        if (config.entity.jpa) {
+        if (config.entity.jpaConfig.enable) {
             writer.writeLine "@Entity"
-            if (config.entity.autoFill) {
+            if (config.entity.jpaConfig.autoFillDateTypeField) {
                 writer.writeLine "@EntityListeners(AuditingEntityListener.class)"
             }
             writer.writeLine "@Table(name = \"${table.name}\")"
@@ -331,7 +342,11 @@ class Gen {
         }
 
         if (softDeleteFlag) {
-            writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = nextval( '${config.entity.softDeleteSeqName}' ) WHERE ${pkName} = ?\")"
+            if (config.entity.jpaConfig.softDeleteSeqName == "") {
+                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = 1 WHERE ${pkName} = ?\")"
+            } else {
+                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = nextval( '${config.entity.jpaConfig.softDeleteSeqName}' ) WHERE ${pkName} = ?\")"
+            }
             writer.writeLine "@Where(clause = \"soft_delete = 0\")"
         }
 
@@ -361,7 +376,7 @@ class Gen {
         writer.writeLine "\t * default  : ${field.default}"
         writer.writeLine "\t */"
 
-        if (field.isPrimaryKey && config.entity.jpa) {
+        if (field.isPrimaryKey && config.entity.jpaConfig.enable) {
             writer.writeLine "\t@Id"
             // postgres 设置自增ID
             if ("postgres" == config.entity.dbType) {
@@ -383,15 +398,13 @@ class Gen {
             writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
         }
 
-        if (config.entity.jpa) {
-            if (config.entity.autoFill) {
+        if (config.entity.jpaConfig.enable) {
+            if (config.entity.jpaConfig.autoFillDateTypeField) {
                 // create_time update_time 自动填充
                 if ("Date" == field.type || "java.util.Date" == field.type || field.type.contains("Date")) {
-                    if (field.name.contains("Create") || field.name.contains("create") ||
-                            field.name.contains("Insert") || field.name.contains("insert")) {
+                    if (config.entity.jpaConfig.autoFillFieldCreatedDateNames.contains(field.column.toLowerCase())) {
                         writer.writeLine "\t@CreatedDate"
-                    } else if (field.name.contains("Update") || field.name.contains("update") ||
-                            field.name.contains("Modif") || field.name.contains("nodif")) {
+                    } else if (config.entity.jpaConfig.autoFillFieldLastModifiedDateNames.contains(field.column.toLowerCase())) {
                         writer.writeLine "\t@LastModifiedDate"
                     }
                 }
