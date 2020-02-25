@@ -25,6 +25,12 @@ import java.util.stream.Collectors
  *        5）选择你的groovy脚本
  *        6）视图界面打开选择生成的目录 => 完成
  *
+ * Tips：
+ *      1） Windows 可以用mklink 方式 放到\.IntelliJIdea2019.3\config\extensions\com.intellij.database\schema
+ *          命令： mklink /h "C:\{IDEA目录}\config\extensions\com.intellij.database\schema\Generate JPA POJOs-REPOs-SERVICEs.groovy" "C:\{文件原路径}\Generate JPA POJOs-REPOs-SERVICEs.groovy"
+ *      2） Linux/MacOS 可以用对应的命令操作 （ln命令）
+ *
+ *
  * intellij API源码(com.intellij.database): JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
  *
  * @Author Siu
