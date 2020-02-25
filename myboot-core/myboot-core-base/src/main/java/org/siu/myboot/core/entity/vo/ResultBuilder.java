@@ -1,6 +1,7 @@
-package org.siu.myboot.core.restful.result;
+package org.siu.myboot.core.entity.vo;
 
 import org.siu.myboot.core.constant.ResultConstant;
+import org.siu.myboot.core.entity.vo.Result;
 
 /**
  * @Author Siu

@@ -10,12 +10,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class PageParams<T> {
-    /**
-     * 分页与排序参数
-     */
-    private Page page;
-
+public class PageParams<T> extends Page{
     /**
      * 查询实体参数
      */

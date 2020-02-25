@@ -1,7 +1,8 @@
-package org.siu.myboot.core.restful.result;
+package org.siu.myboot.core.entity.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.siu.myboot.core.constant.ResultConstant;
 
 /**
  * @Author Siu
@@ -17,6 +18,12 @@ public class Result {
     private Object debug;
 
 
+    public Result() {
+    }
 
-
+    public Result(Object data) {
+        this.code = ResultConstant.SUCCESS;
+        this.message = ResultConstant.SUCCESS_MSG;
+        this.data = data;
+    }
 }

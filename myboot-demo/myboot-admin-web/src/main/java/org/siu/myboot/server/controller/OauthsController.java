@@ -24,7 +24,7 @@ public class OauthsController {
 
     @PostMapping("/get")
     public Result getPage(@RequestBody PageParams<Oauths> params) {
-        PageData<Oauths> data = oauthsService.getList(params.getPage(), params.getItem());
+        PageData<Oauths> data = oauthsService.getList(params, params.getItem());
         return new Result(data);
     }
 
