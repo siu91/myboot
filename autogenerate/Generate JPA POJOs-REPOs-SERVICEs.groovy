@@ -262,8 +262,8 @@ class Gen {
         // 配置软删除标记
         def softDeleteFlag = false
         def pkName = null
+        // 遍历字段判断是否有软删除定义的字段 && 有主键 && 软删除字段必须定义为Long 类型
         if (config.entity.jpaConfig.enable && config.entity.jpaConfig.softDelete) {
-            // 遍历字段判断是否有软删除定义的字段
             fieldList.each() { field ->
                 if (config.entity.jpaConfig.softDeleteFieldName == field.column) {
                     if (field.type == "Long") {
@@ -343,11 +343,11 @@ class Gen {
 
         if (softDeleteFlag) {
             if (config.entity.jpaConfig.softDeleteSeqName == "") {
-                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = 1 WHERE ${pkName} = ?\")"
+                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET ${config.entity.jpaConfig.softDeleteFieldName} = 1 WHERE ${pkName} = ?\")"
             } else {
-                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET soft_delete = nextval( '${config.entity.jpaConfig.softDeleteSeqName}' ) WHERE ${pkName} = ?\")"
+                writer.writeLine "@SQLDelete(sql = \"UPDATE ${table.name} SET ${config.entity.jpaConfig.softDeleteFieldName} = nextval( '${config.entity.jpaConfig.softDeleteSeqName}' ) WHERE ${pkName} = ?\")"
             }
-            writer.writeLine "@Where(clause = \"soft_delete = 0\")"
+            writer.writeLine "@Where(clause = \"${config.entity.jpaConfig.softDeleteFieldName} = 0\")"
         }
 
         def extendsStr = parentConfig.enable ? " extends $parentConfig.name" : "",
