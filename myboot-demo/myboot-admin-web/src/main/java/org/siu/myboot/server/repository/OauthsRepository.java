@@ -10,7 +10,7 @@ import java.util.List;
  * Oauths Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-24 23:46:44
+ * @Date 2020-02-25 09:02:29
  * @Version 0.0.1
  */
 public interface OauthsRepository extends JpaRepository<Oauths, Long> {

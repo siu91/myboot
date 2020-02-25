@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
+import java.util.List;
 
 
 /**
@@ -43,8 +44,8 @@ public class MinIOController {
 
     @GetMapping("/test")
     @RestfulApi
-    public String test(String name) {
-        return "Hello " + name;
+    public String test(@RequestParam List<String> name) {
+        return "Hello " + name.get(0);
     }
 
 

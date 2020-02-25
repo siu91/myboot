@@ -4,12 +4,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siu.myboot.server.entity.po.Oauths;
+import org.siu.myboot.server.entity.po.QOauths;
+import org.siu.myboot.server.entity.po.QUserInfo;
 import org.siu.myboot.server.entity.po.UserInfo;
 import org.siu.myboot.server.repository.dsl.UserInfoRepositoryQueryDsl;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
+import org.springframework.data.querydsl.QSort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -77,6 +81,8 @@ public class UserInfoRepositoryTests {
 
     }
 
+    private static final QUserInfo qUserInfo = QUserInfo.userInfo;
+    private static final QOauths qOauths = QOauths.oauths;
 
     @Test
     public void testUserInfoRepositoryQueryDsl() {
@@ -113,7 +119,10 @@ public class UserInfoRepositoryTests {
             oauthsRepository.save(oauths1);
         }
 
-        Pageable pageable = QPageRequest.of(0, 10);
+        // 分页和排序
+        // PageRequest.of(0, 10, new QSort(QPerson.person.firstname.desc())));
+        QSort sort = new QSort(QUserInfo.userInfo.createTime.asc()).and(QUserInfo.userInfo.updateTime.asc());
+        Pageable pageable = PageRequest.of(0, 10, sort);
         Page<UserInfo> page = userInfoRepositoryQueryDsl.queryExample(pageable);
         List<UserInfo> userInfoList = page.getContent();
         System.out.println(userInfoList.size());
