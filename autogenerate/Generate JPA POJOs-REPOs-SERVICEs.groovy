@@ -15,9 +15,17 @@ import java.util.stream.Collectors
  * 自动生成代码脚本：JPA + QueryDSL版本
  *
  * 使用方法：
- * 将此groovy脚本放到 \.IntelliJIdea2019.3\config\extensions\com.intellij.database\schema
+ * 1、将此groovy脚本放到 \.IntelliJIdea2019.3\config\extensions\com.intellij.database\schema
+ * 2、配置数据源： IDEA右侧导航视图选择 Database => +(添加) =>配置数据源
+ * 3、生成：
+ *        1） IDEA右侧导航视图选择 Database
+ *        2）选择某个数据源
+ *        3）选择 tables 下一张或多张表
+ *        4）右键选择 Scripted Extensions
+ *        5）选择你的groovy脚本
+ *        6）视图界面打开选择生成的目录 => 完成
  *
- * intellij API源码在(com.intellij.database) 源码包在JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
+ * intellij API源码(com.intellij.database): JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
  *
  * @Author Siu
  * @Date 2020/2/23 23:18
