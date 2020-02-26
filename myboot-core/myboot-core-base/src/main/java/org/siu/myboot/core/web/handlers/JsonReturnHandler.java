@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.constant.ResultConstant;
 import org.siu.myboot.core.entity.vo.Result;
-import org.siu.myboot.core.entity.vo.ResultBuilder;
+import org.siu.myboot.core.utils.ResultBuilder;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

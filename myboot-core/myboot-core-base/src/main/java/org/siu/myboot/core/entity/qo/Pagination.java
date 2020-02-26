@@ -1,4 +1,4 @@
-package org.siu.myboot.core.entity.request;
+package org.siu.myboot.core.entity.qo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

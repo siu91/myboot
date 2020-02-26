@@ -1,6 +1,6 @@
 package org.siu.myboot.server.controller;
 
-import org.siu.myboot.core.entity.request.Params;
+import org.siu.myboot.core.entity.qo.Params;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.Oauths;

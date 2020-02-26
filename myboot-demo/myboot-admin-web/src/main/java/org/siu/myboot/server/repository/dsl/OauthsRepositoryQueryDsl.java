@@ -2,9 +2,7 @@ package org.siu.myboot.server.repository.dsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;;
-import org.siu.myboot.core.dsl.QBuiler;
-import org.siu.myboot.core.entity.BaseEntity;
-import org.siu.myboot.core.entity.request.QueryBuilder;
+import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QOauths;
 import org.siu.myboot.server.entity.po.Oauths;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package org.siu.myboot.server.service;
 
-import org.siu.myboot.core.entity.request.Params;
-import org.siu.myboot.core.entity.request.QueryBuilder;
+import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.Oauths;
 import org.siu.myboot.server.entity.po.QOauths;

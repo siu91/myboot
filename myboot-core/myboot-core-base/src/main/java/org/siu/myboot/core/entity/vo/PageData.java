@@ -4,7 +4,7 @@ package org.siu.myboot.core.entity.vo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.siu.myboot.core.entity.BaseEntity;
-import org.siu.myboot.core.entity.request.Pagination;
+import org.siu.myboot.core.entity.qo.Pagination;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
