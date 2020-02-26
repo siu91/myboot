@@ -4,7 +4,7 @@ package org.siu.myboot.core.entity.vo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.siu.myboot.core.entity.BaseEntity;
-import org.siu.myboot.core.entity.request.PageAndSort;
+import org.siu.myboot.core.entity.request.Pagination;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -56,13 +56,13 @@ public class PageData {
      */
     private boolean hasPrevious;
 
-    public PageData(Page page, PageAndSort pageAndSort) {
-        if (Objects.nonNull(page) && Objects.nonNull(pageAndSort)) {
+    public PageData(Page page, Pagination pagination) {
+        if (Objects.nonNull(page) && Objects.nonNull(pagination)) {
             this.items = page.getContent();
             this.total = page.getTotalElements();
             this.totalPage = page.getTotalPages();
-            this.current = pageAndSort.getViewPage();
-            this.limit = pageAndSort.getLimit();
+            this.current = pagination.getViewPage();
+            this.limit = pagination.getLimit();
             this.hasNext = page.hasNext();
             this.hasPrevious = page.hasPrevious();
         }

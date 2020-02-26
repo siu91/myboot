@@ -20,24 +20,24 @@ public class Sort {
     /**
      * 排序字段
      */
-    private String order;
+    private String field;
 
     /**
      * 排序类型： asc/desc
      * <p>
      * 默认 asc
      */
-    private String direction;
+    private String order;
 
-    public void setDirection(String direction) {
-        if (Objects.nonNull(direction)) {
-            if (Order.ASC.toString().equals(direction.toUpperCase()) || Order.DESC.toString().equals(direction.toUpperCase())) {
-                this.direction = direction;
+    public void setOrder(String order) {
+        if (Objects.nonNull(order)) {
+            if (Order.ASC.toString().equals(order.toUpperCase()) || Order.DESC.toString().equals(order.toUpperCase())) {
+                this.order = order;
             } else {
-                this.direction = Order.ASC.toString();
+                this.order = Order.ASC.toString();
             }
         } else {
-            this.direction = Order.ASC.toString();
+            this.order = Order.ASC.toString();
         }
     }
 }

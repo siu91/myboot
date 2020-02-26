@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class PageAndSort {
+public class Pagination {
 
 
     /**

@@ -32,10 +32,10 @@ public class QueryBuilder {
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
         if (Objects.nonNull(sortList)) {
             for (Sort s : sortList) {
-                ComparableExpressionBase ceb = qBuiler.order(s.getOrder());
+                ComparableExpressionBase ceb = qBuiler.order(s.getField());
                 if (Objects.nonNull(ceb)) {
                     OrderSpecifier o;
-                    if (Order.DESC.toString().equals(s.getDirection().toUpperCase())) {
+                    if (Order.DESC.toString().equals(s.getOrder().toUpperCase())) {
                         o = new OrderSpecifier(Order.DESC, ceb);
                     } else {
                         o = new OrderSpecifier(Order.ASC, ceb);
