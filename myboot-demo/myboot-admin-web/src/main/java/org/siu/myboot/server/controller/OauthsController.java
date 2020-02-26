@@ -24,7 +24,7 @@ public class OauthsController {
 
     @GetMapping("/get")
     public Result getPage(@RequestBody PageAndSortParams<Oauths> params) {
-        PageData data = oauthsService.getList(params, params.getQuery());
+        PageData data = oauthsService.getList(params);
         return new Result(data);
     }
 

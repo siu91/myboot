@@ -2,6 +2,9 @@ package org.siu.myboot.server.repository.dsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;;
+import org.siu.myboot.core.dsl.QBuiler;
+import org.siu.myboot.core.entity.BaseEntity;
+import org.siu.myboot.core.entity.request.QueryBuilder;
 import org.siu.myboot.server.entity.po.QOauths;
 import org.siu.myboot.server.entity.po.Oauths;
 import org.springframework.data.domain.Page;
@@ -18,25 +21,41 @@ import javax.persistence.EntityManager;
  * @Version 0.0.1
  */
 @Repository
-public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
+public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long> {
 
-	public OauthsRepositoryQueryDsl(EntityManager entityManager) {
-		super(Oauths.class, entityManager);
-	}
+    public OauthsRepositoryQueryDsl(EntityManager entityManager) {
+        super(Oauths.class, entityManager);
+    }
 
-	/**
-	 * QOauths QueryDSL Object: Use jpaQueryFactory build JPAQuery
-	 */
-	private static final QOauths qOauths = QOauths.oauths;
+    /**
+     * QOauths QueryDSL Object: Use jpaQueryFactory build JPAQuery
+     */
+    private static final QOauths qOauths = QOauths.oauths;
 
-	/**
-	 * queryExample
-	 *
-	 * @param pageable
-	 * @return
-	 */
-	public Page<Oauths> queryExample(Pageable pageable) {
-		JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
-		return basePageQuery(countQuery, pageable);
-	}
+    /**
+     * queryExample
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<Oauths> queryExample(Pageable pageable) {
+        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
+        return basePageQuery(countQuery, pageable);
+    }
+
+
+    /**
+     * queryExample
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<Oauths> query(Pageable pageable, Oauths params) {
+        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths).where(qOauths.id.eq(1L));
+
+        QueryBuilder.buildCondition(countQuery, qOauths, params);
+        return basePageQuery(countQuery, pageable);
+    }
+
+
 }

@@ -3,9 +3,12 @@ package org.siu.myboot.core.entity.request;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.dsl.QBuiler;
+import org.siu.myboot.core.entity.BaseEntity;
 import org.springframework.data.querydsl.QSort;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,4 +47,30 @@ public class QueryBuilder {
         QSort sort = new QSort(orderSpecifiers);
         return sort;
     }
+
+
+    /**
+     * @param query
+     * @param qBuiler
+     * @param entity
+     * @return
+     */
+    public static void buildCondition(JPAQuery query, QBuiler qBuiler, BaseEntity entity) {
+        try {
+            Field[] fields = entity.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                Object value = field.get(entity);
+                // 获取非空字段属性名
+                if (field.get(entity) != null && !"".equals(field.get(entity))) {
+                    String conditionName = field.getName();
+                    query.where(qBuiler.condition(conditionName).eq(value));
+                }
+            }
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
+
+
 }

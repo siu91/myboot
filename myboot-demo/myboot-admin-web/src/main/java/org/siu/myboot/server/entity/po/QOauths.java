@@ -5,13 +5,16 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import org.siu.myboot.core.dsl.QBuiler;
+
+import java.util.Objects;
 
 
 /**
  * QUserInfo is a Querydsl query type for UserInfo
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QOauths extends EntityPathBase<Oauths> {
+public class QOauths extends EntityPathBase<Oauths>  implements QBuiler {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +35,72 @@ public class QOauths extends EntityPathBase<Oauths> {
 	public final DateTimePath<java.util.Date> createTime = createDateTime("createTime", java.util.Date.class);
 
 	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
+
+	/**
+	 * get property
+	 *
+	 * @param property
+	 * @return
+	 */
+	@Override
+	public ComparableExpressionBase order(String property) {
+		if (Objects.isNull(property)) {
+			return null;
+		}
+		switch (property) {
+			 case "id":
+				return id;
+			 case "userId":
+				return userId;
+			 case "oauthType":
+				return oauthType;
+			 case "oauthId":
+				return oauthId;
+			 case "unionid":
+				return unionid;
+			 case "credential":
+				return credential;
+			 case "createTime":
+				return createTime;
+			 case "updateTime":
+				return updateTime;
+			default:
+				return null;
+		}
+	}
+
+	/**
+	 * get property
+	 *
+	 * @param property
+	 * @return
+	 */
+	@Override
+	public SimpleExpression condition(String property) {
+		if (Objects.isNull(property)) {
+			return null;
+		}
+		switch (property) {
+			 case "id":
+				return id;
+			 case "userId":
+				return userId;
+			 case "oauthType":
+				return oauthType;
+			 case "oauthId":
+				return oauthId;
+			 case "unionid":
+				return unionid;
+			 case "credential":
+				return credential;
+			 case "createTime":
+				return createTime;
+			 case "updateTime":
+				return updateTime;
+			default:
+				return null;
+		}
+	}
 
 	public QOauths(String variable) {
 		super(Oauths.class, forVariable(variable));
