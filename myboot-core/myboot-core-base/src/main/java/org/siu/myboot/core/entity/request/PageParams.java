@@ -17,5 +17,5 @@ public class PageParams<T> extends Page{
     /**
      * 查询实体参数
      */
-    private T item;
+    private T query;
 }

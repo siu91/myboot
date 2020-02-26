@@ -18,9 +18,11 @@ public class Page {
 
 
     /**
-     * 前端传的页码，规定前端页码从1开始
+     * 前端传的页码，规定前端页码从1开始，set的时候转成后端的值
+     *
+     * 后端默认从0开始
      */
-    private int page = 1;
+    private int page = 0;
 
     /**
      * 每页记录数
