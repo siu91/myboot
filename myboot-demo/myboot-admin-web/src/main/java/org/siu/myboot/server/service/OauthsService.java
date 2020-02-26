@@ -32,16 +32,38 @@ public class OauthsService {
     private OauthsRepositoryQueryDsl repositoryQueryDsl;
 
 
-    public PageData getList(Params<Oauths> params) {
-        QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
-        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-
-        Page<Oauths> data = repositoryQueryDsl.query(pageable, params.getQuery());
-
-        return new PageData(data, params);
+    /**
+     * 新增
+     *
+     * @param oauths
+     * @return
+     */
+    public Oauths save(Oauths oauths) {
+        return repositoryQueryDsl.save(oauths);
     }
 
     /**
+     * 根据ID删除
+     *
+     * @param id
+     */
+    public void delete(Long id) {
+        repositoryQueryDsl.deleteById(id);
+    }
+
+    /**
+     * 更新
+     *
+     * @param oauths
+     * @return
+     */
+    public Oauths update(Oauths oauths) {
+        return repositoryQueryDsl.save(oauths);
+    }
+
+    /**
+     * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -50,20 +72,18 @@ public class OauthsService {
     }
 
 
-   /* private EntityPathBase getFieldValueByFieldName(String fieldName, QOauths qOauths) {
-        try {
-            Field field = qOauths.getClass().getDeclaredField(fieldName);
-            //设置对象的访问权限，保证对private的属性的访问
-            field.setAccessible(true);
-            Object o = field.get(qOauths);
-            if (o instanceof EntityPathBase) {
-                return (EntityPathBase) o;
-            }
-        } catch (Exception e) {
+    /**
+     * 分页查询列表
+     *
+     * @param params
+     * @return
+     */
+    public PageData getList(Params<Oauths> params) {
+        QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
+        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
+        Page<Oauths> data = repositoryQueryDsl.query(pageable, params.getQuery());
 
-            return null;
-        }
-        return null;
-    }*/
+        return new PageData(data, params);
+    }
 
 }
