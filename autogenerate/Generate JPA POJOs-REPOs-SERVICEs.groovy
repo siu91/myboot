@@ -43,13 +43,13 @@ config = [
                 // 实体对象，对应 DO/PO
                 entity            : true,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : true,
+                entityQueryDSL    : false,
                 // 数据访问对象 DAO
-                repository        : true,
+                repository        : false,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: true,
+                repositoryQueryDSL: false,
                 // 服务层对象
-                service           : true
+                service           : false
         ],
         // 实体生成设置
         entity    : [
@@ -409,7 +409,13 @@ class Gen {
         }
 
         if (config.entity.useSwagger) {
-            writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
+            // 字段注释中有标记"(qp)",代表为查询参数，会加上 ApiModelProperty
+            // 默认主键是查询条件无需标记
+            if((field.comment!=null && field.comment.contains("(qp)")) || field.isPrimaryKey){
+                writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
+            }else{
+                writer.writeLine "\t@ApiModelProperty(value = \"${comment}\", hidden = true)"
+            }
         }
 
         if (config.entity.jpaConfig.enable) {
