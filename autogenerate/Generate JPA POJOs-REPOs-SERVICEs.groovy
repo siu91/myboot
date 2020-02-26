@@ -56,13 +56,13 @@ config = [
                 // 继承父类设置
                 parent             : [
                         // 是否继承父类
-                        enable    : false,
+                        enable    : true,
                         // 父类名称
                         name      : "BaseEntity",
                         // 父类包名
                         package   : "org.siu.myboot.core.entity",
                         // 父类的属性，父类已有属性不在出现在生成的实体内
-                        properties: ["version"],
+                        properties: ["version123"],
                 ],
                 // jpa相关设置
                 jpaConfig: [

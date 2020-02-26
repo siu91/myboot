@@ -1,10 +1,16 @@
 package org.siu.myboot.server.service;
 
-import org.siu.myboot.core.entity.request.Page;
+import org.siu.myboot.core.entity.request.PageAndSort;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.Oauths;
+import org.siu.myboot.server.entity.po.QOauths;
+import org.siu.myboot.server.entity.po.UserInfo;
 import org.siu.myboot.server.repository.OauthsRepository;
 import org.siu.myboot.server.repository.dsl.OauthsRepositoryQueryDsl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,17 +32,20 @@ public class OauthsService {
     private OauthsRepositoryQueryDsl repositoryQueryDsl;
 
 
+    public PageData getList(PageAndSort page, Oauths oauths) {
 
-    public PageData<Oauths> getList(Page page,Oauths oauths){
+        QSort sort = new QSort(QOauths.oauths.createTime.asc()).and(QOauths.oauths.updateTime.asc());
+        Pageable pageable = PageRequest.of(page.getPage(), page.getLimit(), sort);
+        Page<Oauths> data = repositoryQueryDsl.queryExample(pageable);
 
-    	return null;
-	}
-	/**
-	 *
-	 * @param id
-	 * @return
-	 */
-	public Optional<Oauths> findById(Long id) {
-		return repositoryQueryDsl.findById(id);
+        return new PageData(data, page);
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public Optional<Oauths> findById(Long id) {
+        return repositoryQueryDsl.findById(id);
     }
 }

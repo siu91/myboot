@@ -2,8 +2,6 @@ package org.siu.myboot.core.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Data Object 基类
@@ -14,10 +12,4 @@ import java.util.Date;
  */
 @Data
 public class BaseEntity {
-
-    @Column(name = "version")
-    private Integer version;
-
-    @Column(name = "create_time")
-    private Date createTime;
 }

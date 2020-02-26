@@ -2,9 +2,11 @@ package org.siu.myboot.server.entity.po;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import lombok.EqualsAndHashCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,9 +20,10 @@ import java.io.Serializable;
  * 用户信息表
  *
  * @author @Author Siu
- * @Date 2020-02-25 09:02:29
+ * @Date 2020-02-26 12:44:40
  * @Version 0.0.1
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 @Entity
@@ -29,7 +32,7 @@ import java.io.Serializable;
 @ApiModel(value = "用户信息表")
 @SQLDelete(sql = "UPDATE user_info SET soft_delete = nextval( 'public_soft_delete_seq' ) WHERE user_id = ?")
 @Where(clause = "soft_delete = 0")
-public class UserInfo implements Serializable {
+public class UserInfo extends BaseEntity implements Serializable {
 
 	/**
 	 * 用户ID（主键）
@@ -48,7 +51,7 @@ public class UserInfo implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "用户名（唯一）")
+	@ApiModelProperty(value = "用户名（唯一）", hidden = true)
 	@Column(name = "user_name", nullable = false, length = 64)
 	private String userName;
 
@@ -57,7 +60,7 @@ public class UserInfo implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "头像URL")
+	@ApiModelProperty(value = "头像URL", hidden = true)
 	@Column(name = "avatar_url", nullable = true, length = 255)
 	private String avatarUrl;
 
@@ -66,7 +69,7 @@ public class UserInfo implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "手机（唯一）")
+	@ApiModelProperty(value = "手机（唯一）", hidden = true)
 	@Column(name = "phone", nullable = false, length = 64)
 	private String phone;
 
@@ -75,7 +78,7 @@ public class UserInfo implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "密码")
+	@ApiModelProperty(value = "密码", hidden = true)
 	@Column(name = "password", nullable = true, length = 64)
 	private String password;
 
@@ -84,7 +87,7 @@ public class UserInfo implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "创建时间")
+	@ApiModelProperty(value = "创建时间", hidden = true)
 	@CreatedDate
 	@Column(name = "create_time", nullable = true)
 	private java.util.Date createTime;
@@ -94,17 +97,17 @@ public class UserInfo implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "更新时间")
+	@ApiModelProperty(value = "更新时间", hidden = true)
 	@LastModifiedDate
 	@Column(name = "update_time", nullable = true)
 	private java.util.Date updateTime;
 
 	/**
 	 * 软删除：0-未删除，其他-删除
-	 * nullable : true
+	 * nullable : false
 	 * default  : 0
 	 */
-	@ApiModelProperty(value = "软删除：0-未删除，其他-删除")
-	@Column(name = "soft_delete", nullable = true)
+	@ApiModelProperty(value = "软删除：0-未删除，其他-删除", hidden = true)
+	@Column(name = "soft_delete", nullable = false)
 	private Long softDelete;
 }

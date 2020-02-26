@@ -1,6 +1,6 @@
 package org.siu.myboot.server.controller;
 
-import org.siu.myboot.core.entity.request.PageParams;
+import org.siu.myboot.core.entity.request.PageAndSortParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.Oauths;
@@ -22,9 +22,9 @@ public class OauthsController {
     @Resource
     private OauthsService oauthsService;
 
-    @PostMapping("/get")
-    public Result getPage(@RequestBody PageParams<Oauths> params) {
-        PageData<Oauths> data = oauthsService.getList(params, params.getItem());
+    @GetMapping("/get")
+    public Result getPage(@RequestBody PageAndSortParams<Oauths> params) {
+        PageData data = oauthsService.getList(params, params.getQuery());
         return new Result(data);
     }
 

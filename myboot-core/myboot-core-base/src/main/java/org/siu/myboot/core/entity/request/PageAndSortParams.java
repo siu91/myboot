@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class PageParams<T> extends Page{
+public class PageAndSortParams<T> extends PageAndSort {
     /**
      * 查询实体参数
      */

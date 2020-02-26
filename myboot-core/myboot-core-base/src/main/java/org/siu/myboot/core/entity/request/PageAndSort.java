@@ -14,12 +14,12 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class Page {
+public class PageAndSort {
 
 
     /**
      * 前端传的页码，规定前端页码从1开始，set的时候转成后端的值
-     *
+     * <p>
      * 后端默认从0开始
      */
     private int page = 0;
@@ -45,5 +45,12 @@ public class Page {
         }
     }
 
-
+    /**
+     * 获取前端页码
+     *
+     * @return
+     */
+    public int getViewPage() {
+        return page + 1;
+    }
 }
