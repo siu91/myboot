@@ -47,9 +47,9 @@ config = [
                 // 数据访问对象 DAO
                 repository        : false,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: false,
+                repositoryQueryDSL: true,
                 // 服务层对象
-                service           : false
+                service           : true
         ],
         // 实体生成设置
         entity    : [
@@ -529,16 +529,26 @@ class Gen {
     // 生成Service
     def static genService(writer, config, parentConfig, entityName, pkType, basePackage) {
         writer.writeLine "package ${basePackage}.service;"
-        writer.writeLine ""
+
+        writer.writeLine "import org.siu.myboot.core.entity.qo.Params;"
+        writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
+        writer.writeLine "import org.siu.myboot.core.entity.vo.PageData;"
+        writer.writeLine "import ${basePackage}.entity.po.${entityName};"
+        writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
         writer.writeLine "import ${basePackage}.repository.${entityName}Repository;"
         writer.writeLine "import ${basePackage}.repository.dsl.${entityName}RepositoryQueryDsl;"
         if (parentConfig.enable) {
             writer.writeLine "import $parentConfig.package.$parentConfig.name;"
             writer.writeLine "import ${basePackage}.entity.$entityName;"
         }
+        writer.writeLine "import org.springframework.data.domain.Page;"
+        writer.writeLine "import org.springframework.data.domain.PageRequest;"
+        writer.writeLine "import org.springframework.data.domain.Pageable;"
+        writer.writeLine "import org.springframework.data.querydsl.QSort;"
         writer.writeLine "import org.springframework.stereotype.Service;"
-        writer.writeLine ""
+
         writer.writeLine "import javax.annotation.Resource;"
+        writer.writeLine "import java.util.Optional;"
         writer.writeLine ""
         writer.writeLine "/**"
         writer.writeLine " * $entityName service\u5c42"
@@ -556,6 +566,76 @@ class Gen {
         writer.writeLine "\tprivate ${entityName}Repository repository;"
         writer.writeLine "\t@Resource"
         writer.writeLine "\tprivate ${entityName}RepositoryQueryDsl repositoryQueryDsl;"
+
+
+        writer.writeLine "    /**\n" +
+                "     * add \n" +
+                "     *\n" +
+                "     * @param entity\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public ${entityName} save(${entityName} entity) {\n" +
+                "        return repositoryQueryDsl.save(entity);\n" +
+                "    }"
+
+        writer.writeLine ""
+
+        writer.writeLine "    /**\n" +
+                "     * delete by ID\n" +
+                "     *\n" +
+                "     * @param id\n" +
+                "     */\n" +
+                "    public void delete(Long id) {\n" +
+                "        repositoryQueryDsl.deleteById(id);\n" +
+                "    }"
+
+        writer.writeLine ""
+
+        writer.writeLine "    /**\n" +
+                "     * update\n" +
+                "     *\n" +
+                "     * @param entity\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public ${entityName} update(${entityName} entity) {\n" +
+                "        return repositoryQueryDsl.save(entity);\n" +
+                "    }"
+
+        writer.writeLine ""
+
+
+        writer.writeLine "  /**\n" +
+                "     * find by ID\n" +
+                "     *\n" +
+                "     * @param id\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public Optional<${entityName}> findById(Long id) {\n" +
+                "        return repositoryQueryDsl.findById(id);\n" +
+                "    }"
+        
+        
+        
+        writer.writeLine ""
+
+        def lEntityName = Utils.theFirstLetterLowercase(entityName)
+        // 分页查询列表
+        writer.writeLine "  /**\n" +
+                "     * get list by page\n" +
+                "     *\n" +
+                "     * @param params\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public PageData getList(Params<${entityName}> params) {\n" +
+                "        QSort sort = QueryBuilder.buildSort(params.getSort(), Q${entityName}.${lEntityName});\n" +
+                "        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);\n" +
+                "        Page<${entityName}> data = repositoryQueryDsl.query(pageable, params.getQuery());\n" +
+                "\n" +
+                "        return new PageData(data, params);\n" +
+                "    }"
+
+
+
         writer.writeLine "}"
     }
 
@@ -663,7 +743,8 @@ class Gen {
         writer.writeLine "package ${basePackage}.repository.dsl;"
         writer.writeLine ""
         writer.writeLine "import com.querydsl.jpa.impl.JPAQuery;"
-        writer.writeLine "import $parentConfig.package.$parentConfig.name;;"
+        writer.writeLine "import $parentConfig.package.$parentConfig.name;"
+        writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
         writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import org.springframework.data.domain.Page;"
@@ -702,6 +783,21 @@ class Gen {
         writer.writeLine "\t\tJPAQuery countQuery = jpaQueryFactory.selectFrom(q${entityName});"
         writer.writeLine "\t\treturn basePageQuery(countQuery, pageable);"
         writer.writeLine "\t}"
+        
+        
+        writer.writeLine ""
+        
+        writer.writeLine "    /**\n" +
+                "     * queryExample\n" +
+                "     *\n" +
+                "     * @param pageable\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public Page<${entityName}> query(Pageable pageable, ${entityName} params) {\n" +
+                "        JPAQuery countQuery = jpaQueryFactory.selectFrom(q${entityName});\n" +
+                "        QueryBuilder.buildCondition(countQuery, q${entityName}, params);\n" +
+                "        return basePageQuery(countQuery, pageable);\n" +
+                "    }"
 
         writer.writeLine "}"
     }

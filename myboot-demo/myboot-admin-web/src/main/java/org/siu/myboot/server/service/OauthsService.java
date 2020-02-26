@@ -1,5 +1,4 @@
 package org.siu.myboot.server.service;
-
 import org.siu.myboot.core.entity.qo.Params;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -20,30 +18,28 @@ import java.util.Optional;
  * Oauths service层
  *
  * @author @Author Siu
- * @Date 2020-02-25 09:02:29
+ * @Date 2020-02-26 22:12:56
  * @Version 0.0.1
  */
 @Service
 public class OauthsService {
 
-    @Resource
-    private OauthsRepository repository;
-    @Resource
-    private OauthsRepositoryQueryDsl repositoryQueryDsl;
-
-
+	@Resource
+	private OauthsRepository repository;
+	@Resource
+	private OauthsRepositoryQueryDsl repositoryQueryDsl;
     /**
-     * 新增
+     * add 
      *
-     * @param oauths
+     * @param entity
      * @return
      */
-    public Oauths save(Oauths oauths) {
-        return repositoryQueryDsl.save(oauths);
+    public Oauths save(Oauths entity) {
+        return repositoryQueryDsl.save(entity);
     }
 
     /**
-     * 根据ID删除
+     * delete by ID
      *
      * @param id
      */
@@ -52,17 +48,17 @@ public class OauthsService {
     }
 
     /**
-     * 更新
+     * update
      *
-     * @param oauths
+     * @param entity
      * @return
      */
-    public Oauths update(Oauths oauths) {
-        return repositoryQueryDsl.save(oauths);
+    public Oauths update(Oauths entity) {
+        return repositoryQueryDsl.save(entity);
     }
 
-    /**
-     * 根据ID查询
+  /**
+     * find by ID
      *
      * @param id
      * @return
@@ -71,9 +67,8 @@ public class OauthsService {
         return repositoryQueryDsl.findById(id);
     }
 
-
-    /**
-     * 分页查询列表
+  /**
+     * get list by page
      *
      * @param params
      * @return
@@ -85,5 +80,4 @@ public class OauthsService {
 
         return new PageData(data, params);
     }
-
 }

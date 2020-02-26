@@ -18,7 +18,7 @@ import java.io.Serializable;
  * 第三方授权表
  *
  * @author @Author Siu
- * @Date 2020-02-26 16:21:11
+ * @Date 2020-02-26 22:12:56
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
