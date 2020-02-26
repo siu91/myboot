@@ -90,6 +90,15 @@ config = [
                 useLombok          : true
 
         ],
+        // entityQueryDSL 生成设置
+        entityQueryDSL: [
+                // 参照 entity 部分的 parent
+                implement: [
+                        enable : true,
+                        name   : "QBuiler",
+                        package: "org.siu.myboot.core.dsl"
+                ]
+        ],
         // repository 生成设置
         repository: [
                 // 参照 entity 部分的 parent
@@ -216,7 +225,9 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.PathMetadata;"
         writer.writeLine "import javax.annotation.Generated;"
         writer.writeLine "import com.querydsl.core.types.Path;"
-        writer.writeLine "import org.siu.myboot.core.dsl.QBuiler;"
+        if (config.entityQueryDSL.implement.enable) {
+            writer.writeLine "import ${config.entityQueryDSL.implement.package}.${config.entityQueryDSL.implement.name};"
+        }
         writer.writeLine ""
         writer.writeLine "import java.util.Objects;"
         //writer.writeLine "import ${basePackage}.entity.po.${entityName};"
@@ -226,7 +237,8 @@ class Gen {
         writer.writeLine " * QUserInfo is a Querydsl query type for UserInfo"
         writer.writeLine " */"
         writer.writeLine "@Generated(\"com.querydsl.codegen.EntitySerializer\")"
-        writer.writeLine "public class Q${entityName} extends EntityPathBase<${entityName}>  implements QBuiler {"
+        def impStr = config.entityQueryDSL.implement.enable ? " implements QBuiler" : ""
+        writer.writeLine "public class Q${entityName} extends EntityPathBase<${entityName}>${impStr} {"
         writer.writeLine ""
         writer.writeLine "\tprivate static final long serialVersionUID = 1L;"
         writer.writeLine ""
@@ -235,57 +247,57 @@ class Gen {
         fieldList.each() { field -> genQueryDSLEntityProperties(writer, config, parentConfig, field) }
 
 
-        // 增加order 方法用于排序
-        writer.writeLine ""
-        writer.writeLine "\t/**"
-        writer.writeLine "\t * get property"
-        writer.writeLine "\t *"
-        writer.writeLine "\t * @param property"
-        writer.writeLine "\t * @return"
-        writer.writeLine "\t */"
-        writer.writeLine "\t@Override"
-        writer.writeLine "\tpublic ComparableExpressionBase order(String property) {"
-        writer.writeLine "\t\tif (Objects.isNull(property)) {"
-        writer.writeLine "\t\t\treturn null;"
-        writer.writeLine "\t\t}"
-        writer.writeLine "\t\tswitch (property) {"
+        if (config.entityQueryDSL.implement.enable) {
+            // 增加order 方法用于排序
+            writer.writeLine ""
+            writer.writeLine "\t/**"
+            writer.writeLine "\t * get property"
+            writer.writeLine "\t *"
+            writer.writeLine "\t * @param property"
+            writer.writeLine "\t * @return"
+            writer.writeLine "\t */"
+            writer.writeLine "\t@Override"
+            writer.writeLine "\tpublic ComparableExpressionBase order(String property) {"
+            writer.writeLine "\t\tif (Objects.isNull(property)) {"
+            writer.writeLine "\t\t\treturn null;"
+            writer.writeLine "\t\t}"
+            writer.writeLine "\t\tswitch (property) {"
 
-        fieldList.each() { field ->
-            writer.writeLine "\t\t\t case \"${field.name}\":"
-            writer.writeLine "\t\t\t\treturn ${field.name};"
+            fieldList.each() { field ->
+                writer.writeLine "\t\t\t case \"${field.name}\":"
+                writer.writeLine "\t\t\t\treturn ${field.name};"
+            }
+
+            writer.writeLine "\t\t\tdefault:"
+            writer.writeLine "\t\t\t\treturn null;"
+            writer.writeLine "\t\t}"
+            writer.writeLine "\t}"
+
+            // 增加condition 方法用于查询
+            writer.writeLine ""
+            writer.writeLine "\t/**"
+            writer.writeLine "\t * get property"
+            writer.writeLine "\t *"
+            writer.writeLine "\t * @param property"
+            writer.writeLine "\t * @return"
+            writer.writeLine "\t */"
+            writer.writeLine "\t@Override"
+            writer.writeLine "\tpublic SimpleExpression condition(String property) {"
+            writer.writeLine "\t\tif (Objects.isNull(property)) {"
+            writer.writeLine "\t\t\treturn null;"
+            writer.writeLine "\t\t}"
+            writer.writeLine "\t\tswitch (property) {"
+
+            fieldList.each() { field ->
+                writer.writeLine "\t\t\t case \"${field.name}\":"
+                writer.writeLine "\t\t\t\treturn ${field.name};"
+            }
+
+            writer.writeLine "\t\t\tdefault:"
+            writer.writeLine "\t\t\t\treturn null;"
+            writer.writeLine "\t\t}"
+            writer.writeLine "\t}"
         }
-
-        writer.writeLine "\t\t\tdefault:"
-        writer.writeLine "\t\t\t\treturn null;"
-        writer.writeLine "\t\t}"
-        writer.writeLine "\t}"
-
-        // 增加condition 方法用于查询
-        writer.writeLine ""
-        writer.writeLine "\t/**"
-        writer.writeLine "\t * get property"
-        writer.writeLine "\t *"
-        writer.writeLine "\t * @param property"
-        writer.writeLine "\t * @return"
-        writer.writeLine "\t */"
-        writer.writeLine "\t@Override"
-        writer.writeLine "\tpublic SimpleExpression condition(String property) {"
-        writer.writeLine "\t\tif (Objects.isNull(property)) {"
-        writer.writeLine "\t\t\treturn null;"
-        writer.writeLine "\t\t}"
-        writer.writeLine "\t\tswitch (property) {"
-
-        fieldList.each() { field ->
-            writer.writeLine "\t\t\t case \"${field.name}\":"
-            writer.writeLine "\t\t\t\treturn ${field.name};"
-        }
-
-        writer.writeLine "\t\t\tdefault:"
-        writer.writeLine "\t\t\t\treturn null;"
-        writer.writeLine "\t\t}"
-        writer.writeLine "\t}"
-
-
 
 
         writer.writeLine ""
