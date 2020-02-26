@@ -4,6 +4,7 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQuery;
+import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.dsl.QBuiler;
 import org.siu.myboot.core.entity.BaseEntity;
 import org.siu.myboot.core.entity.qo.Sort;
@@ -21,6 +22,7 @@ import java.util.Objects;
  * @Date 2020/2/26 14:53
  * @Version 0.0.1
  */
+@Slf4j
 public class QueryBuilder {
 
     /**
@@ -45,12 +47,13 @@ public class QueryBuilder {
                 }
             }
         }
-        QSort sort = new QSort(orderSpecifiers);
-        return sort;
+        return new QSort(orderSpecifiers);
     }
 
 
     /**
+     * 查询中加入where 条件
+     *
      * @param query
      * @param qBuiler
      * @param entity
@@ -69,7 +72,7 @@ public class QueryBuilder {
                 }
             }
         } catch (Exception e) {
-            // do nothing
+            log.error("添加条件失败：{}", query.toString());
         }
     }
 

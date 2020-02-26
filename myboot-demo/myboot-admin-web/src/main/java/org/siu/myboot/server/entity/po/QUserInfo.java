@@ -14,7 +14,7 @@ import java.util.Objects;
  * QUserInfo is a Querydsl query type for UserInfo
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QUserInfo extends EntityPathBase<UserInfo>  implements QBuiler {
+public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 
 	private static final long serialVersionUID = 1L;
 
