@@ -51,7 +51,7 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long> {
      * @return
      */
     public Page<Oauths> query(Pageable pageable, Oauths params) {
-        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths).where(qOauths.id.eq(1L));
+        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
 
         QueryBuilder.buildCondition(countQuery, qOauths, params);
         return basePageQuery(countQuery, pageable);
