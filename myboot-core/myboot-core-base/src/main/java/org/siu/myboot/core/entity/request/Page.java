@@ -2,7 +2,6 @@ package org.siu.myboot.core.entity.request;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.data.querydsl.QSort;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class Page {
     /**
      * 前端传的页码，规定前端页码从1开始
      */
-    private int pageNum = 1;
+    private int page = 1;
 
     /**
      * 每页记录数
@@ -31,21 +30,16 @@ public class Page {
     /**
      * 排序参数
      */
-    private List<String> sort;
-
-    /**
-     * 排序方式 asc/desc
-     */
-    private List<String> direction;
+    private List<Sort> sort;
 
     /**
      * set 时转成后端的页码
      *
-     * @param pageNum
+     * @param page
      */
-    public void setPageNum(int pageNum) {
-        if (pageNum > 0) {
-            this.pageNum = pageNum - 1;
+    public void setPage(int page) {
+        if (page > 0) {
+            this.page = page - 1;
         }
     }
 
