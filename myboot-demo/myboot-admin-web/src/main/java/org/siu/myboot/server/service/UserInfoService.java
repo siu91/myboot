@@ -1,5 +1,8 @@
 package org.siu.myboot.server.service;
+
+import com.querydsl.core.types.OrderSpecifier;
 import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.UserInfo;
@@ -12,13 +15,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
  * UserInfo service层
  *
  * @author @Author Siu
- * @Date 2020-02-27 16:10:42
+ * @Date 2020-02-27 20:33:51
  * @Version 0.0.1
  */
 @Service
@@ -67,17 +71,27 @@ public class UserInfoService {
         return repositoryQueryDsl.findById(id);
     }
 
-  /**
+   /**
      * get list by page
      *
      * @param params
      * @return
      */
-    public PageData getList(Params<UserInfo> params) {
+    public PageData getPage(Params<UserInfo> params) {
         QSort sort = QueryBuilder.buildSort(params.getSort(), QUserInfo.userInfo);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<UserInfo> data = repositoryQueryDsl.query(pageable, params.getTerms());
+        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
         return new PageData(data, params);
+    }
+
+    /**
+     * get list
+     *
+     * @return
+     */
+    public List<UserInfo> getList(UserInfo userInfo, List<Sort> sorts) {
+        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QUserInfo.userInfo);
+        return repositoryQueryDsl.queryList(userInfo, sort);
     }
 }

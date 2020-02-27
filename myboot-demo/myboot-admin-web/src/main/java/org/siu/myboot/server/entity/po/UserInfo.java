@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 用户信息表
  *
  * @author @Author Siu
- * @Date 2020-02-27 16:10:42
+ * @Date 2020-02-27 20:33:51
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
