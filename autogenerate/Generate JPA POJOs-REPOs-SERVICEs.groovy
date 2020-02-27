@@ -118,6 +118,11 @@ config = [
                         name   : "BaseService",
                         package: "org.siu.myboot.core.common"
                 ]
+        ],
+        // controller 生成设置
+        controller: [
+                // API 版本
+                apiVersion: "v1"
         ]
 ]
 
@@ -216,7 +221,7 @@ class Gen {
         // controller
         if (config.generate.controller) {
             Utils.createFile("${dir}\\controller", "${entityName}Controller.java").withWriter("utf8") {
-                writer -> genController(writer, config, config.service.parent, entityName, pkType, basePackage)
+                writer -> genController(writer, config, table, entityName, pkType, basePackage)
             }
         }
 
@@ -848,7 +853,7 @@ class Gen {
 
 
     // 生成Controller
-    def static genController(writer, config, parentConfig, entityName, pkType, basePackage) {
+    def static genController(writer, config, table, entityName, pkType, basePackage) {
         def lEntityName = Utils.theFirstLetterLowercase(entityName)
         
         writer.writeLine "package ${basePackage}.controller;\n" +
@@ -871,7 +876,7 @@ class Gen {
                 " * @Date 2020/2/25 15:44\n" +
                 " * @Version 0.0.1\n" +
                 " */\n" +
-                "@RequestMapping(value = \"/v1.0/${lEntityName}\")\n" +
+                "@RequestMapping(value = \"/${config.controller.apiVersion}/${table.name}\")\n" +
                 "@Slf4j\n" +
                 "@Api(tags = {\"${entityName} 相关接口\"})\n" +
                 "@RestController\n" +

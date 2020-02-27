@@ -18,7 +18,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1.0/userInfo")
+@RequestMapping(value = "/v1/user_info")
 @Slf4j
 @Api(tags = {"UserInfo 鐩稿叧鎺ュ彛"})
 @RestController
