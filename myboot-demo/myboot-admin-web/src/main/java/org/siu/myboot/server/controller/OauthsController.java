@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 @RequestMapping(value = "/v1.0/oauths")
 @Slf4j
-@Api(tags = {"Oauths 相关接口"})
+@Api(tags = {"Oauths 鐩稿叧鎺ュ彛"})
 @RestController
 public class OauthsController {
 
@@ -75,3 +75,4 @@ public class OauthsController {
     }
 
 }
+

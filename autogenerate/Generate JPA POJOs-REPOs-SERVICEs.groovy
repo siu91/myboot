@@ -41,15 +41,17 @@ config = [
         // 自动生成开关
         generate: [
                 // 实体对象，对应 DO/PO
-                entity            : true,
+                entity            : false,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : true,
+                entityQueryDSL    : false,
                 // 数据访问对象 DAO
-                repository        : true,
+                repository        : false,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: true,
+                repositoryQueryDSL: false,
                 // 服务层对象
-                service           : true
+                service           : false,
+                // API 层
+                controller        : true
         ],
         // 实体生成设置
         entity    : [
@@ -208,6 +210,13 @@ class Gen {
         if (config.generate.service) {
             Utils.createFile("${dir}\\service", "${entityName}Service.java").withWriter("utf8") {
                 writer -> genService(writer, config, config.service.parent, entityName, pkType, basePackage)
+            }
+        }
+
+        // controller
+        if (config.generate.controller) {
+            Utils.createFile("${dir}\\controller", "${entityName}Controller.java").withWriter("utf8") {
+                writer -> genController(writer, config, config.service.parent, entityName, pkType, basePackage)
             }
         }
 
@@ -835,6 +844,90 @@ class Gen {
                 "    }"
 
         writer.writeLine "}"
+    }
+
+
+    // 生成Controller
+    def static genController(writer, config, parentConfig, entityName, pkType, basePackage) {
+        def lEntityName = Utils.theFirstLetterLowercase(entityName)
+        
+        writer.writeLine "package ${basePackage}.controller;\n" +
+                "\n" +
+                "import io.swagger.annotations.Api;\n" +
+                "import io.swagger.annotations.ApiOperation;\n" +
+                "import lombok.extern.slf4j.Slf4j;\n" +
+                "import org.siu.myboot.core.entity.qo.Params;\n" +
+                "import org.siu.myboot.core.entity.vo.Result;\n" +
+                "import org.siu.myboot.core.entity.vo.PageData;\n" +
+                "import org.siu.myboot.server.entity.po.${entityName};\n" +
+                "import org.siu.myboot.server.service.${entityName}Service;\n" +
+                "import org.springframework.web.bind.annotation.*;\n" +
+                "\n" +
+                "import javax.annotation.Resource;\n" +
+                "import java.util.Optional;\n" +
+                "\n" +
+                "/**\n" +
+                " * @Author Siu\n" +
+                " * @Date 2020/2/25 15:44\n" +
+                " * @Version 0.0.1\n" +
+                " */\n" +
+                "@RequestMapping(value = \"/v1.0/${lEntityName}\")\n" +
+                "@Slf4j\n" +
+                "@Api(tags = {\"${entityName} 相关接口\"})\n" +
+                "@RestController\n" +
+                "public class ${entityName}Controller {\n" +
+                "\n" +
+                "    @Resource\n" +
+                "    private ${entityName}Service ${lEntityName}Service;\n" +
+                "\n" +
+                "\n" +
+                "    @PostMapping\n" +
+                "    @ApiOperation(value = \"add ${entityName}\")\n" +
+                "    public Result add(@RequestBody ${entityName} params) {\n" +
+                "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
+                "        return new Result(data);\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    @DeleteMapping(\"/{id}\")\n" +
+                "    @ApiOperation(value = \"delete ${entityName}\")\n" +
+                "    public Result delete(@PathVariable ${pkType} id) {\n" +
+                "        ${lEntityName}Service.delete(id);\n" +
+                "        return new Result().success();\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    @PutMapping()\n" +
+                "    @ApiOperation(value = \"update ${entityName}\")\n" +
+                "    public Result update(${entityName} params) {\n" +
+                "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
+                "        return new Result(data);\n" +
+                "    }\n" +
+                "\n" +
+                "    @GetMapping(\"/{id}\")\n" +
+                "    @ApiOperation(value = \"query ${entityName} by id\")\n" +
+                "    public Result query(@PathVariable ${pkType} id) {\n" +
+                "        Optional<${entityName}> data = ${lEntityName}Service.findById(id);\n" +
+                "        return data.map(Result::new).orElseGet(() -> new Result().success());\n" +
+                "\n" +
+                "    }\n" +
+                "\n" +
+                "    @GetMapping\n" +
+                "    @ApiOperation(value = \"${entityName} query page\")\n" +
+                "    public Result page(@RequestBody Params<${entityName}> params) {\n" +
+                "        PageData data = ${lEntityName}Service.getPage(params);\n" +
+                "        return new Result(data);\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    @GetMapping(\"/list\")\n" +
+                "    @ApiOperation(value = \"${entityName} query list\")\n" +
+                "    public Result list(@RequestBody Params<${entityName}> params) {\n" +
+                "        PageData data = ${lEntityName}Service.getPage(params);\n" +
+                "        return new Result(data);\n" +
+                "    }\n" +
+                "\n" +
+                "}\n"
     }
 
 
