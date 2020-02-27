@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformationSuppo
 import org.springframework.data.jpa.repository.support.Querydsl;
 import org.springframework.data.jpa.repository.support.QuerydslJpaPredicateExecutor;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.data.querydsl.QSort;
 import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.repository.support.PageableExecutionUtils;
@@ -113,6 +114,28 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
 
     }
 
+
+    /**
+     * 获取查询列表数据
+     *
+     * @param path
+     * @return
+     */
+    protected List<T> baseGetList(EntityPathBase<T> path) {
+        return baseGetList(path, null);
+    }
+
+
+    /**
+     * 获取查询列表数据
+     *
+     * @param path
+     * @param predicate
+     * @return
+     */
+    protected List<T> baseGetList(EntityPathBase<T> path, Predicate predicate) {
+        return baseGetList(path, predicate, null);
+    }
 
     /**
      * 获取查询列表数据
