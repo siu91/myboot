@@ -3,6 +3,7 @@ package org.siu.myboot.core.data.querydsljpa;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -18,6 +19,7 @@ import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -99,6 +101,7 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
         if (Objects.nonNull(predicate)) {
             countQuery.where(predicate);
         }
+
         // 转成查询对象
         JPQLQuery<T> query = querydsl.applyPagination(pageable, countQuery);
         // 查询对象增加排序
@@ -108,6 +111,30 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
         // 返回分页查询
         return PageableExecutionUtils.getPage(query.fetch(), pageable, countQuery::fetchCount);
 
+    }
+
+
+    /**
+     * 获取查询列表数据
+     *
+     * @param path
+     * @param predicate
+     * @param orders
+     * @return
+     */
+    protected List<T> baseGetList(EntityPathBase<T> path, Predicate predicate, OrderSpecifier<?>... orders) {
+        JPAQuery<T> jpaQuery = jpaQueryFactory.selectFrom(path);
+
+        // 加where入条件
+        if (Objects.nonNull(predicate)) {
+            jpaQuery.where(predicate);
+        }
+        // 排序
+        if (Objects.nonNull(orders)) {
+            jpaQuery.orderBy(orders);
+        }
+
+        return jpaQuery.fetch();
     }
 
 
