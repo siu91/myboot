@@ -1,5 +1,8 @@
 package org.siu.myboot.server.service;
+
+import com.querydsl.core.types.OrderSpecifier;
 import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.Oauths;
@@ -12,13 +15,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Oauths service层
  *
  * @author @Author Siu
- * @Date 2020-02-26 22:12:56
+ * @Date 2020-02-27 20:33:51
  * @Version 0.0.1
  */
 @Service
@@ -67,17 +71,27 @@ public class OauthsService {
         return repositoryQueryDsl.findById(id);
     }
 
-  /**
+   /**
      * get list by page
      *
      * @param params
      * @return
      */
-    public PageData getList(Params<Oauths> params) {
+    public PageData getPage(Params<Oauths> params) {
         QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<Oauths> data = repositoryQueryDsl.query(pageable, params.getTerms());
+        Page<Oauths> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
         return new PageData(data, params);
+    }
+
+    /**
+     * get list
+     *
+     * @return
+     */
+    public List<Oauths> getList(Oauths oauths, List<Sort> sorts) {
+        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QOauths.oauths);
+        return repositoryQueryDsl.queryList(oauths, sort);
     }
 }
