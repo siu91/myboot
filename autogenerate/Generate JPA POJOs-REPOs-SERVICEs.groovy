@@ -788,15 +788,33 @@ class Gen {
         writer.writeLine ""
         
         writer.writeLine "    /**\n" +
-                "     * queryExample\n" +
+                "     * queryPage\n" +
                 "     *\n" +
                 "     * @param pageable\n" +
                 "     * @return\n" +
                 "     */\n" +
-                "    public Page<${entityName}> query(Pageable pageable, ${entityName} params) {\n" +
+                "    public Page<${entityName}> queryPage(Pageable pageable, ${entityName} params) {\n" +
                 "        JPAQuery<${entityName}> countQuery = jpaQueryFactory.selectFrom(q${entityName});\n" +
                 "        QueryBuilder.buildCondition(countQuery, q${entityName}, params);\n" +
                 "        return basePageQuery(countQuery, pageable);\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    /**\n" +
+                "     * queryList\n" +
+                "     * \n" +
+                "     * @param params\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public List<${entityName}> queryList(${entityName} params, List<OrderSpecifier<?>> orderSpecifiers) {\n" +
+                "        JPAQuery<${entityName}> query = jpaQueryFactory.selectFrom(q${entityName});\n" +
+                "        QueryBuilder.buildCondition(query, q${entityName}, params);\n" +
+                "        if (Objects.nonNull(orderSpecifiers)) {\n" +
+                "            for (OrderSpecifier<?> orderSpecifier : orderSpecifiers) {\n" +
+                "                query.orderBy(orderSpecifier);\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return query.fetch();\n" +
                 "    }"
 
         writer.writeLine "}"
