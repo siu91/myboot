@@ -1,7 +1,7 @@
 package org.siu.myboot.server.repository.dsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
-import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;;
+import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QOauths;
 import org.siu.myboot.server.entity.po.Oauths;
@@ -15,32 +15,31 @@ import javax.persistence.EntityManager;
  * Oauths 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-25 09:02:29
+ * @Date 2020-02-26 22:12:56
  * @Version 0.0.1
  */
 @Repository
-public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long> {
+public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
 
-    public OauthsRepositoryQueryDsl(EntityManager entityManager) {
-        super(Oauths.class, entityManager);
-    }
+	public OauthsRepositoryQueryDsl(EntityManager entityManager) {
+		super(Oauths.class, entityManager);
+	}
 
-    /**
-     * QOauths QueryDSL Object: Use jpaQueryFactory build JPAQuery
-     */
-    private static final QOauths qOauths = QOauths.oauths;
+	/**
+	 * QOauths QueryDSL Object: Use jpaQueryFactory build JPAQuery
+	 */
+	private static final QOauths qOauths = QOauths.oauths;
 
-    /**
-     * queryExample
-     *
-     * @param pageable
-     * @return
-     */
-    public Page<Oauths> queryExample(Pageable pageable) {
-        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
-        return basePageQuery(countQuery, pageable);
-    }
-
+	/**
+	 * queryExample
+	 *
+	 * @param pageable
+	 * @return
+	 */
+	public Page<Oauths> queryExample(Pageable pageable) {
+		JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
+		return basePageQuery(countQuery, pageable);
+	}
 
     /**
      * queryExample
@@ -50,10 +49,7 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long> {
      */
     public Page<Oauths> query(Pageable pageable, Oauths params) {
         JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
-
         QueryBuilder.buildCondition(countQuery, qOauths, params);
         return basePageQuery(countQuery, pageable);
     }
-
-
 }

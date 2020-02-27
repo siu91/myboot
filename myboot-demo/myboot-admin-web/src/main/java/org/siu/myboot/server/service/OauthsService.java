@@ -76,7 +76,7 @@ public class OauthsService {
     public PageData getList(Params<Oauths> params) {
         QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<Oauths> data = repositoryQueryDsl.query(pageable, params.getQuery());
+        Page<Oauths> data = repositoryQueryDsl.query(pageable, params.getTerms());
 
         return new PageData(data, params);
     }

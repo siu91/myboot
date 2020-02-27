@@ -17,5 +17,5 @@ public class Params<T> extends Pagination {
     /**
      * 查询实体参数
      */
-    private T query;
+    private T terms;
 }

@@ -76,7 +76,7 @@ public class UserInfoService {
     public PageData getList(Params<UserInfo> params) {
         QSort sort = QueryBuilder.buildSort(params.getSort(), QUserInfo.userInfo);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<UserInfo> data = repositoryQueryDsl.query(pageable, params.getQuery());
+        Page<UserInfo> data = repositoryQueryDsl.query(pageable, params.getTerms());
 
         return new PageData(data, params);
     }
