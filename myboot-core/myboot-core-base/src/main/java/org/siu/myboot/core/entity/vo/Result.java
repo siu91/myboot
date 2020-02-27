@@ -26,4 +26,10 @@ public class Result {
         this.message = ResultConstant.SUCCESS_MSG;
         this.data = data;
     }
+
+    public Result success() {
+        this.code = ResultConstant.SUCCESS;
+        this.message = ResultConstant.SUCCESS_MSG;
+        return this;
+    }
 }
