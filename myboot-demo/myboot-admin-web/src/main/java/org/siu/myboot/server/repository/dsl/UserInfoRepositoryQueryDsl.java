@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  * UserInfo 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-26 22:12:56
+ * @Date 2020-02-27 16:10:42
  * @Version 0.0.1
  */
 @Repository
@@ -37,7 +37,7 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
 	 * @return
 	 */
 	public Page<UserInfo> queryExample(Pageable pageable) {
-		JPAQuery countQuery = jpaQueryFactory.selectFrom(qUserInfo);
+		JPAQuery<UserInfo> countQuery = jpaQueryFactory.selectFrom(qUserInfo);
 		return basePageQuery(countQuery, pageable);
 	}
 
@@ -48,7 +48,7 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
      * @return
      */
     public Page<UserInfo> query(Pageable pageable, UserInfo params) {
-        JPAQuery countQuery = jpaQueryFactory.selectFrom(qUserInfo);
+        JPAQuery<UserInfo> countQuery = jpaQueryFactory.selectFrom(qUserInfo);
         QueryBuilder.buildCondition(countQuery, qUserInfo, params);
         return basePageQuery(countQuery, pageable);
     }

@@ -10,33 +10,33 @@ import java.util.List;
  * Oauths Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-25 09:02:29
+ * @Date 2020-02-27 16:10:42
  * @Version 0.0.1
  */
 public interface OauthsRepository extends JpaRepository<Oauths, Long> {
 
 	/**
-	 * createTime
+	 * (qp)
 	 *@param createTime
 	 *@return
 	 */
 	List<Oauths> findByCreateTimeBefore(Date createTime);
 
 	/**
-	 * createTime
+	 * (qp)
 	 *@param createTime
 	 *@return
 	 */
 	List<Oauths> findByCreateTimeAfter(Date createTime);
 	/**
-	 * updateTime
+	 * (qp)
 	 *@param updateTime
 	 *@return
 	 */
 	List<Oauths> findByUpdateTimeBefore(Date updateTime);
 
 	/**
-	 * updateTime
+	 * (qp)
 	 *@param updateTime
 	 *@return
 	 */

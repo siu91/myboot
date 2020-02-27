@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  * Oauths 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-26 22:12:56
+ * @Date 2020-02-27 16:10:42
  * @Version 0.0.1
  */
 @Repository
@@ -37,7 +37,7 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
 	 * @return
 	 */
 	public Page<Oauths> queryExample(Pageable pageable) {
-		JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
+		JPAQuery<Oauths> countQuery = jpaQueryFactory.selectFrom(qOauths);
 		return basePageQuery(countQuery, pageable);
 	}
 
@@ -48,7 +48,7 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
      * @return
      */
     public Page<Oauths> query(Pageable pageable, Oauths params) {
-        JPAQuery countQuery = jpaQueryFactory.selectFrom(qOauths);
+        JPAQuery<Oauths> countQuery = jpaQueryFactory.selectFrom(qOauths);
         QueryBuilder.buildCondition(countQuery, qOauths, params);
         return basePageQuery(countQuery, pageable);
     }

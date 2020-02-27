@@ -10,7 +10,7 @@ import java.util.List;
  * UserInfo Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-25 09:02:29
+ * @Date 2020-02-27 16:10:42
  * @Version 0.0.1
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
