@@ -32,6 +32,19 @@ public class QueryBuilder {
      * @return
      */
     public static QSort buildSort(List<Sort> sortList, QBuiler qBuiler) {
+        List<OrderSpecifier<?>> orderSpecifiers = buildOrderSpecifier(sortList, qBuiler);
+        return new QSort(orderSpecifiers);
+    }
+
+
+    /**
+     * buildOrderSpecifier
+     *
+     * @param sortList
+     * @param qBuiler
+     * @return
+     */
+    public static List<OrderSpecifier<?>> buildOrderSpecifier(List<Sort> sortList, QBuiler qBuiler) {
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
         if (Objects.nonNull(sortList)) {
             for (Sort s : sortList) {
@@ -47,7 +60,7 @@ public class QueryBuilder {
                 }
             }
         }
-        return new QSort(orderSpecifiers);
+        return orderSpecifiers;
     }
 
 
