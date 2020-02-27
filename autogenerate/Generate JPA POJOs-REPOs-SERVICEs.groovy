@@ -529,8 +529,11 @@ class Gen {
     // 生成Service
     def static genService(writer, config, parentConfig, entityName, pkType, basePackage) {
         writer.writeLine "package ${basePackage}.service;"
+        writer.writeLine ""
 
+        writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.Params;"
+        writer.writeLine "import org.siu.myboot.core.entity.qo.Sort;"
         writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
         writer.writeLine "import org.siu.myboot.core.entity.vo.PageData;"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
@@ -548,6 +551,7 @@ class Gen {
         writer.writeLine "import org.springframework.stereotype.Service;"
 
         writer.writeLine "import javax.annotation.Resource;"
+        writer.writeLine "import java.util.List;"
         writer.writeLine "import java.util.Optional;"
         writer.writeLine ""
         writer.writeLine "/**"
@@ -752,6 +756,7 @@ class Gen {
     def static genRepositoryQueryDSL(writer, parentConfig, entityName, basePackage, pkType) {
         writer.writeLine "package ${basePackage}.repository.dsl;"
         writer.writeLine ""
+        writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import com.querydsl.jpa.impl.JPAQuery;"
         writer.writeLine "import $parentConfig.package.$parentConfig.name;"
         writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
@@ -762,6 +767,8 @@ class Gen {
         writer.writeLine "import org.springframework.stereotype.Repository;"
         writer.writeLine ""
         writer.writeLine "import javax.persistence.EntityManager;"
+        writer.writeLine "import java.util.List;"
+        writer.writeLine "import java.util.Objects;"
         writer.writeLine ""
         writer.writeLine "/**"
         writer.writeLine " * $entityName \u81ea\u5b9a\u4e49Repository QueryDSL\u5c42"
