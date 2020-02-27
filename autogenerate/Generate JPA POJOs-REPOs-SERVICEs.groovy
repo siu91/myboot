@@ -629,7 +629,7 @@ class Gen {
                 "    public PageData getList(Params<${entityName}> params) {\n" +
                 "        QSort sort = QueryBuilder.buildSort(params.getSort(), Q${entityName}.${lEntityName});\n" +
                 "        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);\n" +
-                "        Page<${entityName}> data = repositoryQueryDsl.query(pageable, params.getQuery());\n" +
+                "        Page<${entityName}> data = repositoryQueryDsl.query(pageable, params.getTerms());\n" +
                 "\n" +
                 "        return new PageData(data, params);\n" +
                 "    }"
