@@ -780,7 +780,7 @@ class Gen {
         writer.writeLine "\t * @return"
         writer.writeLine "\t */"
         writer.writeLine "\tpublic Page<${entityName}> queryExample(Pageable pageable) {"
-        writer.writeLine "\t\tJPAQuery countQuery = jpaQueryFactory.selectFrom(q${entityName});"
+        writer.writeLine "\t\tJPAQuery<${entityName}> countQuery = jpaQueryFactory.selectFrom(q${entityName});"
         writer.writeLine "\t\treturn basePageQuery(countQuery, pageable);"
         writer.writeLine "\t}"
         
@@ -794,7 +794,7 @@ class Gen {
                 "     * @return\n" +
                 "     */\n" +
                 "    public Page<${entityName}> query(Pageable pageable, ${entityName} params) {\n" +
-                "        JPAQuery countQuery = jpaQueryFactory.selectFrom(q${entityName});\n" +
+                "        JPAQuery<${entityName}> countQuery = jpaQueryFactory.selectFrom(q${entityName});\n" +
                 "        QueryBuilder.buildCondition(countQuery, q${entityName}, params);\n" +
                 "        return basePageQuery(countQuery, pageable);\n" +
                 "    }"
