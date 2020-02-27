@@ -66,7 +66,7 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
      * @param pageable   分页对象
      * @return
      */
-    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable) {
+    protected Page<T> basePageQuery(JPAQuery<T> countQuery, Pageable pageable) {
         return this.basePageQuery(countQuery, pageable, null);
 
     }
@@ -79,7 +79,7 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
      * @param pageable   分页对象
      * @return
      */
-    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable, Predicate predicate) {
+    protected Page<T> basePageQuery(JPAQuery<T> countQuery, Pageable pageable, Predicate predicate) {
         return this.basePageQuery(countQuery, pageable, predicate, null);
 
     }
@@ -93,7 +93,7 @@ public class BaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> impleme
      * @param orders     排序
      * @return
      */
-    protected Page<T> basePageQuery(JPAQuery countQuery, Pageable pageable, Predicate predicate, OrderSpecifier<?>... orders) {
+    protected Page<T> basePageQuery(JPAQuery<T> countQuery, Pageable pageable, Predicate predicate, OrderSpecifier<?>... orders) {
         if (Objects.isNull(countQuery)) {
             throw new NullPointerException("countQuery 不能为空");
         }
