@@ -620,18 +620,28 @@ class Gen {
 
         def lEntityName = Utils.theFirstLetterLowercase(entityName)
         // 分页查询列表
-        writer.writeLine "  /**\n" +
+        writer.writeLine "   /**\n" +
                 "     * get list by page\n" +
                 "     *\n" +
                 "     * @param params\n" +
                 "     * @return\n" +
                 "     */\n" +
-                "    public PageData getList(Params<${entityName}> params) {\n" +
+                "    public PageData getPage(Params<${entityName}> params) {\n" +
                 "        QSort sort = QueryBuilder.buildSort(params.getSort(), Q${entityName}.${lEntityName});\n" +
                 "        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);\n" +
-                "        Page<${entityName}> data = repositoryQueryDsl.query(pageable, params.getTerms());\n" +
+                "        Page<${entityName}> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());\n" +
                 "\n" +
                 "        return new PageData(data, params);\n" +
+                "    }\n" +
+                "\n" +
+                "    /**\n" +
+                "     * get list\n" +
+                "     *\n" +
+                "     * @return\n" +
+                "     */\n" +
+                "    public List<${entityName}> getList(${entityName} ${lEntityName}, List<Sort> sorts) {\n" +
+                "        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, Q${entityName}.${lEntityName});\n" +
+                "        return repositoryQueryDsl.queryList(${lEntityName}, sort);\n" +
                 "    }"
 
 
