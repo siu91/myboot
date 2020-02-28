@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import org.siu.myboot.core.valid.Valid;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import lombok.EqualsAndHashCode;
@@ -20,7 +22,7 @@ import java.io.Serializable;
  * 用户信息表
  *
  * @author @Author Siu
- * @Date 2020-02-28 11:02:45
+ * @Date 2020-02-28 19:17:51
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -44,6 +46,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
 	@ApiModelProperty(value = "用户ID（主键）")
 	@Column(name = "user_id", nullable = false)
+	@NotNull(message = "用户ID（主键）不能为空", groups = {Valid.UPDATE.class})
 	private Long userId;
 
 	/**
@@ -53,6 +56,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "用户名（唯一）")
 	@Column(name = "user_name", nullable = false, length = 64)
+	@NotNull(message = "用户名（唯一）不能为空", groups = {Valid.CREATE.class})
 	private String userName;
 
 	/**
@@ -71,6 +75,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "手机（唯一）")
 	@Column(name = "phone", nullable = false, length = 64)
+	@NotNull(message = "手机（唯一）不能为空", groups = {Valid.CREATE.class})
 	private String phone;
 
 	/**
@@ -109,5 +114,6 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "软删除：0-未删除，其他-删除")
 	@Column(name = "soft_delete", nullable = false)
+	@NotNull(message = "软删除：0-未删除，其他-删除不能为空", groups = {Valid.CREATE.class})
 	private Long softDelete;
 }

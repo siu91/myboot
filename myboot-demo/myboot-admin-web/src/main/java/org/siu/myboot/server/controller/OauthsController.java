@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.qo.Params;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
+import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.server.entity.po.Oauths;
 import org.siu.myboot.server.service.OauthsService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,7 +32,7 @@ public class OauthsController {
 
     @PostMapping
     @ApiOperation(value = "Oauths:CREATE")
-    public Result create(@RequestBody Oauths params) {
+    public Result create(@RequestBody @Validated(Valid.CREATE.class) Oauths params) {
         Oauths data = oauthsService.save(params);
         return new Result(data);
     }
@@ -46,7 +48,7 @@ public class OauthsController {
 
     @PutMapping()
     @ApiOperation(value = "Oauths:UPDATE")
-    public Result update(Oauths params) {
+    public Result update(@RequestBody @Validated(Valid.UPDATE.class) Oauths params) {
         Oauths data = oauthsService.save(params);
         return new Result(data);
     }

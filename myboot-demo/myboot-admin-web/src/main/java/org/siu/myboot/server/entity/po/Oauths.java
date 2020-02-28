@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import org.siu.myboot.core.valid.Valid;
 import lombok.EqualsAndHashCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -18,7 +20,7 @@ import java.io.Serializable;
  * 第三方授权表
  *
  * @author @Author Siu
- * @Date 2020-02-28 11:02:46
+ * @Date 2020-02-28 19:17:51
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -40,6 +42,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
 	@ApiModelProperty(value = "(qp)")
 	@Column(name = "id", nullable = false)
+	@NotNull(message = "(qp)不能为空", groups = {Valid.UPDATE.class})
 	private Long id;
 
 	/**
@@ -49,6 +52,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "user_info表主键(qp)")
 	@Column(name = "user_id", nullable = false)
+	@NotNull(message = "user_info表主键(qp)不能为空", groups = {Valid.CREATE.class})
 	private Long userId;
 
 	/**
@@ -58,6 +62,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "1、微信，2、QQ，3、支付宝，4、其他")
 	@Column(name = "oauth_type", nullable = false)
+	@NotNull(message = "1、微信，2、QQ，3、支付宝，4、其他不能为空", groups = {Valid.CREATE.class})
 	private Integer oauthType;
 
 	/**
@@ -67,6 +72,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "第三方 uid 、openid 等")
 	@Column(name = "oauth_id", nullable = false, length = 255)
+	@NotNull(message = "第三方 uid 、openid 等不能为空", groups = {Valid.CREATE.class})
 	private String oauthId;
 
 	/**
@@ -76,6 +82,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "QQ / 微信同一主体下 Unionid 相同")
 	@Column(name = "unionid", nullable = false, length = 255)
+	@NotNull(message = "QQ / 微信同一主体下 Unionid 相同不能为空", groups = {Valid.CREATE.class})
 	private String unionid;
 
 	/**

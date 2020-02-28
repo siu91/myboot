@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.qo.Params;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
+import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.server.entity.po.UserInfo;
 import org.siu.myboot.server.service.UserInfoService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,7 +32,7 @@ public class UserInfoController {
 
     @PostMapping
     @ApiOperation(value = "UserInfo:CREATE")
-    public Result create(@RequestBody UserInfo params) {
+    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserInfo params) {
         UserInfo data = userInfoService.save(params);
         return new Result(data);
     }
@@ -46,7 +48,7 @@ public class UserInfoController {
 
     @PutMapping()
     @ApiOperation(value = "UserInfo:UPDATE")
-    public Result update(UserInfo params) {
+    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserInfo params) {
         UserInfo data = userInfoService.save(params);
         return new Result(data);
     }

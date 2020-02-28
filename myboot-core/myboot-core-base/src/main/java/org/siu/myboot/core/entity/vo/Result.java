@@ -32,4 +32,10 @@ public class Result {
         this.message = ResultConstant.SUCCESS_MSG;
         return this;
     }
+
+    public Result error(String msg) {
+        this.code = ResultConstant.SUCCESS;
+        this.message = msg;
+        return this;
+    }
 }
