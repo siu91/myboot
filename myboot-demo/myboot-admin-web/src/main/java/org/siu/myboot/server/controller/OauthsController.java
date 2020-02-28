@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 @RequestMapping(value = "/v1/oauths")
 @Slf4j
-@Api(tags = {"Oauths 鐩稿叧鎺ュ彛"})
+@Api(tags = {"Oauths related API"})
 @RestController
 public class OauthsController {
 
@@ -29,15 +29,15 @@ public class OauthsController {
 
 
     @PostMapping
-    @ApiOperation(value = "add Oauths")
-    public Result add(@RequestBody Oauths params) {
+    @ApiOperation(value = "Oauths:CREATE")
+    public Result create(@RequestBody Oauths params) {
         Oauths data = oauthsService.save(params);
         return new Result(data);
     }
 
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "delete Oauths")
+    @ApiOperation(value = "Oauths:DELETE")
     public Result delete(@PathVariable Long id) {
         oauthsService.delete(id);
         return new Result().success();
@@ -45,22 +45,22 @@ public class OauthsController {
 
 
     @PutMapping()
-    @ApiOperation(value = "update Oauths")
+    @ApiOperation(value = "Oauths:UPDATE")
     public Result update(Oauths params) {
         Oauths data = oauthsService.save(params);
         return new Result(data);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "query Oauths by id")
-    public Result query(@PathVariable Long id) {
+    @ApiOperation(value = "Oauths:RETRIEVE")
+    public Result retrieve(@PathVariable Long id) {
         Optional<Oauths> data = oauthsService.findById(id);
         return data.map(Result::new).orElseGet(() -> new Result().success());
 
     }
 
     @GetMapping
-    @ApiOperation(value = "Oauths query page")
+    @ApiOperation(value = "Oauths:PAGE")
     public Result page(@RequestBody Params<Oauths> params) {
         PageData data = oauthsService.getPage(params);
         return new Result(data);
@@ -68,7 +68,7 @@ public class OauthsController {
 
 
     @GetMapping("/list")
-    @ApiOperation(value = "Oauths query list")
+    @ApiOperation(value = "Oauths:LIST")
     public Result list(@RequestBody Params<Oauths> params) {
         PageData data = oauthsService.getPage(params);
         return new Result(data);

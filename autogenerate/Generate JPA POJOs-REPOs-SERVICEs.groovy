@@ -886,7 +886,7 @@ class Gen {
                 " */\n" +
                 "@RequestMapping(value = \"/${config.controller.apiVersion}/${table.name}\")\n" +
                 "@Slf4j\n" +
-                "@Api(tags = {\"${entityName} 相关接口\"})\n" +
+                "@Api(tags = {\"${entityName} related API\"})\n" +
                 "@RestController\n" +
                 "public class ${entityName}Controller {\n" +
                 "\n" +
@@ -895,15 +895,15 @@ class Gen {
                 "\n" +
                 "\n" +
                 "    @PostMapping\n" +
-                "    @ApiOperation(value = \"add ${entityName}\")\n" +
-                "    public Result add(@RequestBody ${entityName} params) {\n" +
+                "    @ApiOperation(value = \"${entityName}:CREATE\")\n" +
+                "    public Result create(@RequestBody ${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
                 "\n" +
                 "\n" +
                 "    @DeleteMapping(\"/{id}\")\n" +
-                "    @ApiOperation(value = \"delete ${entityName}\")\n" +
+                "    @ApiOperation(value = \"${entityName}:DELETE\")\n" +
                 "    public Result delete(@PathVariable ${pkType} id) {\n" +
                 "        ${lEntityName}Service.delete(id);\n" +
                 "        return new Result().success();\n" +
@@ -911,22 +911,22 @@ class Gen {
                 "\n" +
                 "\n" +
                 "    @PutMapping()\n" +
-                "    @ApiOperation(value = \"update ${entityName}\")\n" +
+                "    @ApiOperation(value = \"${entityName}:UPDATE\")\n" +
                 "    public Result update(${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping(\"/{id}\")\n" +
-                "    @ApiOperation(value = \"query ${entityName} by id\")\n" +
-                "    public Result query(@PathVariable ${pkType} id) {\n" +
+                "    @ApiOperation(value = \"${entityName}:RETRIEVE\")\n" +
+                "    public Result retrieve(@PathVariable ${pkType} id) {\n" +
                 "        Optional<${entityName}> data = ${lEntityName}Service.findById(id);\n" +
                 "        return data.map(Result::new).orElseGet(() -> new Result().success());\n" +
                 "\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping\n" +
-                "    @ApiOperation(value = \"${entityName} query page\")\n" +
+                "    @ApiOperation(value = \"${entityName}:PAGE\")\n" +
                 "    public Result page(@RequestBody Params<${entityName}> params) {\n" +
                 "        PageData data = ${lEntityName}Service.getPage(params);\n" +
                 "        return new Result(data);\n" +
@@ -934,7 +934,7 @@ class Gen {
                 "\n" +
                 "\n" +
                 "    @GetMapping(\"/list\")\n" +
-                "    @ApiOperation(value = \"${entityName} query list\")\n" +
+                "    @ApiOperation(value = \"${entityName}:LIST\")\n" +
                 "    public Result list(@RequestBody Params<${entityName}> params) {\n" +
                 "        PageData data = ${lEntityName}Service.getPage(params);\n" +
                 "        return new Result(data);\n" +

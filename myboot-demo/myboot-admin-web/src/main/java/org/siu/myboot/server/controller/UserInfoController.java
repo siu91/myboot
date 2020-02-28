@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 @RequestMapping(value = "/v1/user_info")
 @Slf4j
-@Api(tags = {"UserInfo 鐩稿叧鎺ュ彛"})
+@Api(tags = {"UserInfo related API"})
 @RestController
 public class UserInfoController {
 
@@ -29,15 +29,15 @@ public class UserInfoController {
 
 
     @PostMapping
-    @ApiOperation(value = "add UserInfo")
-    public Result add(@RequestBody UserInfo params) {
+    @ApiOperation(value = "UserInfo:CREATE")
+    public Result create(@RequestBody UserInfo params) {
         UserInfo data = userInfoService.save(params);
         return new Result(data);
     }
 
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "delete UserInfo")
+    @ApiOperation(value = "UserInfo:DELETE")
     public Result delete(@PathVariable Long id) {
         userInfoService.delete(id);
         return new Result().success();
@@ -45,22 +45,22 @@ public class UserInfoController {
 
 
     @PutMapping()
-    @ApiOperation(value = "update UserInfo")
+    @ApiOperation(value = "UserInfo:UPDATE")
     public Result update(UserInfo params) {
         UserInfo data = userInfoService.save(params);
         return new Result(data);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "query UserInfo by id")
-    public Result query(@PathVariable Long id) {
+    @ApiOperation(value = "UserInfo:RETRIEVE")
+    public Result retrieve(@PathVariable Long id) {
         Optional<UserInfo> data = userInfoService.findById(id);
         return data.map(Result::new).orElseGet(() -> new Result().success());
 
     }
 
     @GetMapping
-    @ApiOperation(value = "UserInfo query page")
+    @ApiOperation(value = "UserInfo:PAGE")
     public Result page(@RequestBody Params<UserInfo> params) {
         PageData data = userInfoService.getPage(params);
         return new Result(data);
@@ -68,7 +68,7 @@ public class UserInfoController {
 
 
     @GetMapping("/list")
-    @ApiOperation(value = "UserInfo query list")
+    @ApiOperation(value = "UserInfo:LIST")
     public Result list(@RequestBody Params<UserInfo> params) {
         PageData data = userInfoService.getPage(params);
         return new Result(data);
