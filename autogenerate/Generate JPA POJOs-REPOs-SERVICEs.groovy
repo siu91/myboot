@@ -33,17 +33,16 @@ import java.util.stream.Collectors
  *
  * intellij API源码(com.intellij.database): JetBrains\IntelliJ IDEA 2019.3.1\lib\src\src_database-openapi.zip
  *
- * @Author Siu
- * @Date 2020/2/23 23:18
+ * @Author Siu* @Date 2020/2/23 23:18
  * @Version 0.0.1
  */
 config = [
         // 自动生成开关
-        generate: [
+        generate      : [
                 // 实体对象，对应 DO/PO
                 entity            : true,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : true,
+                entityQueryDSL    : false,
                 // 数据访问对象 DAO
                 repository        : false,
                 // JPA QueryDSL 数据访问对象
@@ -54,9 +53,9 @@ config = [
                 controller        : true
         ],
         // 实体生成设置
-        entity    : [
+        entity        : [
                 // 继承父类设置
-                parent             : [
+                parent               : [
                         // 是否继承父类
                         enable    : true,
                         // 父类名称
@@ -67,7 +66,7 @@ config = [
                         properties: ["version123"],
                 ],
                 // jpa相关设置
-                jpaConfig: [
+                jpaConfig            : [
                         // 是否使用jpa，设置为 false 可以生成与 jpa 无关的实体
                         enable                            : true,
                         // 是否自动填充时间类型字段
@@ -83,15 +82,15 @@ config = [
                         softDeleteSeqName                 : "public_soft_delete_seq"
                 ],
                 // 数据库类型
-                dbType             : "postgres",
+                dbType               : "postgres",
                 // 是否序列化
-                impSerializable    : true,
+                impSerializable      : true,
                 // 是否生成 swagger 文档相关注解，相关说明来数据库注释
-                useSwagger         : true,
+                useSwagger           : true,
                 // 自动隐藏api参数属性（true，只暴露主键和在表字段注释中标记了”(qp)“的字段，false 所有字段都在swagger 展示）
-                autoHiddenApiProperty         : false,
+                autoHiddenApiProperty: false,
                 // 是否使用 lombok 注解代替 get、set方法
-                useLombok          : true
+                useLombok            : true
 
         ],
         // entityQueryDSL 生成设置
@@ -104,7 +103,7 @@ config = [
                 ]
         ],
         // repository 生成设置
-        repository: [
+        repository    : [
                 // 参照 entity 部分的 parent
                 parent: [
                         enable : true,
@@ -113,7 +112,7 @@ config = [
                 ]
         ],
         // service 生成设置
-        service   : [
+        service       : [
                 // 参照 entity 部分的 parent
                 parent: [
                         enable : false,
@@ -122,7 +121,7 @@ config = [
                 ]
         ],
         // controller 生成设置
-        controller: [
+        controller    : [
                 // API 版本
                 apiVersion: "v1"
         ]
@@ -392,6 +391,10 @@ class Gen {
         if (config.entity.jpaConfig.enable) {
             writer.writeLine "import javax.persistence.*;"
         }
+        // 参数校验
+        writer.writeLine "import javax.validation.constraints.NotNull;"
+        writer.writeLine "import org.siu.myboot.core.valid.Valid;"
+
         if (softDeleteFlag) {
             writer.writeLine "import org.hibernate.annotations.SQLDelete;"
             writer.writeLine "import org.hibernate.annotations.Where;"
@@ -497,13 +500,13 @@ class Gen {
         if (config.entity.useSwagger) {
             // 字段注释中有标记"(qp)",代表为查询参数，会加上 ApiModelProperty
             // 默认主键是查询条件无需标记
-            if(config.entity.autoHiddenApiProperty){
-                if((field.comment!=null && field.comment.contains("(qp)")) || field.isPrimaryKey){
+            if (config.entity.autoHiddenApiProperty) {
+                if ((field.comment != null && field.comment.contains("(qp)")) || field.isPrimaryKey) {
                     writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
-                }else{
+                } else {
                     writer.writeLine "\t@ApiModelProperty(value = \"${comment}\", hidden = true)"
                 }
-            }else{
+            } else {
                 writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
             }
 
@@ -527,6 +530,15 @@ class Gen {
             }
             writer.writeLine "\t@Column(name = \"${field.column}\", nullable = ${field.nullable}$lenStr)"
         }
+        // 这里必须中文
+        if (!field.nullable) {
+            if (!field.isPrimaryKey) {
+                writer.writeLine "\t@NotNull(message = \"${comment}\u4e0d\u80fd\u4e3a\u7a7a\", groups = {Valid.CREATE.class})"
+            }else{
+                writer.writeLine "\t@NotNull(message = \"${comment}\u4e0d\u80fd\u4e3a\u7a7a\", groups = {Valid.UPDATE.class})"
+            }
+        }
+
         writer.writeLine "\tprivate ${field.type} ${field.name};"
     }
 
@@ -639,9 +651,8 @@ class Gen {
                 "    public Optional<${entityName}> findById(Long id) {\n" +
                 "        return repositoryQueryDsl.findById(id);\n" +
                 "    }"
-        
-        
-        
+
+
         writer.writeLine ""
 
         def lEntityName = Utils.theFirstLetterLowercase(entityName)
@@ -669,7 +680,6 @@ class Gen {
                 "        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, Q${entityName}.${lEntityName});\n" +
                 "        return repositoryQueryDsl.queryList(${lEntityName}, sort);\n" +
                 "    }"
-
 
 
         writer.writeLine "}"
@@ -822,10 +832,10 @@ class Gen {
         writer.writeLine "\t\tJPAQuery<${entityName}> countQuery = jpaQueryFactory.selectFrom(q${entityName});"
         writer.writeLine "\t\treturn basePageQuery(countQuery, pageable);"
         writer.writeLine "\t}"
-        
-        
+
+
         writer.writeLine ""
-        
+
         writer.writeLine "    /**\n" +
                 "     * queryPage\n" +
                 "     *\n" +
@@ -863,7 +873,7 @@ class Gen {
     // 生成Controller
     def static genController(writer, config, table, entityName, pkType, basePackage) {
         def lEntityName = Utils.theFirstLetterLowercase(entityName)
-        
+
         writer.writeLine "package ${basePackage}.controller;\n" +
                 "\n" +
                 "import io.swagger.annotations.Api;\n" +
@@ -872,8 +882,10 @@ class Gen {
                 "import org.siu.myboot.core.entity.qo.Params;\n" +
                 "import org.siu.myboot.core.entity.vo.Result;\n" +
                 "import org.siu.myboot.core.entity.vo.PageData;\n" +
+                "import org.siu.myboot.core.valid.Valid;\n" +
                 "import org.siu.myboot.server.entity.po.${entityName};\n" +
                 "import org.siu.myboot.server.service.${entityName}Service;\n" +
+                "import org.springframework.validation.annotation.Validated;\n" +
                 "import org.springframework.web.bind.annotation.*;\n" +
                 "\n" +
                 "import javax.annotation.Resource;\n" +
@@ -896,7 +908,7 @@ class Gen {
                 "\n" +
                 "    @PostMapping\n" +
                 "    @ApiOperation(value = \"${entityName}:CREATE\")\n" +
-                "    public Result create(@RequestBody ${entityName} params) {\n" +
+                "    public Result create(@RequestBody @Validated(Valid.CREATE.class) ${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
@@ -912,7 +924,7 @@ class Gen {
                 "\n" +
                 "    @PutMapping()\n" +
                 "    @ApiOperation(value = \"${entityName}:UPDATE\")\n" +
-                "    public Result update(${entityName} params) {\n" +
+                "    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
