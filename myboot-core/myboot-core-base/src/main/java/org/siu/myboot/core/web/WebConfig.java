@@ -9,6 +9,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.siu.myboot.core.web.handlers.JsonReturnHandler;
+import org.siu.myboot.core.web.interceptor.TraceIdHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -39,6 +40,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @Autowired
+    TraceIdHandlerInterceptor traceIdHandlerInterceptor;
 
     @PostConstruct
     public void init() {
@@ -89,6 +93,10 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry interceptorRegistry) {
+        interceptorRegistry.addInterceptor(traceIdHandlerInterceptor)
+                .addPathPatterns("/v**/**")
+                .excludePathPatterns("/swagger-ui.html", "/swagger**", "/swagger-resources/**")
+                .excludePathPatterns("/error");
     }
 
     @Override
