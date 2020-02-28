@@ -262,16 +262,15 @@ class Gen {
 
 
         if (config.entityQueryDSL.implement.enable) {
-            // 增加order 方法用于排序
+            // 增加get path by property 方法用于构建排序和条件
             writer.writeLine ""
             writer.writeLine "\t/**"
-            writer.writeLine "\t * get property"
+            writer.writeLine "\t * get path by property"
             writer.writeLine "\t *"
             writer.writeLine "\t * @param property"
             writer.writeLine "\t * @return"
             writer.writeLine "\t */"
-            writer.writeLine "\t@Override"
-            writer.writeLine "\tpublic ComparableExpressionBase order(String property) {"
+            writer.writeLine "\tprivate Path path(String property) {"
             writer.writeLine "\t\tif (Objects.isNull(property)) {"
             writer.writeLine "\t\t\treturn null;"
             writer.writeLine "\t\t}"
@@ -287,6 +286,20 @@ class Gen {
             writer.writeLine "\t\t}"
             writer.writeLine "\t}"
 
+
+            // 增加condition 方法用于查询
+            writer.writeLine ""
+            writer.writeLine "\t/**"
+            writer.writeLine "\t * get property"
+            writer.writeLine "\t *"
+            writer.writeLine "\t * @param property"
+            writer.writeLine "\t * @return"
+            writer.writeLine "\t */"
+            writer.writeLine "\t@Override"
+            writer.writeLine "\tpublic ComparableExpressionBase order(String property) {"
+            writer.writeLine "\t\t return (ComparableExpressionBase) this.path(property);"
+            writer.writeLine "\t}"
+
             // 增加condition 方法用于查询
             writer.writeLine ""
             writer.writeLine "\t/**"
@@ -297,19 +310,7 @@ class Gen {
             writer.writeLine "\t */"
             writer.writeLine "\t@Override"
             writer.writeLine "\tpublic SimpleExpression condition(String property) {"
-            writer.writeLine "\t\tif (Objects.isNull(property)) {"
-            writer.writeLine "\t\t\treturn null;"
-            writer.writeLine "\t\t}"
-            writer.writeLine "\t\tswitch (property) {"
-
-            fieldList.each() { field ->
-                writer.writeLine "\t\t\t case \"${field.name}\":"
-                writer.writeLine "\t\t\t\treturn ${field.name};"
-            }
-
-            writer.writeLine "\t\t\tdefault:"
-            writer.writeLine "\t\t\t\treturn null;"
-            writer.writeLine "\t\t}"
+            writer.writeLine "\t\t return (SimpleExpression) this.path(property);"
             writer.writeLine "\t}"
         }
 
