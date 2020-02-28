@@ -37,13 +37,12 @@ public class QOauths extends EntityPathBase<Oauths> implements QBuiler {
 	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
 
 	/**
-	 * get property
+	 * get path by property
 	 *
 	 * @param property
 	 * @return
 	 */
-	@Override
-	public ComparableExpressionBase order(String property) {
+	private Path path(String property) {
 		if (Objects.isNull(property)) {
 			return null;
 		}
@@ -76,30 +75,19 @@ public class QOauths extends EntityPathBase<Oauths> implements QBuiler {
 	 * @return
 	 */
 	@Override
+	public ComparableExpressionBase order(String property) {
+		 return (ComparableExpressionBase) this.path(property);
+	}
+
+	/**
+	 * get property
+	 *
+	 * @param property
+	 * @return
+	 */
+	@Override
 	public SimpleExpression condition(String property) {
-		if (Objects.isNull(property)) {
-			return null;
-		}
-		switch (property) {
-			 case "id":
-				return id;
-			 case "userId":
-				return userId;
-			 case "oauthType":
-				return oauthType;
-			 case "oauthId":
-				return oauthId;
-			 case "unionid":
-				return unionid;
-			 case "credential":
-				return credential;
-			 case "createTime":
-				return createTime;
-			 case "updateTime":
-				return updateTime;
-			default:
-				return null;
-		}
+		 return (SimpleExpression) this.path(property);
 	}
 
 	public QOauths(String variable) {

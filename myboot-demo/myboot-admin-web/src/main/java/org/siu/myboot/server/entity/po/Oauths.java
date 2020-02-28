@@ -18,7 +18,7 @@ import java.io.Serializable;
  * 第三方授权表
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-28 09:23:20
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -56,7 +56,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "1、微信，2、QQ，3、支付宝，4、其他", hidden = true)
+	@ApiModelProperty(value = "1、微信，2、QQ，3、支付宝，4、其他")
 	@Column(name = "oauth_type", nullable = false)
 	private Integer oauthType;
 
@@ -65,7 +65,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "第三方 uid 、openid 等", hidden = true)
+	@ApiModelProperty(value = "第三方 uid 、openid 等")
 	@Column(name = "oauth_id", nullable = false, length = 255)
 	private String oauthId;
 
@@ -74,7 +74,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "QQ / 微信同一主体下 Unionid 相同", hidden = true)
+	@ApiModelProperty(value = "QQ / 微信同一主体下 Unionid 相同")
 	@Column(name = "unionid", nullable = false, length = 255)
 	private String unionid;
 
@@ -83,7 +83,7 @@ public class Oauths extends BaseEntity implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "密码凭证 /access_token (目前更多是存储在缓存里)", hidden = true)
+	@ApiModelProperty(value = "密码凭证 /access_token (目前更多是存储在缓存里)")
 	@Column(name = "credential", nullable = true, length = 255)
 	private String credential;
 

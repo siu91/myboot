@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 用户信息表
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-28 09:23:20
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -51,7 +51,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "用户名（唯一）", hidden = true)
+	@ApiModelProperty(value = "用户名（唯一）")
 	@Column(name = "user_name", nullable = false, length = 64)
 	private String userName;
 
@@ -60,7 +60,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "头像URL", hidden = true)
+	@ApiModelProperty(value = "头像URL")
 	@Column(name = "avatar_url", nullable = true, length = 255)
 	private String avatarUrl;
 
@@ -69,7 +69,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "手机（唯一）", hidden = true)
+	@ApiModelProperty(value = "手机（唯一）")
 	@Column(name = "phone", nullable = false, length = 64)
 	private String phone;
 
@@ -78,7 +78,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "密码", hidden = true)
+	@ApiModelProperty(value = "密码")
 	@Column(name = "password", nullable = true, length = 64)
 	private String password;
 
@@ -87,7 +87,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "创建时间", hidden = true)
+	@ApiModelProperty(value = "创建时间")
 	@CreatedDate
 	@Column(name = "create_time", nullable = true)
 	private java.util.Date createTime;
@@ -97,7 +97,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "更新时间", hidden = true)
+	@ApiModelProperty(value = "更新时间")
 	@LastModifiedDate
 	@Column(name = "update_time", nullable = true)
 	private java.util.Date updateTime;
@@ -107,7 +107,7 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * nullable : false
 	 * default  : 0
 	 */
-	@ApiModelProperty(value = "软删除：0-未删除，其他-删除", hidden = true)
+	@ApiModelProperty(value = "软删除：0-未删除，其他-删除")
 	@Column(name = "soft_delete", nullable = false)
 	private Long softDelete;
 }

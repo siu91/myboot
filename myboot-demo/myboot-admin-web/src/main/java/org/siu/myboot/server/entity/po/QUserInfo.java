@@ -37,13 +37,12 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 	public final NumberPath<Long> softDelete = createNumber("softDelete", Long.class);
 
 	/**
-	 * get property
+	 * get path by property
 	 *
 	 * @param property
 	 * @return
 	 */
-	@Override
-	public ComparableExpressionBase order(String property) {
+	private Path path(String property) {
 		if (Objects.isNull(property)) {
 			return null;
 		}
@@ -76,30 +75,19 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 	 * @return
 	 */
 	@Override
+	public ComparableExpressionBase order(String property) {
+		 return (ComparableExpressionBase) this.path(property);
+	}
+
+	/**
+	 * get property
+	 *
+	 * @param property
+	 * @return
+	 */
+	@Override
 	public SimpleExpression condition(String property) {
-		if (Objects.isNull(property)) {
-			return null;
-		}
-		switch (property) {
-			 case "userId":
-				return userId;
-			 case "userName":
-				return userName;
-			 case "avatarUrl":
-				return avatarUrl;
-			 case "phone":
-				return phone;
-			 case "password":
-				return password;
-			 case "createTime":
-				return createTime;
-			 case "updateTime":
-				return updateTime;
-			 case "softDelete":
-				return softDelete;
-			default:
-				return null;
-		}
+		 return (SimpleExpression) this.path(property);
 	}
 
 	public QUserInfo(String variable) {
