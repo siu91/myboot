@@ -41,9 +41,9 @@ config = [
         // 自动生成开关
         generate: [
                 // 实体对象，对应 DO/PO
-                entity            : false,
+                entity            : true,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : false,
+                entityQueryDSL    : true,
                 // 数据访问对象 DAO
                 repository        : false,
                 // JPA QueryDSL 数据访问对象
@@ -88,6 +88,8 @@ config = [
                 impSerializable    : true,
                 // 是否生成 swagger 文档相关注解，相关说明来数据库注释
                 useSwagger         : true,
+                // 自动隐藏api参数属性（true，只暴露主键和在表字段注释中标记了”(qp)“的字段，false 所有字段都在swagger 展示）
+                autoHiddenApiProperty         : false,
                 // 是否使用 lombok 注解代替 get、set方法
                 useLombok          : true
 
@@ -495,11 +497,16 @@ class Gen {
         if (config.entity.useSwagger) {
             // 字段注释中有标记"(qp)",代表为查询参数，会加上 ApiModelProperty
             // 默认主键是查询条件无需标记
-            if((field.comment!=null && field.comment.contains("(qp)")) || field.isPrimaryKey){
-                writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
+            if(config.entity.autoHiddenApiProperty){
+                if((field.comment!=null && field.comment.contains("(qp)")) || field.isPrimaryKey){
+                    writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
+                }else{
+                    writer.writeLine "\t@ApiModelProperty(value = \"${comment}\", hidden = true)"
+                }
             }else{
-                writer.writeLine "\t@ApiModelProperty(value = \"${comment}\", hidden = true)"
+                writer.writeLine "\t@ApiModelProperty(value = \"${comment}\")"
             }
+
         }
 
         if (config.entity.jpaConfig.enable) {
