@@ -21,11 +21,12 @@ public class BaseException extends Exception {
      * 异常信息
      */
     private String errorCode;
+    private String errorMsg;
 
     /**
      * debug 信息
      */
-    private String devMsg;
+    private Object devMsg;
 
 
     /**
@@ -33,12 +34,21 @@ public class BaseException extends Exception {
      *
      * @param message
      * @param errorCode
-     * @param devMsg
+     * @param errorMsg
      */
-    public BaseException(String message, String errorCode, String devMsg) {
+    public BaseException(String message, String errorCode, String errorMsg) {
         super(message);
         this.errorCode = errorCode;
-        this.devMsg = devMsg;
+        this.devMsg = errorMsg;
+    }
+
+    /**
+     * 堆栈信息
+     *
+     * @param stackTraceElements
+     */
+    public void setDevMsg(StackTraceElement[] stackTraceElements) {
+        this.devMsg = stackTraceElements;
     }
 
 

@@ -3,6 +3,7 @@ package org.siu.myboot.core.web.handlers;
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.exception.BaseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,6 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    /**
+     * 默认开启debug
+     */
+    @Value("${debug:true}")
+    private boolean debug;
 
     /**
      * 方法参数校验异常统一处理
@@ -47,10 +55,13 @@ public class GlobalExceptionHandler {
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
+            if (debug) {
+                baseException.setDevMsg(e.getStackTrace());
+            }
             // TODO 定以各异常，统一格式返回给前端
-            result.innerError(baseException);
+            result.innerError(baseException, debug);
         } else {
-            result.unknownError(e);
+            result.unknownError(e, debug);
         }
 
         return result;

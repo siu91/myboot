@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
+import org.siu.myboot.core.exception.RequestForbidden;
 import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.server.entity.po.Oauths;
 import org.siu.myboot.server.service.OauthsService;
@@ -64,8 +65,14 @@ public class OauthsController {
 
     @GetMapping
     @ApiOperation(value = "Oauths:PAGE")
-    public Result page(@RequestBody PageParams<Oauths> params) {
+    public Result page(@RequestBody PageParams<Oauths> params) throws RequestForbidden {
         PageData data = oauthsService.getPage(params);
+
+        log.info("测试异常");
+        if (true) {
+            throw new RequestForbidden("测试异常处理");
+        }
+
         return new Result(data);
     }
 
