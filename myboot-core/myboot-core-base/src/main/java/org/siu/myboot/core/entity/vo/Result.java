@@ -75,7 +75,7 @@ public class Result {
      */
     public Result innerError(BaseException e, boolean debug) {
         this.code = e.getHttpStatus();
-        this.message = e.getMessage();
+        this.message = e.getErrorMsg() + e.getMessage();
         if (debug) {
             this.debug = e.getStackTrace();
         }

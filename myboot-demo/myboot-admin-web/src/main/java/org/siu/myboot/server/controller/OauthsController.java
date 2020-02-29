@@ -70,7 +70,7 @@ public class OauthsController {
 
         log.info("测试异常");
         if (true) {
-            throw new RequestForbidden("测试异常处理");
+            throw new RequestForbidden("Oauths 分页接口");
         }
 
         return new Result(data);

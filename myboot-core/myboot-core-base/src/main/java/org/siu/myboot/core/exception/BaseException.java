@@ -2,6 +2,7 @@ package org.siu.myboot.core.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 /**
  * 异常基类
@@ -34,7 +35,7 @@ public class BaseException extends Exception {
     public BaseException(String message, String errorCode, String errorMsg) {
         super(message);
         this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+        this.errorMsg = errorMsg + (StringUtils.isEmpty(message) ? "" : ":" + message);
     }
 
 
