@@ -5,7 +5,6 @@ import lombok.experimental.Accessors;
 import org.siu.myboot.core.constant.ResultConstant;
 import org.siu.myboot.core.exception.BaseException;
 
-import java.util.Objects;
 
 /**
  * TODO 1、空值返回格式处理 2、debug 信息处理
@@ -77,8 +76,8 @@ public class Result {
     public Result innerError(BaseException e, boolean debug) {
         this.code = e.getHttpStatus();
         this.message = e.getMessage();
-        if (Objects.nonNull(e.getDevMsg()) && debug) {
-            this.debug = e.getDevMsg();
+        if (debug) {
+            this.debug = e.getStackTrace();
         }
         this.data = ResultConstant.EMPTY_OBJECT;
         return this;

@@ -23,11 +23,6 @@ public class BaseException extends Exception {
     private String errorCode;
     private String errorMsg;
 
-    /**
-     * debug 信息
-     */
-    private Object devMsg;
-
 
     /**
      * 构造函数
@@ -40,15 +35,6 @@ public class BaseException extends Exception {
         super(message);
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
-    }
-
-    /**
-     * 堆栈信息
-     *
-     * @param stackTraceElements
-     */
-    public void setDevMsg(StackTraceElement[] stackTraceElements) {
-        this.devMsg = stackTraceElements;
     }
 
 

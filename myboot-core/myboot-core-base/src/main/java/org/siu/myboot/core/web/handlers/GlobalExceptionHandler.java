@@ -55,9 +55,6 @@ public class GlobalExceptionHandler {
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
-            if (debug) {
-                baseException.setDevMsg(e.getStackTrace());
-            }
             // TODO 定以各异常，统一格式返回给前端
             result.innerError(baseException, debug);
         } else {
