@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class Params<T> extends Pagination {
+public class PageParams<T> extends Pagination {
     /**
      * 查询实体参数
      */

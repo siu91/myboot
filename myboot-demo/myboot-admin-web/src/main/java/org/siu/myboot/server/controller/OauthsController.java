@@ -3,7 +3,7 @@ package org.siu.myboot.server.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.valid.Valid;
@@ -63,16 +63,17 @@ public class OauthsController {
 
     @GetMapping
     @ApiOperation(value = "Oauths:PAGE")
-    public Result page(@RequestBody Params<Oauths> params) {
-        PageData data = oauthsService.getPage(params);
+    public Result page(@RequestBody PageParams<Oauths> pageParams) {
+        PageData data = oauthsService.getPage(pageParams);
+        log.info("测试追踪ID");
         return new Result(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "Oauths:LIST")
-    public Result list(@RequestBody Params<Oauths> params) {
-        PageData data = oauthsService.getPage(params);
+    public Result list(@RequestBody PageParams<Oauths> pageParams) {
+        PageData data = oauthsService.getPage(pageParams);
         return new Result(data);
     }
 

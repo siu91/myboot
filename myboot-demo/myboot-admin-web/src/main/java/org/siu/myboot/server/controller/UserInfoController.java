@@ -3,7 +3,7 @@ package org.siu.myboot.server.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.valid.Valid;
@@ -63,16 +63,16 @@ public class UserInfoController {
 
     @GetMapping
     @ApiOperation(value = "UserInfo:PAGE")
-    public Result page(@RequestBody Params<UserInfo> params) {
-        PageData data = userInfoService.getPage(params);
+    public Result page(@RequestBody PageParams<UserInfo> pageParams) {
+        PageData data = userInfoService.getPage(pageParams);
         return new Result(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserInfo:LIST")
-    public Result list(@RequestBody Params<UserInfo> params) {
-        PageData data = userInfoService.getPage(params);
+    public Result list(@RequestBody PageParams<UserInfo> pageParams) {
+        PageData data = userInfoService.getPage(pageParams);
         return new Result(data);
     }
 

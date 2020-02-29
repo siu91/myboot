@@ -1,7 +1,7 @@
 package org.siu.myboot.server.service;
 
 import com.querydsl.core.types.OrderSpecifier;
-import org.siu.myboot.core.entity.qo.Params;
+import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
@@ -74,15 +74,15 @@ public class UserInfoService {
    /**
      * get list by page
      *
-     * @param params
+     * @param pageParams
      * @return
      */
-    public PageData getPage(Params<UserInfo> params) {
-        QSort sort = QueryBuilder.buildSort(params.getSort(), QUserInfo.userInfo);
-        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
+    public PageData getPage(PageParams<UserInfo> pageParams) {
+        QSort sort = QueryBuilder.buildSort(pageParams.getSort(), QUserInfo.userInfo);
+        Pageable pageable = PageRequest.of(pageParams.getPage(), pageParams.getLimit(), sort);
+        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, pageParams.getTerms());
 
-        return new PageData(data, params);
+        return new PageData(data, pageParams);
     }
 
     /**
