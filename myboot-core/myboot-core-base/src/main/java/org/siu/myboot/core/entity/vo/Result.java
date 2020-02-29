@@ -3,6 +3,7 @@ package org.siu.myboot.core.entity.vo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.siu.myboot.core.constant.ResultConstant;
+import org.siu.myboot.core.exception.BaseException;
 
 /**
  * @Author Siu
@@ -33,9 +34,41 @@ public class Result {
         return this;
     }
 
-    public Result error(String msg) {
+    /**
+     * 参数校验错误返回
+     *
+     * @param msg
+     * @return
+     */
+    public Result paramsError(String msg) {
         this.code = ResultConstant.SUCCESS;
         this.message = msg;
+        return this;
+    }
+
+    /**
+     * 未知错误
+     *
+     * @param e
+     * @return
+     */
+    public Result unknownError(Exception e) {
+        this.code = ResultConstant.UNKNOWN_ERROR;
+        this.message = "未知错误,请联系管理员.";
+        this.debug = e.getMessage();
+        return this;
+    }
+
+    /**
+     * 内部错误
+     *
+     * @param e
+     * @return
+     */
+    public Result innerError(BaseException e) {
+        this.code = ResultConstant.INNER_ERROR;
+        this.message = "内部错误";
+        this.debug = e.getMessage();
         return this;
     }
 }

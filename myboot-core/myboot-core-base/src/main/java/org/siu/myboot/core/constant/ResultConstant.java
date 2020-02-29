@@ -14,6 +14,8 @@ public class ResultConstant {
      * 成功返回码
      */
     public static final int SUCCESS = 0;
+    public static final int UNKNOWN_ERROR = 11500;
+    public static final int INNER_ERROR = 11501;
     /**
      * 默认失败返回码 未知错误
      */

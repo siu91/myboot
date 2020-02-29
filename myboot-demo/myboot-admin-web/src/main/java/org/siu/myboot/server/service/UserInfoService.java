@@ -17,14 +17,16 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * UserInfo service层
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-29 11:43:18
  * @Version 0.0.1
  */
+@Slf4j
 @Service
 public class UserInfoService {
 
@@ -74,15 +76,15 @@ public class UserInfoService {
    /**
      * get list by page
      *
-     * @param pageParams
+     * @param params
      * @return
      */
-    public PageData getPage(PageParams<UserInfo> pageParams) {
-        QSort sort = QueryBuilder.buildSort(pageParams.getSort(), QUserInfo.userInfo);
-        Pageable pageable = PageRequest.of(pageParams.getPage(), pageParams.getLimit(), sort);
-        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, pageParams.getTerms());
+    public PageData getPage(PageParams<UserInfo> params) {
+        QSort sort = QueryBuilder.buildSort(params.getSort(), QUserInfo.userInfo);
+        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
+        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
-        return new PageData(data, pageParams);
+        return new PageData(data, params);
     }
 
     /**
