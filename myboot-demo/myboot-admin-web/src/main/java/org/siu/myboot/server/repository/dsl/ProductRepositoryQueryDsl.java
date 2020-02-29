@@ -4,8 +4,8 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.core.utils.QueryBuilder;
-import org.siu.myboot.server.entity.po.QUserInfo;
-import org.siu.myboot.server.entity.po.UserInfo;
+import org.siu.myboot.server.entity.po.QProduct;
+import org.siu.myboot.server.entity.po.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -15,23 +15,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * UserInfo 自定义Repository QueryDSL层
+ * Product 自定义Repository QueryDSL层
  *
  * @author @Author Siu
  * @Date 2020-02-29 23:27:03
  * @Version 0.0.1
  */
 @Repository
-public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long>  {
+public class ProductRepositoryQueryDsl extends BaseJpaRepository<Product, Long>  {
 
-	public UserInfoRepositoryQueryDsl(EntityManager entityManager) {
-		super(UserInfo.class, entityManager);
+	public ProductRepositoryQueryDsl(EntityManager entityManager) {
+		super(Product.class, entityManager);
 	}
 
 	/**
-	 * QUserInfo QueryDSL Object: Use jpaQueryFactory build JPAQuery
+	 * QProduct QueryDSL Object: Use jpaQueryFactory build JPAQuery
 	 */
-	private static final QUserInfo qUserInfo = QUserInfo.userInfo;
+	private static final QProduct qProduct = QProduct.product;
 
 	/**
 	 * queryExample
@@ -39,8 +39,8 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
 	 * @param pageable
 	 * @return
 	 */
-	public Page<UserInfo> queryExample(Pageable pageable) {
-		JPAQuery<UserInfo> countQuery = jpaQueryFactory.selectFrom(qUserInfo);
+	public Page<Product> queryExample(Pageable pageable) {
+		JPAQuery<Product> countQuery = jpaQueryFactory.selectFrom(qProduct);
 		return basePageQuery(countQuery, pageable);
 	}
 
@@ -50,9 +50,9 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
      * @param pageable
      * @return
      */
-    public Page<UserInfo> queryPage(Pageable pageable, UserInfo params) {
-        JPAQuery<UserInfo> countQuery = jpaQueryFactory.selectFrom(qUserInfo);
-        QueryBuilder.buildCondition(countQuery, qUserInfo, params);
+    public Page<Product> queryPage(Pageable pageable, Product params) {
+        JPAQuery<Product> countQuery = jpaQueryFactory.selectFrom(qProduct);
+        QueryBuilder.buildCondition(countQuery, qProduct, params);
         return basePageQuery(countQuery, pageable);
     }
 
@@ -63,9 +63,9 @@ public class UserInfoRepositoryQueryDsl extends BaseJpaRepository<UserInfo, Long
      * @param params
      * @return
      */
-    public List<UserInfo> queryList(UserInfo params, List<OrderSpecifier<?>> orderSpecifiers) {
-        JPAQuery<UserInfo> query = jpaQueryFactory.selectFrom(qUserInfo);
-        QueryBuilder.buildCondition(query, qUserInfo, params);
+    public List<Product> queryList(Product params, List<OrderSpecifier<?>> orderSpecifiers) {
+        JPAQuery<Product> query = jpaQueryFactory.selectFrom(qProduct);
+        QueryBuilder.buildCondition(query, qProduct, params);
         if (Objects.nonNull(orderSpecifiers)) {
             for (OrderSpecifier<?> orderSpecifier : orderSpecifiers) {
                 query.orderBy(orderSpecifier);

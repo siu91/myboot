@@ -5,10 +5,10 @@ import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
-import org.siu.myboot.server.entity.po.UserInfo;
-import org.siu.myboot.server.entity.po.QUserInfo;
-import org.siu.myboot.server.repository.UserInfoRepository;
-import org.siu.myboot.server.repository.dsl.UserInfoRepositoryQueryDsl;
+import org.siu.myboot.server.entity.po.Order;
+import org.siu.myboot.server.entity.po.QOrder;
+import org.siu.myboot.server.repository.OrderRepository;
+import org.siu.myboot.server.repository.dsl.OrderRepositoryQueryDsl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,27 +20,27 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * UserInfo service层
+ * Order service层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:30:49
  * @Version 0.0.1
  */
 @Slf4j
 @Service
-public class UserInfoService {
+public class OrderService {
 
 	@Resource
-	private UserInfoRepository repository;
+	private OrderRepository repository;
 	@Resource
-	private UserInfoRepositoryQueryDsl repositoryQueryDsl;
+	private OrderRepositoryQueryDsl repositoryQueryDsl;
     /**
      * add 
      *
      * @param entity
      * @return
      */
-    public UserInfo save(UserInfo entity) {
+    public Order save(Order entity) {
         return repositoryQueryDsl.save(entity);
     }
 
@@ -59,7 +59,7 @@ public class UserInfoService {
      * @param entity
      * @return
      */
-    public UserInfo update(UserInfo entity) {
+    public Order update(Order entity) {
         return repositoryQueryDsl.save(entity);
     }
 
@@ -69,7 +69,7 @@ public class UserInfoService {
      * @param id
      * @return
      */
-    public Optional<UserInfo> findById(Long id) {
+    public Optional<Order> findById(Long id) {
         return repositoryQueryDsl.findById(id);
     }
 
@@ -79,10 +79,10 @@ public class UserInfoService {
      * @param params
      * @return
      */
-    public PageData getPage(PageParams<UserInfo> params) {
-        QSort sort = QueryBuilder.buildSort(params.getSort(), QUserInfo.userInfo);
+    public PageData getPage(PageParams<Order> params) {
+        QSort sort = QueryBuilder.buildSort(params.getSort(), QOrder.order);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<UserInfo> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
+        Page<Order> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
         return new PageData(data, params);
     }
@@ -92,8 +92,8 @@ public class UserInfoService {
      *
      * @return
      */
-    public List<UserInfo> getList(UserInfo userInfo, List<Sort> sorts) {
-        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QUserInfo.userInfo);
-        return repositoryQueryDsl.queryList(userInfo, sort);
+    public List<Order> getList(Order order, List<Sort> sorts) {
+        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QOrder.order);
+        return repositoryQueryDsl.queryList(order, sort);
     }
 }

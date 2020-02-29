@@ -40,13 +40,13 @@ config = [
         // 自动生成开关
         generate      : [
                 // 实体对象，对应 DO/PO
-                entity            : false,
+                entity            : true,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : false,
+                entityQueryDSL    : true,
                 // 数据访问对象 DAO
-                repository        : false,
+                repository        : true,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: false,
+                repositoryQueryDSL: true,
                 // 服务层对象
                 service           : true,
                 // API 层
@@ -76,10 +76,10 @@ config = [
                         autoFillFieldLastModifiedDateNames: ["update_time", "modified_time"],
                         // 是否配置软删除
                         softDelete                        : true,
-                        // 软删除字段名: soft_delete 设计为int8，0-未删除，其他-删除；与需要唯一约束的字段组成联合唯一
-                        softDeleteFieldName               : "soft_delete",
+                        // 软删除字段名: delete_status 设计为int8，0-未删除，其他-删除；与需要唯一约束的字段组成联合唯一
+                        softDeleteFieldName               : "delete_status",
                         // 软删除更新使用的序列/自增,未配置为空，将使用 ”set softDeleteFieldName = 1“
-                        softDeleteSeqName                 : "public_soft_delete_seq"
+                        softDeleteSeqName                 : ""
                 ],
                 // 数据库类型
                 dbType               : "postgres",
@@ -365,7 +365,7 @@ class Gen {
         if (config.entity.jpaConfig.enable && config.entity.jpaConfig.softDelete) {
             fieldList.each() { field ->
                 if (config.entity.jpaConfig.softDeleteFieldName == field.column) {
-                    if (field.type == "Long") {
+                    if (field.type == "Integer") {
                         softDeleteFlag = true
                     }
                 }

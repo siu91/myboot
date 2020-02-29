@@ -20,21 +20,35 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 
 	public static final QUserInfo userInfo = new QUserInfo("userInfo");
 
+	public final NumberPath<Long> id = createNumber("id", Long.class);
+
 	public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
-	public final StringPath userName = createString("userName");
+	public final StringPath realName = createString("realName");
 
-	public final StringPath avatarUrl = createString("avatarUrl");
+	public final NumberPath<Integer> idType  = createNumber("idType ", Integer.class);
 
-	public final StringPath phone = createString("phone");
+	public final StringPath idNo  = createString("idNo ");
 
-	public final StringPath password = createString("password");
+	public final StringPath email  = createString("email ");
 
-	public final DateTimePath<java.util.Date> createTime = createDateTime("createTime", java.util.Date.class);
+	public final NumberPath<Integer> gender  = createNumber("gender ", Integer.class);
+
+	public final NumberPath<Long> points = createNumber("points", Long.class);
+
+	public final DateTimePath<java.util.Date> registerTime  = createDateTime("registerTime ", java.util.Date.class);
+
+	public final StringPath birthday  = createString("birthday ");
+
+	public final NumberPath<Integer> userLevel  = createNumber("userLevel ", Integer.class);
+
+	public final NumberPath<Integer> userType = createNumber("userType", Integer.class);
+
+	public final NumberPath<Long> accountAmount = createNumber("accountAmount", Long.class);
+
+	public final NumberPath<Long> version = createNumber("version", Long.class);
 
 	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
-
-	public final NumberPath<Long> softDelete = createNumber("softDelete", Long.class);
 
 	/**
 	 * get path by property
@@ -47,22 +61,36 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 			return null;
 		}
 		switch (property) {
+			 case "id":
+				return id;
 			 case "userId":
 				return userId;
-			 case "userName":
-				return userName;
-			 case "avatarUrl":
-				return avatarUrl;
-			 case "phone":
-				return phone;
-			 case "password":
-				return password;
-			 case "createTime":
-				return createTime;
+			 case "realName":
+				return realName;
+			 case "idType ":
+				return idType ;
+			 case "idNo ":
+				return idNo ;
+			 case "email ":
+				return email ;
+			 case "gender ":
+				return gender ;
+			 case "points":
+				return points;
+			 case "registerTime ":
+				return registerTime ;
+			 case "birthday ":
+				return birthday ;
+			 case "userLevel ":
+				return userLevel ;
+			 case "userType":
+				return userType;
+			 case "accountAmount":
+				return accountAmount;
+			 case "version":
+				return version;
 			 case "updateTime":
 				return updateTime;
-			 case "softDelete":
-				return softDelete;
 			default:
 				return null;
 		}

@@ -14,27 +14,31 @@ import java.util.Objects;
  * QUserInfo is a Querydsl query type for UserInfo
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QOauths extends EntityPathBase<Oauths> implements QBuiler {
+public class QUserAddr extends EntityPathBase<UserAddr> implements QBuiler {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final QOauths oauths = new QOauths("oauths");
+	public static final QUserAddr userAddr = new QUserAddr("userAddr");
 
 	public final NumberPath<Long> id = createNumber("id", Long.class);
 
 	public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
-	public final NumberPath<Integer> oauthType = createNumber("oauthType", Integer.class);
+	public final StringPath zip = createString("zip");
 
-	public final StringPath oauthId = createString("oauthId");
+	public final StringPath province = createString("province");
 
-	public final StringPath unionid = createString("unionid");
+	public final StringPath city = createString("city");
 
-	public final StringPath credential = createString("credential");
+	public final StringPath district = createString("district");
+
+	public final StringPath address = createString("address");
+
+	public final StringPath defaultAddr  = createString("defaultAddr ");
 
 	public final DateTimePath<java.util.Date> createTime = createDateTime("createTime", java.util.Date.class);
 
-	public final DateTimePath<java.util.Date> updateTime = createDateTime("updateTime", java.util.Date.class);
+	public final DateTimePath<java.util.Date> upateTime = createDateTime("upateTime", java.util.Date.class);
 
 	/**
 	 * get path by property
@@ -51,18 +55,22 @@ public class QOauths extends EntityPathBase<Oauths> implements QBuiler {
 				return id;
 			 case "userId":
 				return userId;
-			 case "oauthType":
-				return oauthType;
-			 case "oauthId":
-				return oauthId;
-			 case "unionid":
-				return unionid;
-			 case "credential":
-				return credential;
+			 case "zip":
+				return zip;
+			 case "province":
+				return province;
+			 case "city":
+				return city;
+			 case "district":
+				return district;
+			 case "address":
+				return address;
+			 case "defaultAddr ":
+				return defaultAddr ;
 			 case "createTime":
 				return createTime;
-			 case "updateTime":
-				return updateTime;
+			 case "upateTime":
+				return upateTime;
 			default:
 				return null;
 		}
@@ -90,15 +98,15 @@ public class QOauths extends EntityPathBase<Oauths> implements QBuiler {
 		 return (SimpleExpression) this.path(property);
 	}
 
-	public QOauths(String variable) {
-		super(Oauths.class, forVariable(variable));
+	public QUserAddr(String variable) {
+		super(UserAddr.class, forVariable(variable));
 	}
 
-	public QOauths(Path<? extends Oauths> path) {
+	public QUserAddr(Path<? extends UserAddr> path) {
 		super(path.getType(), path.getMetadata());
 	}
 
-	public QOauths(PathMetadata metadata) {
-		super(Oauths.class, metadata);
+	public QUserAddr(PathMetadata metadata) {
+		super(UserAddr.class, metadata);
 	}
 }

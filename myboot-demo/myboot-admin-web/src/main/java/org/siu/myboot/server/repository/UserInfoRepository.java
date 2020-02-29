@@ -10,38 +10,24 @@ import java.util.List;
  * UserInfo Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-29 23:27:03
  * @Version 0.0.1
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
+	/**
+	 * 注册时间
+	 *@param registerTime 
+	 *@return
+	 */
+	List<UserInfo> findByRegisterTime Before(Date registerTime );
 
 	/**
-	 * 用户名（唯一）
-	 *@param userName
+	 * 注册时间
+	 *@param registerTime 
 	 *@return
 	 */
-	UserInfo findByUserName(String userName);
-
-	/**
-	 * 手机（唯一）
-	 *@param phone
-	 *@return
-	 */
-	UserInfo findByPhone(String phone);
-	/**
-	 * 创建时间
-	 *@param createTime
-	 *@return
-	 */
-	List<UserInfo> findByCreateTimeBefore(Date createTime);
-
-	/**
-	 * 创建时间
-	 *@param createTime
-	 *@return
-	 */
-	List<UserInfo> findByCreateTimeAfter(Date createTime);
+	List<UserInfo> findByRegisterTime After(Date registerTime );
 	/**
 	 * 更新时间
 	 *@param updateTime
@@ -55,11 +41,5 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 	 *@return
 	 */
 	List<UserInfo> findByUpdateTimeAfter(Date updateTime);
-
-	/**
-	 * findByUserNameOrPhone
-	 *@return
-	 */
-	UserInfo findByUserNameOrPhone(String userName,String phone);
 
 }

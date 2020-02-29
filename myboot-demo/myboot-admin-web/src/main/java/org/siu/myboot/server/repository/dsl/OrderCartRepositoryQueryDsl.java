@@ -4,8 +4,8 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.core.utils.QueryBuilder;
-import org.siu.myboot.server.entity.po.QOauths;
-import org.siu.myboot.server.entity.po.Oauths;
+import org.siu.myboot.server.entity.po.QOrderCart;
+import org.siu.myboot.server.entity.po.OrderCart;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -15,23 +15,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Oauths 自定义Repository QueryDSL层
+ * OrderCart 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-29 23:27:03
  * @Version 0.0.1
  */
 @Repository
-public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
+public class OrderCartRepositoryQueryDsl extends BaseJpaRepository<OrderCart, Long>  {
 
-	public OauthsRepositoryQueryDsl(EntityManager entityManager) {
-		super(Oauths.class, entityManager);
+	public OrderCartRepositoryQueryDsl(EntityManager entityManager) {
+		super(OrderCart.class, entityManager);
 	}
 
 	/**
-	 * QOauths QueryDSL Object: Use jpaQueryFactory build JPAQuery
+	 * QOrderCart QueryDSL Object: Use jpaQueryFactory build JPAQuery
 	 */
-	private static final QOauths qOauths = QOauths.oauths;
+	private static final QOrderCart qOrderCart = QOrderCart.orderCart;
 
 	/**
 	 * queryExample
@@ -39,8 +39,8 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Oauths> queryExample(Pageable pageable) {
-		JPAQuery<Oauths> countQuery = jpaQueryFactory.selectFrom(qOauths);
+	public Page<OrderCart> queryExample(Pageable pageable) {
+		JPAQuery<OrderCart> countQuery = jpaQueryFactory.selectFrom(qOrderCart);
 		return basePageQuery(countQuery, pageable);
 	}
 
@@ -50,9 +50,9 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
      * @param pageable
      * @return
      */
-    public Page<Oauths> queryPage(Pageable pageable, Oauths params) {
-        JPAQuery<Oauths> countQuery = jpaQueryFactory.selectFrom(qOauths);
-        QueryBuilder.buildCondition(countQuery, qOauths, params);
+    public Page<OrderCart> queryPage(Pageable pageable, OrderCart params) {
+        JPAQuery<OrderCart> countQuery = jpaQueryFactory.selectFrom(qOrderCart);
+        QueryBuilder.buildCondition(countQuery, qOrderCart, params);
         return basePageQuery(countQuery, pageable);
     }
 
@@ -63,9 +63,9 @@ public class OauthsRepositoryQueryDsl extends BaseJpaRepository<Oauths, Long>  {
      * @param params
      * @return
      */
-    public List<Oauths> queryList(Oauths params, List<OrderSpecifier<?>> orderSpecifiers) {
-        JPAQuery<Oauths> query = jpaQueryFactory.selectFrom(qOauths);
-        QueryBuilder.buildCondition(query, qOauths, params);
+    public List<OrderCart> queryList(OrderCart params, List<OrderSpecifier<?>> orderSpecifiers) {
+        JPAQuery<OrderCart> query = jpaQueryFactory.selectFrom(qOrderCart);
+        QueryBuilder.buildCondition(query, qOrderCart, params);
         if (Objects.nonNull(orderSpecifiers)) {
             for (OrderSpecifier<?> orderSpecifier : orderSpecifiers) {
                 query.orderBy(orderSpecifier);

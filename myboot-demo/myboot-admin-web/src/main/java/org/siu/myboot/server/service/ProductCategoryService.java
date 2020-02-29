@@ -5,10 +5,10 @@ import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
-import org.siu.myboot.server.entity.po.Oauths;
-import org.siu.myboot.server.entity.po.QOauths;
-import org.siu.myboot.server.repository.OauthsRepository;
-import org.siu.myboot.server.repository.dsl.OauthsRepositoryQueryDsl;
+import org.siu.myboot.server.entity.po.ProductCategory;
+import org.siu.myboot.server.entity.po.QProductCategory;
+import org.siu.myboot.server.repository.ProductCategoryRepository;
+import org.siu.myboot.server.repository.dsl.ProductCategoryRepositoryQueryDsl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,27 +20,27 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Oauths service层
+ * ProductCategory service层
  *
  * @author @Author Siu
- * @Date 2020-02-29 11:43:18
+ * @Date 2020-02-29 23:27:03
  * @Version 0.0.1
  */
 @Slf4j
 @Service
-public class OauthsService {
+public class ProductCategoryService {
 
 	@Resource
-	private OauthsRepository repository;
+	private ProductCategoryRepository repository;
 	@Resource
-	private OauthsRepositoryQueryDsl repositoryQueryDsl;
+	private ProductCategoryRepositoryQueryDsl repositoryQueryDsl;
     /**
      * add 
      *
      * @param entity
      * @return
      */
-    public Oauths save(Oauths entity) {
+    public ProductCategory save(ProductCategory entity) {
         return repositoryQueryDsl.save(entity);
     }
 
@@ -59,7 +59,7 @@ public class OauthsService {
      * @param entity
      * @return
      */
-    public Oauths update(Oauths entity) {
+    public ProductCategory update(ProductCategory entity) {
         return repositoryQueryDsl.save(entity);
     }
 
@@ -69,7 +69,7 @@ public class OauthsService {
      * @param id
      * @return
      */
-    public Optional<Oauths> findById(Long id) {
+    public Optional<ProductCategory> findById(Long id) {
         return repositoryQueryDsl.findById(id);
     }
 
@@ -79,10 +79,10 @@ public class OauthsService {
      * @param params
      * @return
      */
-    public PageData getPage(PageParams<Oauths> params) {
-        QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
+    public PageData getPage(PageParams<ProductCategory> params) {
+        QSort sort = QueryBuilder.buildSort(params.getSort(), QProductCategory.productCategory);
         Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
-        Page<Oauths> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
+        Page<ProductCategory> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
         return new PageData(data, params);
     }
@@ -92,8 +92,8 @@ public class OauthsService {
      *
      * @return
      */
-    public List<Oauths> getList(Oauths oauths, List<Sort> sorts) {
-        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QOauths.oauths);
-        return repositoryQueryDsl.queryList(oauths, sort);
+    public List<ProductCategory> getList(ProductCategory productCategory, List<Sort> sorts) {
+        List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QProductCategory.productCategory);
+        return repositoryQueryDsl.queryList(productCategory, sort);
     }
 }

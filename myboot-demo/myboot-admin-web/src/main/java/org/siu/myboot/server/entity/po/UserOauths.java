@@ -6,6 +6,8 @@ import org.siu.myboot.core.entity.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import org.siu.myboot.core.valid.Valid;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import lombok.EqualsAndHashCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -17,10 +19,10 @@ import java.io.Serializable;
 
 
 /**
- * 第三方授权表
+ * 用户鉴权表
  *
  * @author @Author Siu
- * @Date 2020-02-28 19:17:51
+ * @Date 2020-02-29 23:27:03
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -28,31 +30,33 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "oauths")
-@ApiModel(value = "第三方授权表")
-public class Oauths extends BaseEntity implements Serializable {
+@Table(name = "user_oauths")
+@ApiModel(value = "用户鉴权表")
+@SQLDelete(sql = "UPDATE user_oauths SET delete_status = 1 WHERE id = ?")
+@Where(clause = "delete_status = 0")
+public class UserOauths extends BaseEntity implements Serializable {
 
 	/**
-	 * (qp)
+	 * id
 	 * nullable : false
-	 * default  : nextval('public_seq'::regclass)
+	 * default  : nextval('ganxu_common_seq'::regclass)
 	 */
 	@Id
-	@SequenceGenerator(name = "public_seq", sequenceName = "public_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_seq")
-	@ApiModelProperty(value = "(qp)")
+	@SequenceGenerator(name = "ganxu_common_seq", sequenceName = "ganxu_common_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ganxu_common_seq")
+	@ApiModelProperty(value = "id")
 	@Column(name = "id", nullable = false)
-	@NotNull(message = "(qp)不能为空", groups = {Valid.UPDATE.class})
+	@NotNull(message = "id不能为空", groups = {Valid.UPDATE.class})
 	private Long id;
 
 	/**
-	 * user_info表主键(qp)
+	 * users表主键
 	 * nullable : false
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "user_info表主键(qp)")
+	@ApiModelProperty(value = "users表主键")
 	@Column(name = "user_id", nullable = false)
-	@NotNull(message = "user_info表主键(qp)不能为空", groups = {Valid.CREATE.class})
+	@NotNull(message = "users表主键不能为空", groups = {Valid.CREATE.class})
 	private Long userId;
 
 	/**
@@ -95,21 +99,39 @@ public class Oauths extends BaseEntity implements Serializable {
 	private String credential;
 
 	/**
-	 * (qp)
+	 * 版本（更新锁）
+	 * nullable : true
+	 * default  : 0
+	 */
+	@ApiModelProperty(value = "版本（更新锁）")
+	@Column(name = "version", nullable = true)
+	private Long version;
+
+	/**
+	 * 删除状态：0-未删除，其它删除
+	 * nullable : true
+	 * default  : 0
+	 */
+	@ApiModelProperty(value = "删除状态：0-未删除，其它删除")
+	@Column(name = "delete_status", nullable = true)
+	private Integer deleteStatus;
+
+	/**
+	 * 创建时间
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "(qp)")
+	@ApiModelProperty(value = "创建时间")
 	@CreatedDate
 	@Column(name = "create_time", nullable = true)
 	private java.util.Date createTime;
 
 	/**
-	 * (qp)
+	 * 更新时间
 	 * nullable : true
 	 * default  : null
 	 */
-	@ApiModelProperty(value = "(qp)")
+	@ApiModelProperty(value = "更新时间")
 	@LastModifiedDate
 	@Column(name = "update_time", nullable = true)
 	private java.util.Date updateTime;
