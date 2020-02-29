@@ -20,7 +20,7 @@ import java.io.Serializable;
  * UserInfo
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:42:19
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -70,8 +70,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "证件类型")
-	@Column(name = "id_type ", nullable = true)
-	private Integer idType ;
+	@Column(name = "id_type", nullable = true)
+	private Integer idType;
 
 	/**
 	 * 证件号
@@ -79,8 +79,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "证件号")
-	@Column(name = "id_no ", nullable = true, length = 255)
-	private String idNo ;
+	@Column(name = "id_no", nullable = true, length = 255)
+	private String idNo;
 
 	/**
 	 * 邮箱
@@ -88,8 +88,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "邮箱")
-	@Column(name = "email ", nullable = true, length = 255)
-	private String email ;
+	@Column(name = "email", nullable = true, length = 255)
+	private String email;
 
 	/**
 	 * 性别
@@ -97,8 +97,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "性别")
-	@Column(name = "gender ", nullable = true)
-	private Integer gender ;
+	@Column(name = "gender", nullable = true)
+	private Integer gender;
 
 	/**
 	 * 积分
@@ -115,8 +115,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "注册时间")
-	@Column(name = "register_time ", nullable = true)
-	private java.util.Date registerTime ;
+	@Column(name = "register_time", nullable = true)
+	private java.util.Date registerTime;
 
 	/**
 	 * 生日
@@ -124,8 +124,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "生日")
-	@Column(name = "birthday ", nullable = true)
-	private java.sql.Date birthday ;
+	@Column(name = "birthday", nullable = true)
+	private java.sql.Date birthday;
 
 	/**
 	 * 会员级别：1 普通会员，2 青铜，3白银，4黄金，5钻石
@@ -133,8 +133,8 @@ public class UserInfo extends BaseEntity implements Serializable {
 	 * default  : null
 	 */
 	@ApiModelProperty(value = "会员级别：1 普通会员，2 青铜，3白银，4黄金，5钻石")
-	@Column(name = "user_level ", nullable = true)
-	private Integer userLevel ;
+	@Column(name = "user_level", nullable = true)
+	private Integer userLevel;
 
 	/**
 	 * 用户类型

@@ -10,10 +10,10 @@ import java.util.List;
  * ProductBrand Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:43:44
  * @Version 0.0.1
  */
-public interface ProductBrandRepository extends JpaRepository<ProductBrand, Integer> {
+public interface ProductBrandRepository extends JpaRepository<ProductBrand, Long> {
 
 	/**
 	 * 创建时间

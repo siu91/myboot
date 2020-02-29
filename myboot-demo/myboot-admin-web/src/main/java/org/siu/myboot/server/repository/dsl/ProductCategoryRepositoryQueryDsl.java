@@ -18,11 +18,11 @@ import java.util.Objects;
  * ProductCategory 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:47:03
  * @Version 0.0.1
  */
 @Repository
-public class ProductCategoryRepositoryQueryDsl extends BaseJpaRepository<ProductCategory, Integer>  {
+public class ProductCategoryRepositoryQueryDsl extends BaseJpaRepository<ProductCategory, Long>  {
 
 	public ProductCategoryRepositoryQueryDsl(EntityManager entityManager) {
 		super(ProductCategory.class, entityManager);

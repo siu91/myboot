@@ -26,21 +26,21 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 
 	public final StringPath realName = createString("realName");
 
-	public final NumberPath<Integer> idType  = createNumber("idType ", Integer.class);
+	public final NumberPath<Integer> idType = createNumber("idType", Integer.class);
 
-	public final StringPath idNo  = createString("idNo ");
+	public final StringPath idNo = createString("idNo");
 
-	public final StringPath email  = createString("email ");
+	public final StringPath email = createString("email");
 
-	public final NumberPath<Integer> gender  = createNumber("gender ", Integer.class);
+	public final NumberPath<Integer> gender = createNumber("gender", Integer.class);
 
 	public final NumberPath<Long> points = createNumber("points", Long.class);
 
-	public final DateTimePath<java.util.Date> registerTime  = createDateTime("registerTime ", java.util.Date.class);
+	public final DateTimePath<java.util.Date> registerTime = createDateTime("registerTime", java.util.Date.class);
 
-	public final StringPath birthday  = createString("birthday ");
+	public final StringPath birthday = createString("birthday");
 
-	public final NumberPath<Integer> userLevel  = createNumber("userLevel ", Integer.class);
+	public final NumberPath<Integer> userLevel = createNumber("userLevel", Integer.class);
 
 	public final NumberPath<Integer> userType = createNumber("userType", Integer.class);
 
@@ -67,22 +67,22 @@ public class QUserInfo extends EntityPathBase<UserInfo> implements QBuiler {
 				return userId;
 			 case "realName":
 				return realName;
-			 case "idType ":
-				return idType ;
-			 case "idNo ":
-				return idNo ;
-			 case "email ":
-				return email ;
-			 case "gender ":
-				return gender ;
+			 case "idType":
+				return idType;
+			 case "idNo":
+				return idNo;
+			 case "email":
+				return email;
+			 case "gender":
+				return gender;
 			 case "points":
 				return points;
-			 case "registerTime ":
-				return registerTime ;
-			 case "birthday ":
-				return birthday ;
-			 case "userLevel ":
-				return userLevel ;
+			 case "registerTime":
+				return registerTime;
+			 case "birthday":
+				return birthday;
+			 case "userLevel":
+				return userLevel;
 			 case "userType":
 				return userType;
 			 case "accountAmount":

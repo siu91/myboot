@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 商品供应商信息表
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:45:14
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -43,7 +43,7 @@ public class ProductSupplier extends BaseEntity implements Serializable {
 	@ApiModelProperty(value = "商品供应商ID")
 	@Column(name = "id", nullable = false)
 	@NotNull(message = "商品供应商ID不能为空", groups = {Valid.UPDATE.class})
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 供应商名称

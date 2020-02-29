@@ -41,7 +41,7 @@ public class ProductSupplierController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductSupplier:DELETE")
-    public Result delete(@PathVariable Integer id) {
+    public Result delete(@PathVariable Long id) {
         productSupplierService.delete(id);
         return new Result().success();
     }
@@ -56,7 +56,7 @@ public class ProductSupplierController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductSupplier:RETRIEVE")
-    public Result retrieve(@PathVariable Integer id) {
+    public Result retrieve(@PathVariable Long id) {
         Optional<ProductSupplier> data = productSupplierService.findById(id);
         return data.map(Result::new).orElseGet(() -> new Result().success());
 

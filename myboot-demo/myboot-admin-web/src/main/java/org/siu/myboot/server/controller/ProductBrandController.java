@@ -41,7 +41,7 @@ public class ProductBrandController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductBrand:DELETE")
-    public Result delete(@PathVariable Integer id) {
+    public Result delete(@PathVariable Long id) {
         productBrandService.delete(id);
         return new Result().success();
     }
@@ -56,7 +56,7 @@ public class ProductBrandController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductBrand:RETRIEVE")
-    public Result retrieve(@PathVariable Integer id) {
+    public Result retrieve(@PathVariable Long id) {
         Optional<ProductBrand> data = productBrandService.findById(id);
         return data.map(Result::new).orElseGet(() -> new Result().success());
 

@@ -20,7 +20,7 @@ public class QProductCategory extends EntityPathBase<ProductCategory> implements
 
 	public static final QProductCategory productCategory = new QProductCategory("productCategory");
 
-	public final NumberPath<Integer> id = createNumber("id", Integer.class);
+	public final NumberPath<Long> id = createNumber("id", Long.class);
 
 	public final StringPath categoryName = createString("categoryName");
 

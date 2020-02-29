@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 商品品牌信息表
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:43:44
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -43,7 +43,7 @@ public class ProductBrand extends BaseEntity implements Serializable {
 	@ApiModelProperty(value = "商品品牌信息表ID")
 	@Column(name = "id", nullable = false)
 	@NotNull(message = "商品品牌信息表ID不能为空", groups = {Valid.UPDATE.class})
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 品牌名称

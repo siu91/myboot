@@ -10,10 +10,10 @@ import java.util.List;
  * ProductSupplier Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:45:14
  * @Version 0.0.1
  */
-public interface ProductSupplierRepository extends JpaRepository<ProductSupplier, Integer> {
+public interface ProductSupplierRepository extends JpaRepository<ProductSupplier, Long> {
 
 	/**
 	 * 创建时间

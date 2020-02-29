@@ -10,24 +10,24 @@ import java.util.List;
  * UserInfo Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:42:19
  * @Version 0.0.1
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
 	/**
 	 * 注册时间
-	 *@param registerTime 
+	 *@param registerTime
 	 *@return
 	 */
-	List<UserInfo> findByRegisterTime Before(Date registerTime );
+	List<UserInfo> findByRegisterTimeBefore(Date registerTime);
 
 	/**
 	 * 注册时间
-	 *@param registerTime 
+	 *@param registerTime
 	 *@return
 	 */
-	List<UserInfo> findByRegisterTime After(Date registerTime );
+	List<UserInfo> findByRegisterTimeAfter(Date registerTime);
 	/**
 	 * 更新时间
 	 *@param updateTime

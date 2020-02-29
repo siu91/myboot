@@ -10,10 +10,10 @@ import java.util.List;
  * ProductCategory Repository层
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-02-29 23:47:03
  * @Version 0.0.1
  */
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 
 	/**
 	 * 创建时间

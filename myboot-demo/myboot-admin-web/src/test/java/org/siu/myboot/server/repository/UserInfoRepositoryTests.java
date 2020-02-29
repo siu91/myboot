@@ -29,7 +29,7 @@ public class UserInfoRepositoryTests {
 
     @Resource
     private UserInfoRepository userInfoRepository;
-    @Resource
+    /*@Resource
     private OauthsRepository oauthsRepository;
 
     @Resource
@@ -123,5 +123,5 @@ public class UserInfoRepositoryTests {
         Page<UserInfo> page = userInfoRepositoryQueryDsl.queryExample(pageable);
         List<UserInfo> userInfoList = page.getContent();
         System.out.println(userInfoList.size());
-    }
+    }*/
 }
