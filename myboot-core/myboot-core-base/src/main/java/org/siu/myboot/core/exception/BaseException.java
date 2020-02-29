@@ -39,7 +39,7 @@ public class BaseException extends Exception {
     public BaseException(String message, String errorCode, String errorMsg) {
         super(message);
         this.errorCode = errorCode;
-        this.devMsg = errorMsg;
+        this.errorMsg = errorMsg;
     }
 
     /**
