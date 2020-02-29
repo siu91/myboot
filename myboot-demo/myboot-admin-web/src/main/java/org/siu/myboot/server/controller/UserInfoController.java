@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -63,16 +64,16 @@ public class UserInfoController {
 
     @GetMapping
     @ApiOperation(value = "UserInfo:PAGE")
-    public Result page(@RequestBody PageParams<UserInfo> pageParams) {
-        PageData data = userInfoService.getPage(pageParams);
+    public Result page(@RequestBody PageParams<UserInfo> params) {
+        PageData data = userInfoService.getPage(params);
         return new Result(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserInfo:LIST")
-    public Result list(@RequestBody PageParams<UserInfo> pageParams) {
-        PageData data = userInfoService.getPage(pageParams);
+    public Result list(@RequestBody UserInfo params) {
+        List<UserInfo> data = userInfoService.getList(params, null);
         return new Result(data);
     }
 

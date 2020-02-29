@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -63,17 +64,16 @@ public class OauthsController {
 
     @GetMapping
     @ApiOperation(value = "Oauths:PAGE")
-    public Result page(@RequestBody PageParams<Oauths> pageParams) {
-        PageData data = oauthsService.getPage(pageParams);
-        log.info("测试追踪ID");
+    public Result page(@RequestBody PageParams<Oauths> params) {
+        PageData data = oauthsService.getPage(params);
         return new Result(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "Oauths:LIST")
-    public Result list(@RequestBody PageParams<Oauths> pageParams) {
-        PageData data = oauthsService.getPage(pageParams);
+    public Result list(@RequestBody Oauths params) {
+        List<Oauths> data = oauthsService.getList(params, null);
         return new Result(data);
     }
 

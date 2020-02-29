@@ -1,7 +1,6 @@
 package org.siu.myboot.server.service;
 
 import com.querydsl.core.types.OrderSpecifier;
-import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.utils.QueryBuilder;
@@ -18,16 +17,17 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Oauths service层
  *
  * @author @Author Siu
- * @Date 2020-02-27 20:33:51
+ * @Date 2020-02-29 11:43:18
  * @Version 0.0.1
  */
-@Service
 @Slf4j
+@Service
 public class OauthsService {
 
 	@Resource
@@ -76,16 +76,15 @@ public class OauthsService {
    /**
      * get list by page
      *
-     * @param pageParams
+     * @param params
      * @return
      */
-    public PageData getPage(PageParams<Oauths> pageParams) {
-        log.info("测试追踪ID_1");
-        QSort sort = QueryBuilder.buildSort(pageParams.getSort(), QOauths.oauths);
-        Pageable pageable = PageRequest.of(pageParams.getPage(), pageParams.getLimit(), sort);
-        Page<Oauths> data = repositoryQueryDsl.queryPage(pageable, pageParams.getTerms());
+    public PageData getPage(PageParams<Oauths> params) {
+        QSort sort = QueryBuilder.buildSort(params.getSort(), QOauths.oauths);
+        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);
+        Page<Oauths> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());
 
-        return new PageData(data, pageParams);
+        return new PageData(data, params);
     }
 
     /**

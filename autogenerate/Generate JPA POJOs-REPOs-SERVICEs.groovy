@@ -40,7 +40,7 @@ config = [
         // 自动生成开关
         generate      : [
                 // 实体对象，对应 DO/PO
-                entity            : true,
+                entity            : false,
                 // JPA QueryDSL 工具实体对象
                 entityQueryDSL    : false,
                 // 数据访问对象 DAO
@@ -48,7 +48,7 @@ config = [
                 // JPA QueryDSL 数据访问对象
                 repositoryQueryDSL: false,
                 // 服务层对象
-                service           : false,
+                service           : true,
                 // API 层
                 controller        : true
         ],
@@ -566,7 +566,7 @@ class Gen {
         writer.writeLine ""
 
         writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
-        writer.writeLine "import org.siu.myboot.core.entity.qo.Params;"
+        writer.writeLine "import org.siu.myboot.core.entity.qo.PageParams;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.Sort;"
         writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
         writer.writeLine "import org.siu.myboot.core.entity.vo.PageData;"
@@ -587,6 +587,7 @@ class Gen {
         writer.writeLine "import javax.annotation.Resource;"
         writer.writeLine "import java.util.List;"
         writer.writeLine "import java.util.Optional;"
+        writer.writeLine "import lombok.extern.slf4j.Slf4j;"
         writer.writeLine ""
         writer.writeLine "/**"
         writer.writeLine " * $entityName service\u5c42"
@@ -595,6 +596,7 @@ class Gen {
         writer.writeLine " * @Date ${Utils.localDateTimeStr()}"
         writer.writeLine " * @Version 0.0.1"
         writer.writeLine " */"
+        writer.writeLine "@Slf4j"
         writer.writeLine "@Service"
 
         def extendsStr = parentConfig.enable ? " extends ${parentConfig.name}<$entityName, $pkType>" : ""
@@ -663,7 +665,7 @@ class Gen {
                 "     * @param params\n" +
                 "     * @return\n" +
                 "     */\n" +
-                "    public PageData getPage(Params<${entityName}> params) {\n" +
+                "    public PageData getPage(PageParams<${entityName}> params) {\n" +
                 "        QSort sort = QueryBuilder.buildSort(params.getSort(), Q${entityName}.${lEntityName});\n" +
                 "        Pageable pageable = PageRequest.of(params.getPage(), params.getLimit(), sort);\n" +
                 "        Page<${entityName}> data = repositoryQueryDsl.queryPage(pageable, params.getTerms());\n" +
@@ -879,7 +881,7 @@ class Gen {
                 "import io.swagger.annotations.Api;\n" +
                 "import io.swagger.annotations.ApiOperation;\n" +
                 "import lombok.extern.slf4j.Slf4j;\n" +
-                "import org.siu.myboot.core.entity.qo.Params;\n" +
+                "import org.siu.myboot.core.entity.qo.PageParams;\n" +
                 "import org.siu.myboot.core.entity.vo.Result;\n" +
                 "import org.siu.myboot.core.entity.vo.PageData;\n" +
                 "import org.siu.myboot.core.valid.Valid;\n" +
@@ -889,6 +891,7 @@ class Gen {
                 "import org.springframework.web.bind.annotation.*;\n" +
                 "\n" +
                 "import javax.annotation.Resource;\n" +
+                "import java.util.List;\n" +
                 "import java.util.Optional;\n" +
                 "\n" +
                 "/**\n" +
@@ -939,7 +942,7 @@ class Gen {
                 "\n" +
                 "    @GetMapping\n" +
                 "    @ApiOperation(value = \"${entityName}:PAGE\")\n" +
-                "    public Result page(@RequestBody Params<${entityName}> params) {\n" +
+                "    public Result page(@RequestBody PageParams<${entityName}> params) {\n" +
                 "        PageData data = ${lEntityName}Service.getPage(params);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
@@ -947,8 +950,8 @@ class Gen {
                 "\n" +
                 "    @GetMapping(\"/list\")\n" +
                 "    @ApiOperation(value = \"${entityName}:LIST\")\n" +
-                "    public Result list(@RequestBody Params<${entityName}> params) {\n" +
-                "        PageData data = ${lEntityName}Service.getPage(params);\n" +
+                "    public Result list(@RequestBody ${entityName} params) {\n" +
+                "        List<${entityName}> data = ${lEntityName}Service.getList(params, null);\n" +
                 "        return new Result(data);\n" +
                 "    }\n" +
                 "\n" +
