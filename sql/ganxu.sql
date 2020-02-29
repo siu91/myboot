@@ -90,6 +90,11 @@ COMMENT ON TABLE "ganxu"."users" IS '用户表';
 -- ----------------------------
 ALTER TABLE "ganxu"."oauths" ADD CONSTRAINT "oauths_pkey" PRIMARY KEY ("id");
 
+
+-- ----------------------------
+-- Primary Key structure for table users
+-- ----------------------------
+ALTER TABLE "ganxu"."users" ADD CONSTRAINT "users_pkey" PRIMARY KEY ("id");
 -- ----------------------------
 -- Indexes structure for table users
 -- ----------------------------
