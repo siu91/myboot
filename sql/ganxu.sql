@@ -19,7 +19,7 @@
 -- ----------------------------
 -- Sequence structure for ganxu_common_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "ganxu"."ganxu_common_seq";
+DROP SEQUENCE IF EXISTS "ganxu"."ganxu_common_seq" CASCADE;
 CREATE SEQUENCE "ganxu"."ganxu_common_seq" 
 INCREMENT 1
 MINVALUE  1000
