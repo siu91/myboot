@@ -632,6 +632,20 @@ SELECT setval('"ganxu"."ganxu_common_seq"', 1001, false);
 ALTER TABLE "ganxu"."order" ADD CONSTRAINT "order_master_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Indexes structure for table order
+-- ----------------------------
+CREATE INDEX "iorder_user_id" ON "ganxu"."order" USING btree (
+  "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+);
+COMMENT ON INDEX "ganxu"."iorder_user_id" IS 'user_id索引';
+
+-- ----------------------------
+-- Uniques structure for table order
+-- ----------------------------
+ALTER TABLE "ganxu"."order" ADD CONSTRAINT "corder_order_sn" UNIQUE ("order_sn");
+COMMENT ON CONSTRAINT "corder_order_sn" ON "ganxu"."order" IS '订单编号唯一';
+
+-- ----------------------------
 -- Primary Key structure for table order_cart
 -- ----------------------------
 ALTER TABLE "ganxu"."order_cart" ADD CONSTRAINT "order_cart_pkey" PRIMARY KEY ("id");
@@ -720,7 +734,7 @@ ALTER TABLE "ganxu"."user_login_log" ADD CONSTRAINT "user_login_log_pkey" PRIMAR
 -- Uniques structure for table user_oauths
 -- ----------------------------
 ALTER TABLE "ganxu"."user_oauths" ADD CONSTRAINT "c_oauth_id" UNIQUE ("oauth_type", "oauth_id");
-COMMENT ON CONSTRAINT "c_oauth_id" ON "ganxu"."user_oauths" IS 'oauth_id唯一约束';
+COMMENT ON CONSTRAINT "cuseroauths_oauth_id" ON "ganxu"."user_oauths" IS 'oauth_id唯一约束';
 
 -- ----------------------------
 -- Primary Key structure for table user_oauths
