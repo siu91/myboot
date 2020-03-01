@@ -1,7 +1,7 @@
 spring:
   datasource:
     # 1、默认的数据源配置（单数据源）
-    url: jdbc:postgresql://127.0.0.1:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
+    url: jdbc:postgresql://localhost:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
     username: postgres
     password: 1229
     driver-class-name: org.postgresql.Driver

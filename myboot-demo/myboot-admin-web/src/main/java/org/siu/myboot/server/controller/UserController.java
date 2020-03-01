@@ -8,6 +8,7 @@ import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.server.entity.po.User;
+import org.siu.myboot.server.entity.vo.UserVO;
 import org.siu.myboot.server.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -82,6 +83,20 @@ public class UserController {
     @ApiOperation(value = "User:RETRIEVE")
     public Result getUserByNameOrPhone(@PathVariable String id) {
         User data = userService.findByUserNameOrPhone(id);
+        return new Result(data);
+
+    }
+
+    /**
+     * 使用用户名/手机号号作为用户ID 登录
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/login")
+    @ApiOperation(value = "User:RETRIEVE")
+    public Result login(String id, String pass) {
+        UserVO data = userService.loginWithUsernameOrPhone(id, pass);
         return new Result(data);
 
     }
