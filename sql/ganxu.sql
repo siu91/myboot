@@ -12,7 +12,7 @@
  Target Server Version : 100012
  File Encoding         : 65001
 
- Date: 29/02/2020 23:06:03
+ Date: 01/03/2020 08:42:24
 */
 
 
@@ -20,7 +20,7 @@
 -- Sequence structure for ganxu_common_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "ganxu"."ganxu_common_seq";
-CREATE SEQUENCE "ganxu"."ganxu_common_seq"
+CREATE SEQUENCE "ganxu"."ganxu_common_seq" 
 INCREMENT 1
 MINVALUE  1000
 MAXVALUE 9223372036854775807
@@ -200,7 +200,7 @@ COMMENT ON TABLE "ganxu"."product" IS '商品信息表';
 -- ----------------------------
 DROP TABLE IF EXISTS "ganxu"."product_brand";
 CREATE TABLE "ganxu"."product_brand" (
-  "id" int4 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
+  "id" int8 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
   "brand_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "telephone" varchar(50) COLLATE "pg_catalog"."default",
   "brand_website" varchar(255) COLLATE "pg_catalog"."default",
@@ -229,7 +229,7 @@ COMMENT ON TABLE "ganxu"."product_brand" IS '商品品牌信息表';
 -- ----------------------------
 DROP TABLE IF EXISTS "ganxu"."product_category";
 CREATE TABLE "ganxu"."product_category" (
-  "id" int4 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
+  "id" int8 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
   "category_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "category_code" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "parent_id" int4,
@@ -334,7 +334,7 @@ COMMENT ON TABLE "ganxu"."product_stock" IS '商品库存表';
 -- ----------------------------
 DROP TABLE IF EXISTS "ganxu"."product_supplier";
 CREATE TABLE "ganxu"."product_supplier" (
-  "id" int4 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
+  "id" int8 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
   "supplier_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "supplier_code" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "supplier_type" int2,
@@ -469,14 +469,14 @@ CREATE TABLE "ganxu"."user_info" (
   "id" int8 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
   "user_id" int8 NOT NULL,
   "real_name" varchar(255) COLLATE "pg_catalog"."default",
-  "id_type " int2,
-  "id_no " varchar(255) COLLATE "pg_catalog"."default",
-  "email " varchar(255) COLLATE "pg_catalog"."default",
-  "gender " int2,
+  "id_type" int2,
+  "id_no" varchar(255) COLLATE "pg_catalog"."default",
+  "email" varchar(255) COLLATE "pg_catalog"."default",
+  "gender" int2,
   "points" int8,
-  "register_time " timestamp(6),
-  "birthday " date,
-  "user_level " int2,
+  "register_time" timestamp(6),
+  "birthday" date,
+  "user_level" int2,
   "user_type" int2,
   "account_amount" int8,
   "version" int8 DEFAULT 0,
@@ -486,14 +486,14 @@ CREATE TABLE "ganxu"."user_info" (
 COMMENT ON COLUMN "ganxu"."user_info"."id" IS '用户信息表主键';
 COMMENT ON COLUMN "ganxu"."user_info"."user_id" IS '用户表主键';
 COMMENT ON COLUMN "ganxu"."user_info"."real_name" IS '真是姓名';
-COMMENT ON COLUMN "ganxu"."user_info"."id_type " IS '证件类型';
-COMMENT ON COLUMN "ganxu"."user_info"."id_no " IS '证件号';
-COMMENT ON COLUMN "ganxu"."user_info"."email " IS '邮箱';
-COMMENT ON COLUMN "ganxu"."user_info"."gender " IS '性别';
+COMMENT ON COLUMN "ganxu"."user_info"."id_type" IS '证件类型';
+COMMENT ON COLUMN "ganxu"."user_info"."id_no" IS '证件号';
+COMMENT ON COLUMN "ganxu"."user_info"."email" IS '邮箱';
+COMMENT ON COLUMN "ganxu"."user_info"."gender" IS '性别';
 COMMENT ON COLUMN "ganxu"."user_info"."points" IS '积分';
-COMMENT ON COLUMN "ganxu"."user_info"."register_time " IS '注册时间';
-COMMENT ON COLUMN "ganxu"."user_info"."birthday " IS '生日';
-COMMENT ON COLUMN "ganxu"."user_info"."user_level " IS '会员级别：1 普通会员，2 青铜，3白银，4黄金，5钻石';
+COMMENT ON COLUMN "ganxu"."user_info"."register_time" IS '注册时间';
+COMMENT ON COLUMN "ganxu"."user_info"."birthday" IS '生日';
+COMMENT ON COLUMN "ganxu"."user_info"."user_level" IS '会员级别：1 普通会员，2 青铜，3白银，4黄金，5钻石';
 COMMENT ON COLUMN "ganxu"."user_info"."user_type" IS '用户类型';
 COMMENT ON COLUMN "ganxu"."user_info"."account_amount" IS '账户余额';
 COMMENT ON COLUMN "ganxu"."user_info"."version" IS '版本（更新锁）';
