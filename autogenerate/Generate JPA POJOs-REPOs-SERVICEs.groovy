@@ -44,13 +44,13 @@ config = [
                 // JPA QueryDSL 工具实体对象
                 entityQueryDSL    : true,
                 // 数据访问对象 DAO
-                repository        : true,
+                repository        : false,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: true,
+                repositoryQueryDSL: false,
                 // 服务层对象
-                service           : true,
+                service           : false,
                 // API 层
-                controller        : true
+                controller        : false
         ],
         // 实体生成设置
         entity        : [
@@ -438,7 +438,8 @@ class Gen {
             if (config.entity.jpaConfig.autoFillDateTypeField) {
                 writer.writeLine "@EntityListeners(AuditingEntityListener.class)"
             }
-            writer.writeLine "@Table(name = \"${table.name}\")"
+            def schemaName = DasUtil.getSchema(table)
+            writer.writeLine "@Table(name = \"${table.name}\", schema = \"${schemaName}\")"
         }
         if (config.entity.useSwagger) {
             writer.writeLine "@ApiModel(value = \"${tableComment}\")"

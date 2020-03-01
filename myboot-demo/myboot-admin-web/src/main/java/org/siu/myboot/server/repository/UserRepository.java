@@ -15,18 +15,28 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	/**
-	 * 更新时间
-	 *@param updateTime
-	 *@return
-	 */
-	List<User> findByUpdateTimeBefore(Date updateTime);
+    /**
+     * 更新时间
+     *
+     * @param updateTime
+     * @return
+     */
+    List<User> findByUpdateTimeBefore(Date updateTime);
 
-	/**
-	 * 更新时间
-	 *@param updateTime
-	 *@return
-	 */
-	List<User> findByUpdateTimeAfter(Date updateTime);
+    /**
+     * 更新时间
+     *
+     * @param updateTime
+     * @return
+     */
+    List<User> findByUpdateTimeAfter(Date updateTime);
+
+
+    /**
+     * @param userName
+     * @param phone
+     * @return
+     */
+    User findByUserNameOrPhone(String userName, String phone);
 
 }

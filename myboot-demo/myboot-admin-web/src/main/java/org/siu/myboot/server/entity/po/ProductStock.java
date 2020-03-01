@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 商品库存表
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-03-01 17:30:03
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -28,7 +28,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "product_stock")
+@Table(name = "product_stock", schema = "ganxu")
 @ApiModel(value = "商品库存表")
 public class ProductStock extends BaseEntity implements Serializable {
 

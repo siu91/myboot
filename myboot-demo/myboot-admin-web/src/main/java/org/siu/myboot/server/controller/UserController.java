@@ -77,5 +77,13 @@ public class UserController {
         return new Result(data);
     }
 
+
+    @GetMapping("/login/{id}")
+    @ApiOperation(value = "User:RETRIEVE")
+    public Result getUserByNameOrPhone(@PathVariable String id) {
+        User data = userService.findByUserNameOrPhone(id);
+        return new Result(data);
+
+    }
 }
 

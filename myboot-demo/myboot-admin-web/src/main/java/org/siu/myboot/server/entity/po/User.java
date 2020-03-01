@@ -22,7 +22,7 @@ import java.io.Serializable;
  * 用户表
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-03-01 17:30:04
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -30,7 +30,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "user")
+@Table(name = "user", schema = "ganxu")
 @ApiModel(value = "用户表")
 @SQLDelete(sql = "UPDATE user SET delete_status = 1 WHERE id = ?")
 @Where(clause = "delete_status = 0")

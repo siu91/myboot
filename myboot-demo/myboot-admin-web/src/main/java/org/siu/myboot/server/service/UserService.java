@@ -14,9 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,12 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserService {
 
-	@Resource
-	private UserRepository repository;
-	@Resource
-	private UserRepositoryQueryDsl repositoryQueryDsl;
+    @Resource
+    private UserRepository repository;
+    @Resource
+    private UserRepositoryQueryDsl repositoryQueryDsl;
+
     /**
-     * add 
+     * add
      *
      * @param entity
      * @return
@@ -63,7 +66,7 @@ public class UserService {
         return repositoryQueryDsl.save(entity);
     }
 
-  /**
+    /**
      * find by ID
      *
      * @param id
@@ -73,7 +76,7 @@ public class UserService {
         return repositoryQueryDsl.findById(id);
     }
 
-   /**
+    /**
      * get list by page
      *
      * @param params
@@ -95,5 +98,10 @@ public class UserService {
     public List<User> getList(User user, List<Sort> sorts) {
         List<OrderSpecifier<?>> sort = QueryBuilder.buildOrderSpecifier(sorts, QUser.user);
         return repositoryQueryDsl.queryList(user, sort);
+    }
+
+
+    public User findByUserNameOrPhone(String userNameOrPhone) {
+        return repository.findByUserNameOrPhone(userNameOrPhone, userNameOrPhone);
     }
 }

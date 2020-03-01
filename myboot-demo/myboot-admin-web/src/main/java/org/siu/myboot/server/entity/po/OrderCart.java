@@ -20,7 +20,7 @@ import java.io.Serializable;
  * 购物车
  *
  * @author @Author Siu
- * @Date 2020-02-29 23:27:03
+ * @Date 2020-03-01 17:30:03
  * @Version 0.0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -28,7 +28,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "order_cart")
+@Table(name = "order_cart", schema = "ganxu")
 @ApiModel(value = "购物车")
 public class OrderCart extends BaseEntity implements Serializable {
 
