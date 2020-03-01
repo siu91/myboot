@@ -54,7 +54,7 @@ CREATE TABLE "ganxu"."order" (
   "order_status" int2,
   "order_point" int8,
   "invoice_id" int8,
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."order"."id" IS '订单ID';
@@ -79,7 +79,7 @@ COMMENT ON COLUMN "ganxu"."order"."receive_time" IS '收货时间';
 COMMENT ON COLUMN "ganxu"."order"."order_status" IS '订单状态';
 COMMENT ON COLUMN "ganxu"."order"."order_point" IS '订单积分';
 COMMENT ON COLUMN "ganxu"."order"."invoice_id" IS '发票ID';
-COMMENT ON COLUMN "ganxu"."order"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."order"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."order" IS '订单主表';
 
 -- ----------------------------
@@ -93,7 +93,7 @@ CREATE TABLE "ganxu"."order_cart" (
   "product_amount" int2 NOT NULL,
   "price" int8 NOT NULL,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."order_cart"."id" IS '购物车ID';
@@ -102,7 +102,7 @@ COMMENT ON COLUMN "ganxu"."order_cart"."product_id" IS '商品ID';
 COMMENT ON COLUMN "ganxu"."order_cart"."product_amount" IS '加入购物车商品数量';
 COMMENT ON COLUMN "ganxu"."order_cart"."price" IS '商品价格';
 COMMENT ON COLUMN "ganxu"."order_cart"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."order_cart"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."order_cart"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."order_cart" IS '购物车';
 
 -- ----------------------------
@@ -120,7 +120,7 @@ CREATE TABLE "ganxu"."order_detail" (
   "weight" float8,
   "discount_amount" int8,
   "w_id" int8,
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."order_detail"."id" IS '订单详情表ID';
@@ -133,7 +133,7 @@ COMMENT ON COLUMN "ganxu"."order_detail"."average_cost" IS '平均成本价格';
 COMMENT ON COLUMN "ganxu"."order_detail"."weight" IS '商品重量（克）';
 COMMENT ON COLUMN "ganxu"."order_detail"."discount_amount" IS '优惠金额（分摊）';
 COMMENT ON COLUMN "ganxu"."order_detail"."w_id" IS '仓库ID';
-COMMENT ON COLUMN "ganxu"."order_detail"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."order_detail"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."order_detail" IS '订单详情表';
 
 -- ----------------------------
@@ -165,7 +165,7 @@ CREATE TABLE "ganxu"."product" (
   "expiration_date" date NOT NULL,
   "desc" varchar(255) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product"."id" IS '商品ＩＤ';
@@ -192,7 +192,7 @@ COMMENT ON COLUMN "ganxu"."product"."production_date" IS '生产日期';
 COMMENT ON COLUMN "ganxu"."product"."expiration_date" IS '有效期';
 COMMENT ON COLUMN "ganxu"."product"."desc" IS '商品描述';
 COMMENT ON COLUMN "ganxu"."product"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product" IS '商品信息表';
 
 -- ----------------------------
@@ -209,7 +209,7 @@ CREATE TABLE "ganxu"."product_brand" (
   "brand_status" int2 DEFAULT 0,
   "brand_order" int4 DEFAULT 0,
   "create_time" timestamp(6),
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_brand"."id" IS '商品品牌信息表ID';
@@ -221,7 +221,7 @@ COMMENT ON COLUMN "ganxu"."product_brand"."brand_desc" IS '品牌描述';
 COMMENT ON COLUMN "ganxu"."product_brand"."brand_status" IS '品牌状态,0禁用,1启用';
 COMMENT ON COLUMN "ganxu"."product_brand"."brand_order" IS '排序';
 COMMENT ON COLUMN "ganxu"."product_brand"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_brand"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_brand"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product_brand" IS '商品品牌信息表';
 
 -- ----------------------------
@@ -236,7 +236,7 @@ CREATE TABLE "ganxu"."product_category" (
   "category_level" int2 NOT NULL DEFAULT 0,
   "category_status" int2 NOT NULL DEFAULT 0,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_category"."id" IS '商品分类ID';
@@ -246,7 +246,7 @@ COMMENT ON COLUMN "ganxu"."product_category"."parent_id" IS '父分类ID';
 COMMENT ON COLUMN "ganxu"."product_category"."category_level" IS '分类层级';
 COMMENT ON COLUMN "ganxu"."product_category"."category_status" IS '分类状态';
 COMMENT ON COLUMN "ganxu"."product_category"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_category"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_category"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product_category" IS '商品分类信息表';
 
 -- ----------------------------
@@ -262,7 +262,7 @@ CREATE TABLE "ganxu"."product_comment" (
   "content" varchar(300) COLLATE "pg_catalog"."default" NOT NULL,
   "audit_status" int2 NOT NULL DEFAULT 0,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_comment"."id" IS '商品评论表ID';
@@ -273,7 +273,7 @@ COMMENT ON COLUMN "ganxu"."product_comment"."title" IS '评论标题';
 COMMENT ON COLUMN "ganxu"."product_comment"."content" IS '评论内容';
 COMMENT ON COLUMN "ganxu"."product_comment"."audit_status" IS '审核状态：0未审核，1已审核';
 COMMENT ON COLUMN "ganxu"."product_comment"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_comment"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_comment"."update_time" IS '更新时间';
 
 -- ----------------------------
 -- Table structure for product_pic
@@ -288,7 +288,7 @@ CREATE TABLE "ganxu"."product_pic" (
   "pic_order" int2 NOT NULL DEFAULT 0,
   "pic_status" int2 NOT NULL DEFAULT 1,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_pic"."id" IS '商品图片表ID';
@@ -299,7 +299,7 @@ COMMENT ON COLUMN "ganxu"."product_pic"."main_pic" IS '是否主图';
 COMMENT ON COLUMN "ganxu"."product_pic"."pic_order" IS '排序';
 COMMENT ON COLUMN "ganxu"."product_pic"."pic_status" IS '图片是否有效：0无效 1有效';
 COMMENT ON COLUMN "ganxu"."product_pic"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_pic"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_pic"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product_pic" IS '商品图片表';
 
 -- ----------------------------
@@ -315,7 +315,7 @@ CREATE TABLE "ganxu"."product_stock" (
   "in_transit_cnt" int4 NOT NULL DEFAULT 0,
   "average_cost" int8 DEFAULT 0,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_stock"."id" IS '商品库存表ID';
@@ -326,7 +326,7 @@ COMMENT ON COLUMN "ganxu"."product_stock"."lock_cnt" IS '当前占用数据';
 COMMENT ON COLUMN "ganxu"."product_stock"."in_transit_cnt" IS '在途数据';
 COMMENT ON COLUMN "ganxu"."product_stock"."average_cost" IS '移动加权成本';
 COMMENT ON COLUMN "ganxu"."product_stock"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_stock"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_stock"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product_stock" IS '商品库存表';
 
 -- ----------------------------
@@ -345,7 +345,7 @@ CREATE TABLE "ganxu"."product_supplier" (
   "address" varchar(255) COLLATE "pg_catalog"."default",
   "supplier_status" int2 DEFAULT 0,
   "create_time" timestamp(6),
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."product_supplier"."id" IS '商品供应商ID';
@@ -359,7 +359,7 @@ COMMENT ON COLUMN "ganxu"."product_supplier"."bank_account" IS '银行账号';
 COMMENT ON COLUMN "ganxu"."product_supplier"."address" IS '供应商地址';
 COMMENT ON COLUMN "ganxu"."product_supplier"."supplier_status" IS '状态：0禁止，1启用';
 COMMENT ON COLUMN "ganxu"."product_supplier"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."product_supplier"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."product_supplier"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."product_supplier" IS '商品供应商信息表';
 
 -- ----------------------------
@@ -374,7 +374,7 @@ CREATE TABLE "ganxu"."shipping_info" (
   "telephone" varchar(255) COLLATE "pg_catalog"."default",
   "price" int8,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."shipping_info"."shipping_sn" IS '快递单号';
@@ -383,7 +383,7 @@ COMMENT ON COLUMN "ganxu"."shipping_info"."ship_contact" IS '物流公司联系�
 COMMENT ON COLUMN "ganxu"."shipping_info"."telephone" IS '物流公司联系电话';
 COMMENT ON COLUMN "ganxu"."shipping_info"."price" IS '配送价格';
 COMMENT ON COLUMN "ganxu"."shipping_info"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."shipping_info"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."shipping_info"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."shipping_info" IS '物流公司信息表';
 
 -- ----------------------------
@@ -446,7 +446,7 @@ CREATE TABLE "ganxu"."user_addr" (
   "address" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
   "default_addr " varchar(255) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 1,
   "create_time" timestamp(6),
-  "upate_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."user_addr"."id" IS '用户地址表主键';
@@ -458,7 +458,7 @@ COMMENT ON COLUMN "ganxu"."user_addr"."district" IS '区';
 COMMENT ON COLUMN "ganxu"."user_addr"."address" IS '地址';
 COMMENT ON COLUMN "ganxu"."user_addr"."default_addr " IS '是否默认地址';
 COMMENT ON COLUMN "ganxu"."user_addr"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."user_addr"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."user_addr"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."user_addr" IS '用户地址表';
 
 -- ----------------------------
@@ -604,7 +604,7 @@ CREATE TABLE "ganxu"."warehouse" (
   "address" varchar(512) COLLATE "pg_catalog"."default",
   "warehouse_status" int2 NOT NULL DEFAULT 1,
   "create_time" timestamp(6) NOT NULL,
-  "upate_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."warehouse"."id" IS '仓库信息表id';
@@ -618,7 +618,7 @@ COMMENT ON COLUMN "ganxu"."warehouse"."district" IS '区';
 COMMENT ON COLUMN "ganxu"."warehouse"."address" IS '地址';
 COMMENT ON COLUMN "ganxu"."warehouse"."warehouse_status" IS '仓库状态：0禁用，1启用';
 COMMENT ON COLUMN "ganxu"."warehouse"."create_time" IS '创建时间';
-COMMENT ON COLUMN "ganxu"."warehouse"."upate_time" IS '更新时间';
+COMMENT ON COLUMN "ganxu"."warehouse"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."warehouse" IS '仓库信息表';
 
 -- ----------------------------
@@ -726,7 +726,7 @@ ALTER TABLE "ganxu"."user_info" ADD CONSTRAINT "user_info_pkey" PRIMARY KEY ("id
 ALTER TABLE "ganxu"."user_level" ADD CONSTRAINT "user_level_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table user_login_log
+-- Primary Key structure for table user_login_logupdate_time
 -- ----------------------------
 ALTER TABLE "ganxu"."user_login_log" ADD CONSTRAINT "user_login_log_pkey" PRIMARY KEY ("id");
 
