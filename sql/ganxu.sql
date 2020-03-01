@@ -554,8 +554,6 @@ CREATE TABLE "ganxu"."user_oauths" (
   "oauth_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "unionid" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "credential" varchar(255) COLLATE "pg_catalog"."default",
-  "version" int8 DEFAULT 0,
-  "delete_status" int2 DEFAULT 0,
   "create_time" timestamp(6),
   "update_time" timestamp(6)
 )
@@ -565,8 +563,6 @@ COMMENT ON COLUMN "ganxu"."user_oauths"."oauth_type" IS '1、微信，2、QQ，3
 COMMENT ON COLUMN "ganxu"."user_oauths"."oauth_id" IS '第三方 uid 、openid 等';
 COMMENT ON COLUMN "ganxu"."user_oauths"."unionid" IS 'QQ / 微信同一主体下 Unionid 相同';
 COMMENT ON COLUMN "ganxu"."user_oauths"."credential" IS '密码凭证 /access_token (目前更多是存储在缓存里)';
-COMMENT ON COLUMN "ganxu"."user_oauths"."version" IS '版本（更新锁）';
-COMMENT ON COLUMN "ganxu"."user_oauths"."delete_status" IS '删除状态：0-未删除，其它删除';
 COMMENT ON COLUMN "ganxu"."user_oauths"."create_time" IS '创建时间';
 COMMENT ON COLUMN "ganxu"."user_oauths"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."user_oauths" IS '用户鉴权表';
