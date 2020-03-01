@@ -733,7 +733,7 @@ ALTER TABLE "ganxu"."user_login_log" ADD CONSTRAINT "user_login_log_pkey" PRIMAR
 -- ----------------------------
 -- Uniques structure for table user_oauths
 -- ----------------------------
-ALTER TABLE "ganxu"."user_oauths" ADD CONSTRAINT "c_oauth_id" UNIQUE ("oauth_type", "oauth_id");
+ALTER TABLE "ganxu"."user_oauths" ADD CONSTRAINT "cuseroauths_oauth_id" UNIQUE ("oauth_type", "oauth_id");
 COMMENT ON CONSTRAINT "cuseroauths_oauth_id" ON "ganxu"."user_oauths" IS 'oauth_id唯一约束';
 
 -- ----------------------------
