@@ -8,7 +8,7 @@ import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QUser;
 import org.siu.myboot.server.entity.po.QUserInfo;
 import org.siu.myboot.server.entity.po.User;
-import org.siu.myboot.server.entity.vo.UserVO;
+import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -83,16 +83,23 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
     }
 
 
-    public UserVO loginWithUsernameOrPhone(String id, String pass) {
+    /**
+     * 通过登录ID（用户名、手机）、密码查找用户信息
+     *
+     * @param ids 用户名/手机
+     * @param pass 密码
+     * @return
+     */
+    public LoginUserVO findUserInfoByIDsAndPass(String ids, String pass) {
 
-        JPAQuery<UserVO> query = jpaQueryFactory.
+        JPAQuery<LoginUserVO> query = jpaQueryFactory.
                 select(Projections.bean(
                         // 映射类型
-                        UserVO.class,
+                        LoginUserVO.class,
                         // 查询字段
-                        qUser.id, qUser.userName, qUserInfo.userType,qUser.updateTime, qUser.avatarUrl, qUser.phone))
+                        qUser.id, qUser.userName, qUserInfo.userType, qUser.updateTime, qUser.avatarUrl, qUser.phone))
                 .from(qUser, qUserInfo)
-                .where(qUser.userName.eq(id).or(qUser.phone.eq(id))).where(qUser.password.eq(pass)).where(qUser.id.eq(qUserInfo.userId));
+                .where(qUser.userName.eq(ids).or(qUser.phone.eq(ids))).where(qUser.password.eq(pass)).where(qUser.id.eq(qUserInfo.userId));
 
         return query.fetchOne();
     }

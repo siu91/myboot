@@ -1,4 +1,4 @@
-package org.siu.myboot.server.entity.vo;
+package org.siu.myboot.server.entity.dto;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @Version 0.0.1
  */
 @Data
-public class UserVO {
+public class LoginUserVO {
 
 
     /**

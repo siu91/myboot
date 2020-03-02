@@ -8,7 +8,7 @@ import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.server.entity.po.User;
-import org.siu.myboot.server.entity.vo.UserVO;
+import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.siu.myboot.server.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -96,7 +96,7 @@ public class UserController {
     @GetMapping("/login")
     @ApiOperation(value = "User:RETRIEVE")
     public Result login(String id, String pass) {
-        UserVO data = userService.loginWithUsernameOrPhone(id, pass);
+        LoginUserVO data = userService.loginWithUsernameOrPhone(id, pass);
         return new Result(data);
 
     }

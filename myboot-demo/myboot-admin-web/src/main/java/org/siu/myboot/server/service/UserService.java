@@ -7,7 +7,7 @@ import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.po.QUser;
-import org.siu.myboot.server.entity.vo.UserVO;
+import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.siu.myboot.server.repository.UserRepository;
 import org.siu.myboot.server.repository.dsl.UserRepositoryQueryDsl;
 import org.springframework.data.domain.Page;
@@ -106,7 +106,7 @@ public class UserService {
         return repository.findByUserNameOrPhone(userNameOrPhone, userNameOrPhone);
     }
 
-    public UserVO loginWithUsernameOrPhone(String userNameOrPhone, String password) {
-        return repositoryQueryDsl.loginWithUsernameOrPhone(userNameOrPhone, password);
+    public LoginUserVO loginWithUsernameOrPhone(String userNameOrPhone, String password) {
+        return repositoryQueryDsl.findUserInfoByIDsAndPass(userNameOrPhone, password);
     }
 }
