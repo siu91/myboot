@@ -39,4 +39,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     User findByUserNameOrPhone(String userName, String phone);
 
+    /**
+     * @param userName
+     * @param phone
+     * @param password
+     * @return
+     */
+    User findByUserNameOrPhoneAndPassword(String userName, String phone, String password);
+
+    /**
+     * @param password
+     * @param userName
+     * @param phone
+     * @return
+     */
+    User findByPasswordAndPhoneOrUserName(String password, String phone, String userName);
+
 }

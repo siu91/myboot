@@ -1,11 +1,10 @@
 package org.siu.myboot.server.repository.dsl;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
-import org.siu.myboot.core.utils.QueryBuilder;
+import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QUser;
 import org.siu.myboot.server.entity.po.QUserInfo;
 import org.siu.myboot.server.entity.po.User;

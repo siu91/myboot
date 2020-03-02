@@ -1,11 +1,11 @@
-package org.siu.myboot.core.utils;
+package org.siu.myboot.core.data.utils;
 
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.core.dsl.QBuiler;
+import org.siu.myboot.core.data.querydsljpa.QBuiler;
 import org.siu.myboot.core.entity.BaseEntity;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.springframework.data.querydsl.QSort;

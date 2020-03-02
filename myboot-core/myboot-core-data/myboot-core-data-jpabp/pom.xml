@@ -36,6 +36,12 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <!--依赖核心模块-->
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-base</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

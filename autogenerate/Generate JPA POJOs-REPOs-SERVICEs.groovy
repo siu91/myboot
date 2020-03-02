@@ -99,7 +99,7 @@ config = [
                 implement: [
                         enable : true,
                         name   : "QBuiler",
-                        package: "org.siu.myboot.core.dsl"
+                        package: "org.siu.myboot.core.data.querydsljpa"
                 ]
         ],
         // repository 生成设置
@@ -569,7 +569,7 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.PageParams;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.Sort;"
-        writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
+        writer.writeLine "import org.siu.myboot.core.data.utils.QueryBuilder;"
         writer.writeLine "import org.siu.myboot.core.entity.vo.PageData;"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"

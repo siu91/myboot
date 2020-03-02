@@ -1,4 +1,4 @@
-package org.siu.myboot.core.dsl;
+package org.siu.myboot.core.data.querydsljpa;
 
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.SimpleExpression;
