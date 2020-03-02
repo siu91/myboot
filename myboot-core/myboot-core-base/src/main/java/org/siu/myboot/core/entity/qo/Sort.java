@@ -1,6 +1,5 @@
 package org.siu.myboot.core.entity.qo;
 
-import com.querydsl.core.types.Order;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
