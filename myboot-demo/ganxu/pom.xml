@@ -11,7 +11,7 @@
 
     <groupId>org.siu</groupId>
     <artifactId>ganxu</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>ganxu</name>
     <description>ganxu 项目</description>
