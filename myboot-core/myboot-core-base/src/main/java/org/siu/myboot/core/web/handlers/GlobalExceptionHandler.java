@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * 全局异常处理
@@ -48,13 +49,18 @@ public class GlobalExceptionHandler {
      * @return
      * @throws Exception
      */
-    @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, Throwable.class})
+    @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, UndeclaredThrowableException.class, Throwable.class})
     public Result exceptionHandler(HttpServletRequest req, HttpServletResponse response, Exception e) throws Exception {
         log.error(e.getMessage(), e);
         Result result = new Result();
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
-        if (e instanceof BaseException) {
-            BaseException baseException = (BaseException) e;
+        if (e instanceof BaseException || ((UndeclaredThrowableException) e).getUndeclaredThrowable() instanceof BaseException) {
+            BaseException baseException;
+            if (e instanceof UndeclaredThrowableException) {
+                baseException = (BaseException) ((UndeclaredThrowableException) e).getUndeclaredThrowable();
+            } else {
+                baseException = (BaseException) e;
+            }
             // TODO 定以各异常，统一格式返回给前端
             result.innerError(baseException, debug);
         } else {

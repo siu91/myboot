@@ -94,7 +94,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @Limiting(limit = 1)
+    @Limiting(period = 600, limit = 5)
     @GetMapping("/login")
     @ApiOperation(value = "User:RETRIEVE")
     public Result login(String id, String pass) {
