@@ -5,19 +5,29 @@
 
     <parent>
         <groupId>org.siu</groupId>
-        <artifactId>myboot-demo</artifactId>
+        <artifactId>ganxu</artifactId>
         <version>0.0.1</version>
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-admin-web</artifactId>
+    <artifactId>ganxu-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>myboot-admin-web</name>
-    <description>myboot-admin-web</description>
+    <name>ganxu-api</name>
+    <description>ganxu-api</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>ganxu-core</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
     </dependencies>
 
