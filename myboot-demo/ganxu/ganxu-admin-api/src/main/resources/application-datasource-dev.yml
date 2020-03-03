@@ -47,8 +47,8 @@ spring:
         #auto: create
     show-sql: false # SQL输出
     # flyway配置
-#  flyway:
-#    baseline-on-migrate: true
+  flyway:
+    baseline-on-migrate: true
 
 
 #  hibernate.hbm2ddl.auto 参数的作用主要用于：自动创建、更新、验证数据库表结构，有四个值。

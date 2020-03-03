@@ -87,10 +87,10 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>-->
         <!--flyway-->
-       <!-- <dependency>
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-        </dependency>-->
+        </dependency>
         <!--Spring Boot Admin Client-->
     </dependencies>
 
