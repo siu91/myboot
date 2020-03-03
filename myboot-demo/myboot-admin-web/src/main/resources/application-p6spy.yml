@@ -2,5 +2,5 @@
 p6spy:
     config:
       appender: com.p6spy.engine.spy.appender.Slf4JLogger
-      logMessageFormat: org.siu.myboot.core.data.p6spy
-      customLogMessageFormat: executionTime:%(executionTime)| 执行sql:%(sqlSingleLine)
+      logMessageFormat: org.siu.myboot.core.data.p6spy.P6SpyMessageFormat
+      customLogMessageFormat: "executionTime:%(executionTime)| 执行sql:%(sqlSingleLine)"

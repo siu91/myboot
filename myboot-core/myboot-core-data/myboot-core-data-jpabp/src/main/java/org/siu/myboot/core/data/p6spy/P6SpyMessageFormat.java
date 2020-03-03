@@ -11,12 +11,13 @@ import java.time.LocalDateTime;
  * @Date 2020/2/22 16:46
  * @Version 0.0.1
  */
-public class P6SpyLogger implements MessageFormattingStrategy {
+public class P6SpyMessageFormat implements MessageFormattingStrategy {
 
     @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
-        return !"".equals(sql.trim()) ? "[ " + LocalDateTime.now() + " ] --- | took "
-                + elapsed + "ms | " + category + " | connection " + connectionId + "\n "
-                + sql + ";" + url : "";
+        return
+                "[ " + LocalDateTime.now() + " ] [ took " + elapsed + "ms | " + category.toUpperCase() + " | connection " + connectionId + "]"
+                       // + "\n" + url // 不打印url配置
+                        + (!"".equals(sql.trim()) ? "\n" + sql + ";" : "");
     }
 }

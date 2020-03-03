@@ -1,10 +1,14 @@
 spring:
   datasource:
     # 1、默认的数据源配置（单数据源）
-    url: jdbc:postgresql://localhost:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
+    #url: jdbc:postgresql://localhost:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
+    # 使用p6spy
+    url: jdbc:p6spy:postgresql://localhost:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
     username: postgres
     password: 1229
-    driver-class-name: org.postgresql.Driver
+    #driver-class-name: org.postgresql.Driver
+    # 使用p6spy 监控
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     # 2、多数据源配置
 #    primary:
 #      url: jdbc:postgresql://localhost:5432/primary?currentSchema=public&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
@@ -32,7 +36,7 @@ spring:
       max-lifetime: 1800000
       # 数据库连接超时时间,默认30秒，即30000
       connection-timeout: 30000
-      connection-test-query: SELECT 1
+      #connection-test-query: SELECT 1
   # Spring Data JPA 配置
   jpa:
     properties:
@@ -41,7 +45,7 @@ spring:
         format_sql: true # SQL格式化
         #hbm2ddl:
           #auto: create
-    show-sql: true # SQL输出
+    show-sql: false # SQL输出
 
 
 #  hibernate.hbm2ddl.auto 参数的作用主要用于：自动创建、更新、验证数据库表结构，有四个值。
