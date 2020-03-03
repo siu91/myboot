@@ -17,7 +17,7 @@
     <description>后台系统示例模块</description>
 
     <modules>
-        <module>myboot-admin-web</module>
+        <module>ganxu</module>
     </modules>
 
     <dependencies>
@@ -85,6 +85,11 @@
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>-->
+        <!--flyway-->
+       <!-- <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>-->
         <!--Spring Boot Admin Client-->
     </dependencies>

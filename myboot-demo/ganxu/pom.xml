@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siu</groupId>
+        <artifactId>myboot-demo</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <groupId>org.siu</groupId>
+    <artifactId>ganxu</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ganxu</name>
+    <description>ganxu 项目</description>
+    <modules>
+        <module>ganxu-core</module>
+        <module>ganxu-api</module>
+        <module>ganxu-admin-api</module>
+    </modules>
+
+</project>

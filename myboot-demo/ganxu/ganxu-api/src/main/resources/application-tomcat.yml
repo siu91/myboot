@@ -1,0 +1,17 @@
+# tomcat 最大线程数，默认为 200  
+#server.tomcat.max-threads=600
+#  # tomcat 的 URI 编码
+#server.tomcat.uri-encoding=UTF-8
+#  # 存放 Tomcat 的日志、Dump 等文件的临时文件夹，默认为系统的 tmp 文件夹
+#server.tomcat.basedir=/tmp/log
+#  # 打开 Tomcat 的 Access 日志，并可以设置日志格式
+#  #server.tomcat.access-log-enabled=true
+#  #server.tomcat.access-log-pattern=
+#  # accesslog 目录，默认在 basedir/logs
+#  #server.tomcat.accesslog.directory=
+## 日志文件目录
+#logging.path=/tmp/log
+## 日志文件名称，默认为 spring.log
+#logging.file=myapp.log
+#
+#以上的配置都为可选，在默认情况下都可不配置，项目中根据实际的使用情况来调整
