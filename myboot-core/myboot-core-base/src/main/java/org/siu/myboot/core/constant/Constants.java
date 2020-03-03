@@ -19,4 +19,6 @@ public class Constants {
      * 追踪ID
      */
     public static final String TRACE_ID = "tid";
+
+    public static final String UNKNOWN = "unknown";
 }

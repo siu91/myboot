@@ -7,6 +7,7 @@ import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.valid.Valid;
+import org.siu.myboot.core.web.limiting.Limiting;
 import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.siu.myboot.server.service.UserService;
@@ -93,6 +94,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @Limiting(limit = 1)
     @GetMapping("/login")
     @ApiOperation(value = "User:RETRIEVE")
     public Result login(String id, String pass) {

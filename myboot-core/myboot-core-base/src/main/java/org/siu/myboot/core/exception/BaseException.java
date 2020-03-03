@@ -51,4 +51,8 @@ public class BaseException extends Exception {
         this.httpStatus = httpStatus.value() + 10000;
     }
 
+    public void setHttpStatus(int httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
 }
