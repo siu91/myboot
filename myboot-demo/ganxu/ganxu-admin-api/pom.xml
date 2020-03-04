@@ -29,6 +29,22 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-auth</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+               <exclusion>
+                    <artifactId>spring-plugin-core</artifactId>
+                    <groupId>org.springframework.plugin</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <profiles>

@@ -38,13 +38,22 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
 
-    @Autowired
-    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+    /**
+     * TODO  注释以下因为为解决的报错
+     * UnsatisfiedDependencyException: Error creating bean with name 'webSecurityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webConfig': Unsatisfied dependency expressed through field 'requestMappingHandlerAdapter'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'requestMappingHandlerAdapter' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Unsatisfied dependency expressed through method 'requestMappingHandlerAdapter' parameter 0; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'mvcContentNegotiationManager': Requested bean is currently in creation: Is there an unresolvable circular reference?
+     *
+     *
+     * Related cause: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'requestMappingHandlerAdapter' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Unsatisfied dependency expressed through method 'requestMappingHandlerAdapter' parameter 0; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'mvcContentNegotiationManager': Requested bean is currently in creation: Is there an unresolvable circular reference?
+     * 2020-03-04 19:46:57.272 [main] [pTraceId:] [traceId:] INFO -o.s.orm.jpa.LocalContainerEntityManagerFactoryBean -Closing JPA EntityManagerFactory for persistence unit 'default'
+     * 2020-03-04 19:46:57.275 [main] [pTraceId:] [traceId:] INFO -com.zaxxer.hikari.HikariDataSource -MyHikariCP - Shutdown initiated...
+     */
+   // @Autowired
+    //private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     @Autowired
     TraceIdHandlerInterceptor traceIdHandlerInterceptor;
 
-    @PostConstruct
+  /*  @PostConstruct
     public void init() {
         // 获取当前 HandlerMethodReturnValueHandler 所有的 Handler 对象
         List<HandlerMethodReturnValueHandler> handlers =
@@ -56,7 +65,7 @@ public class WebConfig implements WebMvcConfigurer {
         newHandlers.addAll(handlers);
         // 重新设置 Handler 对象集合
         requestMappingHandlerAdapter.setReturnValueHandlers(newHandlers);
-    }
+    }*/
 
 
     @Override

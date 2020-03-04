@@ -1,0 +1,4 @@
+# 集群下把 spring security session 托管给redis
+#spring:
+#  session:
+#    store-type: redis
