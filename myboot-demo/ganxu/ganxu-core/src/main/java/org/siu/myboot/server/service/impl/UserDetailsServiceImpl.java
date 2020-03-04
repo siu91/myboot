@@ -2,15 +2,12 @@ package org.siu.myboot.server.service.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.siu.myboot.core.exception.UserNotActivatedException;
 import org.siu.myboot.server.repository.UserRepository;
-import org.siu.myboot.server.repository.dsl.UserRepositoryQueryDsl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
