@@ -45,31 +45,46 @@ myboot是一个基于springboot的项目脚手架。
 主要功能：
 
 - 结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装
+
 - 多数据源自动配置
+
 - p6spy 自动配置
+
 - p6spy 监控sql，自定义日志
+
 - redis + aop 实现限流
+
 - 全局的参数校验处理
+
 - 全局异常处理
+
 - 接口统一格式返回
+
 - 分页封装
+
 - minio 对象存储封装
+
 - flyway 数据库脚本管理
+
 - IDEA + groovy 自动代码生成
+
 - Swagger 生成API 文档
+
 - MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
-   ###  项目结构
+  
 
-  ~~~
-   .
+## 项目结构
+
+~~~
+ .
 ├── LICENSE					license 文件
 ├── README.md					README
 ├── myboot-demo	         			后台系统demo
 ├── myboot-commonbiz				通用业务模块
 ├── myboot-component			        组件模块
 └── myboot-core					核心模块
-  ~~~
+~~~
 
 ## 使用
 
