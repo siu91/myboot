@@ -1,0 +1,25 @@
+${AnsiColor.YELLOW}Welcome to myboot! ${AnsiColor.BRIGHT_YELLOW}
+
+
+
+                                                                  __                          __           ${AnsiColor.YELLOW}
+                                                                 /\ \                        /\ \__        ${AnsiColor.BRIGHT_GREEN}
+                                             ___ ___     __  __  \ \ \____     ___      ___  \ \  _\       ${AnsiColor.BRIGHT_CYAN}
+                                            / __  __ \  /\ \ \ \  \ \  __ \   / __`\   / __ \ \ \ \        ${AnsiColor.BLUE}
+                                           /\ \ \ \ \ \ \ \ \_\ \  \ \ \ \ \ /\ \ \ \ /\ \ \ \ \ \ \___    ${AnsiColor.MAGENTA}
+                                           \ \_\ \_\ \_\ \/`____ \  \ \_ __/ \ \____/ \ \____/  \ \____\   ${AnsiColor.YELLOW}
+                                            \/_/ /_/ /_/  `/___/> \  \/___/   \/___/   \/___/    \/____/   ${AnsiColor.BRIGHT_GREEN}
+                                                             /\___/
+                                                             \/__/
+
+
+Github:${AnsiColor.BRIGHT_GREEN}https://github.com/siu91/myboot
+${AnsiColor.BRIGHT_YELLOW}SpringBoot${AnsiColor.BRIGHT_GREEN}:${AnsiColor.RED}${AnsiColor.MAGENTA}${spring-boot.formatted-version}
+
+${AnsiColor.MAGENTA}Stay Young!
+  _
+_|_ ._      _ _    (_ o
+ |  |  (_) | | |   __)||_|
+
+${AnsiColor.BRIGHT_YELLOW}-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+${AnsiColor.GREEN}
