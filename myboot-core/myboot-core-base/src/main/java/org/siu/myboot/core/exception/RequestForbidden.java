@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 public class RequestForbidden extends BaseException {
 
     public RequestForbidden(String message) {
-        super(message, RequestForbidden.class.getSimpleName().toUpperCase(), "请求被拒绝执行");
+        super(message, RequestForbidden.class.getSimpleName().toUpperCase(), "认证通过，但请求被拒绝");
         this.setHttpStatus(HttpStatus.FORBIDDEN);
     }
 

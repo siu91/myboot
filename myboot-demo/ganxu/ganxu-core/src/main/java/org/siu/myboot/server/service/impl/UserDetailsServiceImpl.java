@@ -58,6 +58,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user.getDeleteStatus() > 0) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
+
+        // 用户的权限信息
+        // 对应WebSecurityConfig中的配置  .antMatchers("/api/普通用户的接口xxxx").hasAuthority("ROLE_USER")
         List<GrantedAuthority> grantedAuthorities = new ArrayList<String>() {
             // TODO 从数据库配置
             {

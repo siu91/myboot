@@ -44,11 +44,11 @@ config = [
                 // JPA QueryDSL 工具实体对象
                 entityQueryDSL    : true,
                 // 数据访问对象 DAO
-                repository        : false,
+                repository        : true,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: false,
+                repositoryQueryDSL: true,
                 // 服务层对象
-                service           : false,
+                service           : true,
                 // API 层
                 controller        : false
         ],

@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.siu.myboot.auth.Constant;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,29 +30,23 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class TokenProvider implements InitializingBean {
-    private static final String AUTHORITIES_KEY = "auth";
+
 
     /**
      * 默认开启debug
      */
     @Value("${jwt.base64-secret:ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=}")
-    private  String base64Secret;
+    private String base64Secret;
     @Value("${jwt.token-validity-in-seconds:86400}")
-    private  long tokenValidityInMilliseconds;
+    private long tokenValidityInMilliseconds;
     @Value("${jwt.token-validity-in-seconds-for-remember-me:108000}")
-    private  long tokenValidityInMillisecondsForRememberMe;
+    private long tokenValidityInMillisecondsForRememberMe;
 
+    /**
+     *  签名key
+     */
     private Key key;
 
-
-   /* public TokenProvider(
-            @Value("${jwt.base64-secret}") String base64Secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
-            @Value("${jwt.token-validity-in-seconds-for-remember-me}") long tokenValidityInSecondsForRememberMe) {
-        this.base64Secret = base64Secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
-        this.tokenValidityInMillisecondsForRememberMe = tokenValidityInSecondsForRememberMe * 1000;
-    }*/
 
     @Override
     public void afterPropertiesSet() {
@@ -69,23 +64,31 @@ public class TokenProvider implements InitializingBean {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
+        // 过期时间处理
         long now = (new Date()).getTime();
         Date validity;
         if (rememberMe) {
-            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe);
+            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe * 1000);
         } else {
-            validity = new Date(now + this.tokenValidityInMilliseconds);
+            validity = new Date(now + this.tokenValidityInMilliseconds * 1000);
         }
 
+        // 构建token信息
         return Jwts.builder()
+                // 放入用户信息（用户名）
                 .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
+                // 放入权限信息
+                .claim(Constant.AUTHORITIES_KEY, authorities)
+                // 签名
                 .signWith(key, SignatureAlgorithm.HS512)
+                // 过期时间
                 .setExpiration(validity)
                 .compact();
     }
 
     /**
+     * 从token 中获取用户的权限
+     *
      * @param token
      * @return
      */
@@ -96,7 +99,7 @@ public class TokenProvider implements InitializingBean {
                 .getBody();
 
         Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                Arrays.stream(claims.get(Constant.AUTHORITIES_KEY).toString().split(Constant.AUTHORITIES_SPLIT))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
