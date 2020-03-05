@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/product_category")
+@RequestMapping(value = "/v1/admin/product_category")
 @Slf4j
 @Api(tags = {"ProductCategory related API"})
 @RestController

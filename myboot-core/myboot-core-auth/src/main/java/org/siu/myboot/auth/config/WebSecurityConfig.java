@@ -5,6 +5,8 @@ import org.siu.myboot.auth.jwt.JwtAccessDeniedHandler;
 import org.siu.myboot.auth.jwt.JwtAuthenticationEntryPoint;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -53,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
-    @Bean
+    @Bean("passwordEncoder")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -71,7 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/h2-console/**"
+                        "/h2-console/**",
+                        "/swagger-ui.html/**",
+                        "/swagger-resources/**"
                 );
     }
 
@@ -105,7 +109,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 开放权限的接口（登录/注册等）
                 .antMatchers("/v1/api/auth").permitAll()
-                // .antMatchers("/api/register").permitAll()
+                // 开放注册
+                .antMatchers("/v1/admin/user/register").permitAll()
+                // 开发放swagger
+                .antMatchers("**/swagger*/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/webjars/springfox-swagger-ui/**/**").permitAll()
                 // .antMatchers("/api/activate").permitAll()
                 // .antMatchers("/api/account/reset-password/init").permitAll()
                 // .antMatchers("/api/account/reset-password/finish").permitAll()

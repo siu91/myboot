@@ -6,10 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.entity.vo.PageData;
+import org.siu.myboot.core.exception.UserRegisterException;
 import org.siu.myboot.core.valid.Valid;
 import org.siu.myboot.core.web.limiting.Limiting;
 import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
+import org.siu.myboot.server.entity.qo.RegisteredUser;
 import org.siu.myboot.server.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/user")
+@RequestMapping(value = "/v1/admin/user")
 @Slf4j
 @Api(tags = {"User related API"})
 @RestController
@@ -31,6 +33,25 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    // region custom
+
+    /**
+     * 用户注册/添加用户
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/register")
+    @ApiOperation(value = "User:REGISTER")
+    public Result register(@RequestBody @Validated(Valid.CREATE.class) RegisteredUser params) throws UserRegisterException {
+        User data = userService.register(
+                new User().setPassword(params.getPassword()).setUserName(params.getUserName()).setPhone(params.getPhone()),
+                params.getUserType());
+        return new Result(data);
+    }
+
+    // endregion
 
 
     @PostMapping

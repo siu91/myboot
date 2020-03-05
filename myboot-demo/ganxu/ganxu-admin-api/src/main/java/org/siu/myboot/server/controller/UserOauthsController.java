@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/user_oauths")
+@RequestMapping(value = "/v1/admin/user_oauths")
 @Slf4j
 @Api(tags = {"UserOauths related API"})
 @RestController

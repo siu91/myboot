@@ -5,18 +5,25 @@ import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
-import org.siu.myboot.server.entity.po.User;
-import org.siu.myboot.server.entity.po.QUser;
+import org.siu.myboot.core.exception.UserRegisterException;
+import org.siu.myboot.server.entity.po.*;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
+import org.siu.myboot.server.repository.RoleRepository;
 import org.siu.myboot.server.repository.UserRepository;
+import org.siu.myboot.server.repository.UserRoleRepository;
 import org.siu.myboot.server.repository.dsl.UserRepositoryQueryDsl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +38,73 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
+@ConditionalOnClass(BCryptPasswordEncoder.class)
 public class UserService {
 
     @Resource
     private UserRepository repository;
+
+    @Resource
+    private UserRoleRepository userRoleRepository;
+
+    @Resource
+    private RoleRepository roleRepository;
+
     @Resource
     private UserRepositoryQueryDsl repositoryQueryDsl;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
+    // region custom
+
+    public User register(User entity, int userType) throws UserRegisterException {
+        // 判断用户是否存在
+        User userExist = repository.findByUserNameOrPhone(entity.getUserName(), entity.getPhone());
+        if (userExist != null) {
+            throw new UserRegisterException("用户名或手机号已存在");
+        }
+        // 注册
+        return doRegister(entity, userType);
+    }
+
+    @Transactional
+    User doRegister(User entity, int userType) {
+        // 添加用户
+        String pass = passwordEncoder.encode(entity.getPassword());
+        entity.setPassword(pass);
+        entity.setDeleteStatus(0);
+        entity.setVersion(0L);
+         User user = repository.save(entity);
+        // TODO 添加用户信息 userInfo
+
+        // 添加默认角色
+        Role defaultRole = roleRepository.findByRoleName("USER");
+        UserRole userRoleDefault = new UserRole();
+        userRoleDefault.setRole(defaultRole.getRoleName());
+        userRoleDefault.setRoleId(defaultRole.getId());
+        userRoleDefault.setUserId(user.getId());
+        userRoleRepository.save(userRoleDefault);
+
+        Role role;
+        if (userType == 10) {
+            role = roleRepository.findByRoleName("ADMIN");
+            if (role != null) {
+                // 添加管理员角色
+                UserRole adminRole = new UserRole();
+                adminRole.setRole(role.getRoleName());
+                adminRole.setRoleId(role.getId());
+                adminRole.setUserId(user.getId());
+                userRoleRepository.save(adminRole);
+            }
+        }
+
+        return user.setPassword("");
+    }
+
+
+    // endregion
 
     /**
      * add

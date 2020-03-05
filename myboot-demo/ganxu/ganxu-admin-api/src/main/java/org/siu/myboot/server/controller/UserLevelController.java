@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/user_level")
+@RequestMapping(value = "/v1/admin/user_level")
 @Slf4j
 @Api(tags = {"UserLevel related API"})
 @RestController

@@ -16,6 +16,14 @@ import java.util.List;
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
 	/**
+	 * 通过角色名称查找
+	 *
+	 * @param roleName
+	 * @return
+	 */
+	Role findByRoleName(String roleName);
+
+	/**
 	 * 创建时间
 	 *@param createTime
 	 *@return

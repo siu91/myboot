@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/user_addr")
+@RequestMapping(value = "/v1/admin/user_addr")
 @Slf4j
 @Api(tags = {"UserAddr related API"})
 @RestController
