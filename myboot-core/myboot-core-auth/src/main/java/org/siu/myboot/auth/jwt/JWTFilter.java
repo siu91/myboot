@@ -2,7 +2,7 @@ package org.siu.myboot.auth.jwt;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.Constant;
+import org.siu.myboot.core.constant.Constant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -60,9 +60,9 @@ public class JWTFilter extends GenericFilterBean {
      * @return
      */
     private String getToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(Constant.AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(Constant.TOKEN_PREFIX)) {
-            return bearerToken.substring(Constant.TOKEN_PREFIX.length());
+        String bearerToken = request.getHeader(Constant.Auth.AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(Constant.Auth.TOKEN_PREFIX)) {
+            return bearerToken.substring(Constant.Auth.TOKEN_PREFIX.length());
         }
         return null;
     }

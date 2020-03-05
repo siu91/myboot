@@ -4,7 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.Constant;
+import org.siu.myboot.core.constant.Constant;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -89,7 +89,7 @@ public class TokenProvider implements InitializingBean {
                 // 放入用户信息（用户名）
                 .setSubject(authentication.getName())
                 // 放入权限信息
-                .claim(Constant.AUTHORITIES_KEY, authorities)
+                .claim(Constant.Auth.AUTHORITIES_KEY, authorities)
                 // 签名
                 .signWith(key, SignatureAlgorithm.HS512)
                 // 过期时间
@@ -110,7 +110,7 @@ public class TokenProvider implements InitializingBean {
                 .getBody();
 
         Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(Constant.AUTHORITIES_KEY).toString().split(Constant.AUTHORITIES_SPLIT))
+                Arrays.stream(claims.get(Constant.Auth.AUTHORITIES_KEY).toString().split(Constant.Auth.AUTHORITIES_SPLIT))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 

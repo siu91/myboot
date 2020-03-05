@@ -1,7 +1,7 @@
 package org.siu.myboot.auth.api;
 
-import org.siu.myboot.auth.Constant;
-import org.siu.myboot.auth.api.dto.LoginDTO;
+import org.siu.myboot.core.constant.Constant;
+import org.siu.myboot.core.entity.qo.Login;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.exception.WrongUsernameOrPasswordException;
@@ -36,10 +36,9 @@ public class AuthRestController {
 
 
     @PostMapping("/auth")
-    public Result authorize(@Valid @RequestBody LoginDTO login) throws WrongUsernameOrPasswordException {
+    public Result authorize(@Valid @RequestBody Login login) throws WrongUsernameOrPasswordException {
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
         Authentication authentication = null;
         try {
             // 通过 login.getUsername() 查找用户 org.siu.myboot.server.service.impl.UserDetailsServiceImpl.loadUserByUsername(login.getUsername())
@@ -57,7 +56,7 @@ public class AuthRestController {
         //HttpHeaders httpHeaders = new HttpHeaders();
         //httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new Result(Constant.TOKEN_PREFIX + jwt);
+        return new Result(Constant.Auth.TOKEN_PREFIX + jwt);
 
     }
 

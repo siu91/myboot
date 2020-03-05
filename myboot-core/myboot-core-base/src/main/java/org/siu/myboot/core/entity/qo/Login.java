@@ -1,4 +1,4 @@
-package org.siu.myboot.auth.api.dto;
+package org.siu.myboot.core.entity.qo;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * @Version 0.0.1
  */
 @Data
-public class LoginDTO {
+public class Login {
     @NotNull
     @Size(min = 1, max = 50)
     private String username;

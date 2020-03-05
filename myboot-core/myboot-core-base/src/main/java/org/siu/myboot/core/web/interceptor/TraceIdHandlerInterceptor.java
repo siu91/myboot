@@ -1,6 +1,6 @@
 package org.siu.myboot.core.web.interceptor;
 
-import org.siu.myboot.core.constant.Constants;
+import org.siu.myboot.core.constant.Constant;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -35,18 +35,18 @@ public class TraceIdHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 追踪ID
-        String traceId = request.getHeader(Constants.TRACE_ID);
+        String traceId = request.getHeader(Constant.TRACE_ID);
         if (StringUtils.isEmpty(traceId)) {
             traceId = UUID.randomUUID().toString().replace("-", "");
         }
-        MDC.put(Constants.TRACE_ID, traceId);
+        MDC.put(Constant.TRACE_ID, traceId);
 
         // 父追踪ID
-        String pTraceId = request.getHeader(Constants.PARENT_TRACE_ID);
+        String pTraceId = request.getHeader(Constant.PARENT_TRACE_ID);
         if (!StringUtils.isEmpty(pTraceId)) {
-            MDC.put(Constants.PARENT_TRACE_ID, pTraceId);
+            MDC.put(Constant.PARENT_TRACE_ID, pTraceId);
         } else {
-            MDC.put(Constants.PARENT_TRACE_ID, Constants.DEFAULT_PARENT_TRACE_ID);
+            MDC.put(Constant.PARENT_TRACE_ID, Constant.DEFAULT_PARENT_TRACE_ID);
         }
         return true;
     }
