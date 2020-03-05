@@ -3,7 +3,7 @@ package org.siu.myboot.server.repository.dsl;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
-import org.siu.myboot.core.utils.QueryBuilder;
+import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QRoleAuthority;
 import org.siu.myboot.server.entity.po.RoleAuthority;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.Objects;
  * RoleAuthority 自定义Repository QueryDSL层
  *
  * @author @Author Siu
- * @Date 2020-03-05 14:25:02
+ * @Date 2020-03-05 14:32:42
  * @Version 0.0.1
  */
 @Repository

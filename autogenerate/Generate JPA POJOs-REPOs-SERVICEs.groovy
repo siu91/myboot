@@ -794,7 +794,7 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import com.querydsl.jpa.impl.JPAQuery;"
         writer.writeLine "import $parentConfig.package.$parentConfig.name;"
-        writer.writeLine "import org.siu.myboot.core.utils.QueryBuilder;"
+        writer.writeLine "import org.siu.myboot.core.data.utils.QueryBuilder;"
         writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import org.springframework.data.domain.Page;"

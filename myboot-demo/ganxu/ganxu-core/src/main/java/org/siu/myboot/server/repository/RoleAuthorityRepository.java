@@ -10,7 +10,7 @@ import java.util.List;
  * RoleAuthority Repository层
  *
  * @author @Author Siu
- * @Date 2020-03-05 14:25:02
+ * @Date 2020-03-05 14:32:42
  * @Version 0.0.1
  */
 public interface RoleAuthorityRepository extends JpaRepository<RoleAuthority, Long> {

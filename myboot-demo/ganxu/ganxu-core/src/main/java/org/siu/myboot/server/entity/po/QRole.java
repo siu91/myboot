@@ -22,7 +22,7 @@ public class QRole extends EntityPathBase<Role> implements QBuiler {
 
 	public final NumberPath<Long> id = createNumber("id", Long.class);
 
-	public final StringPath role = createString("role");
+	public final StringPath roleName = createString("roleName");
 
 	public final DateTimePath<java.util.Date> createTime = createDateTime("createTime", java.util.Date.class);
 
@@ -41,8 +41,8 @@ public class QRole extends EntityPathBase<Role> implements QBuiler {
 		switch (property) {
 			 case "id":
 				return id;
-			 case "role":
-				return role;
+			 case "roleName":
+				return roleName;
 			 case "createTime":
 				return createTime;
 			 case "updateTime":

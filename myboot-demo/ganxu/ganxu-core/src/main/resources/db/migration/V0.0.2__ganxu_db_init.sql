@@ -22,13 +22,13 @@
 DROP TABLE IF EXISTS "ganxu"."role";
 CREATE TABLE "ganxu"."role" (
   "id" int8 NOT NULL DEFAULT nextval('"ganxu".ganxu_common_seq'::regclass),
-  "role" varchar(255) COLLATE "pg_catalog"."default",
+  "role_name" varchar(255) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
 )
 ;
 COMMENT ON COLUMN "ganxu"."role"."id" IS '角色表主键';
-COMMENT ON COLUMN "ganxu"."role"."role" IS '角色标识';
+COMMENT ON COLUMN "ganxu"."role"."role_name" IS '角色标识';
 COMMENT ON COLUMN "ganxu"."role"."create_time" IS '创建时间';
 COMMENT ON COLUMN "ganxu"."role"."update_time" IS '更新时间';
 COMMENT ON TABLE "ganxu"."role" IS '角色表';
