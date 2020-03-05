@@ -33,14 +33,25 @@ public class TokenProvider implements InitializingBean {
 
 
     /**
-     * 默认开启debug
+     * base64-secret
+     * 设置默认值，也可以从配置文件中配置
      */
     @Value("${jwt.base64-secret:ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=}")
     private String base64Secret;
+
+    /**
+     * 默认token失效时间
+     * 设置默认值，也可以从配置文件中配置
+     */
     @Value("${jwt.token-validity-in-seconds:86400}")
-    private long tokenValidityInMilliseconds;
+    private long tokenValidityInSeconds;
+
+    /**
+     * 记住密码时token失效时间
+     * 设置默认值，也可以从配置文件中配置
+     */
     @Value("${jwt.token-validity-in-seconds-for-remember-me:108000}")
-    private long tokenValidityInMillisecondsForRememberMe;
+    private long tokenValidityInSecondsForRememberMe;
 
     /**
      *  签名key
@@ -68,9 +79,9 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity;
         if (rememberMe) {
-            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe * 1000);
+            validity = new Date(now + this.tokenValidityInSecondsForRememberMe * 1000);
         } else {
-            validity = new Date(now + this.tokenValidityInMilliseconds * 1000);
+            validity = new Date(now + this.tokenValidityInSeconds * 1000);
         }
 
         // 构建token信息

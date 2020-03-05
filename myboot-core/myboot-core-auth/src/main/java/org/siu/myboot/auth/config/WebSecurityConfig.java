@@ -26,19 +26,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * token工具
+     */
     private final TokenProvider tokenProvider;
-    //private final CorsFilter corsFilter;
+
+    /**
+     * 认证入口点
+     */
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
+
+    /**
+     * 认证用户无权限访问的处理
+     */
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    public WebSecurityConfig(
-            TokenProvider tokenProvider,
-            //CorsFilter corsFilter,
-            JwtAuthenticationEntryPoint authenticationErrorHandler,
-            JwtAccessDeniedHandler jwtAccessDeniedHandler
-    ) {
+    public WebSecurityConfig(TokenProvider tokenProvider, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
         this.tokenProvider = tokenProvider;
-        //this.corsFilter = corsFilter;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
@@ -66,7 +70,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 );
     }
 
-    // Configure security settings ===========================================================================
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -106,14 +109,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // TODO 动态加载权限如何实现？
                 .antMatchers("/api/普通用户的接口xxxx").hasAuthority("ROLE_USER")
                 .antMatchers("/api/管理员接口xxx").hasAuthority("ROLE_ADMIN")
-
+                // 要求所有进入应用的HTTP请求都要进行认证
                 .anyRequest().authenticated()
-
                 .and()
                 .apply(securityConfigurerAdapter());
     }
 
 
+    /**
+     * 设置 SecurityConfigurerAdapter
+     *
+     * @return
+     */
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
     }
