@@ -19,6 +19,7 @@
         <module>myboot-component-cache</module>
         <module>myboot-component-oss</module>
         <module>myboot-component-sbaserver</module>
+        <module>myboot-component-swagger</module>
     </modules>
 
     <dependencies>

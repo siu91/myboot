@@ -40,6 +40,7 @@ public class JWTFilter extends GenericFilterBean {
 
         // 验证token
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+            // TODO token 校验通过，如果token接近过期，可以在这里重新根据业务情况颁发新的token给客户端
             // token 验证通过
             // 1、提取token中携带的权限标识
             // 2、把token中携带的用户权限放入SecurityContextHolder交由  Spring Security管理

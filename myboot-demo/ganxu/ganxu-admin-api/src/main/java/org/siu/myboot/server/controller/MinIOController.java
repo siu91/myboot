@@ -1,7 +1,6 @@
 package org.siu.myboot.server.controller;
 
 import org.siu.myboot.componnent.oss.minio.MinioTemplate;
-import org.siu.myboot.core.annotation.RestfulApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +42,6 @@ public class MinIOController {
 
 
     @GetMapping("/test")
-    @RestfulApi
     public String test(@RequestParam List<String> name) {
         return "Hello " + name.get(0);
     }

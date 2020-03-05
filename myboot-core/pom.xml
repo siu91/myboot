@@ -18,6 +18,7 @@
         <module>myboot-core-auth</module>
         <module>myboot-core-base</module>
         <module>myboot-core-data</module>
+        <module>myboot-core-config</module>
 
     </modules>
 

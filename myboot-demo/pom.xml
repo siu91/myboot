@@ -49,6 +49,17 @@
         </dependency>
         <dependency>
             <groupId>org.siu</groupId>
+            <artifactId>myboot-component-swagger</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.siu</groupId>
             <artifactId>myboot-component-oss</artifactId>
             <version>0.0.1</version>
             <exclusions>

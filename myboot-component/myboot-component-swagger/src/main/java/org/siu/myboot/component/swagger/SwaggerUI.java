@@ -2,8 +2,9 @@
  * @(#) CecProjectController.java 2018/09/18
  *
  * Copyright 2018 CEC(Fujian) Healthcare Big Data Operation Service Co., Ltd. All rights reserved.
- */
-package org.siu.myboot.core.restful.swagger;
+ *//*
+
+package org.siu.myboot.component.swagger;
 
 
 import io.swagger.annotations.Api;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/16 13:46
  * @Version 0.0.1
- */
+ *//*
+
 @Controller
 @RequestMapping("")
 @Slf4j
@@ -35,3 +38,4 @@ public class SwaggerUI {
     }
 
 }
+*/
