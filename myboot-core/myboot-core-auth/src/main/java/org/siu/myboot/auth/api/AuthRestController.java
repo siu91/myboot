@@ -1,15 +1,11 @@
 package org.siu.myboot.auth.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.siu.myboot.auth.Constant;
 import org.siu.myboot.auth.api.dto.LoginDTO;
-import org.siu.myboot.auth.jwt.JWTFilter;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.exception.WrongUsernameOrPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -61,7 +57,7 @@ public class AuthRestController {
         //HttpHeaders httpHeaders = new HttpHeaders();
         //httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new Result("Bearer " + jwt);
+        return new Result(Constant.TOKEN_PREFIX + jwt);
 
     }
 
