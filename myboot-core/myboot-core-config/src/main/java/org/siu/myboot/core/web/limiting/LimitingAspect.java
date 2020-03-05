@@ -1,7 +1,6 @@
 package org.siu.myboot.core.web.limiting;
 
 
-import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -23,6 +22,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 限流切面
@@ -86,7 +87,9 @@ public class LimitingAspect {
             default:
                 key = method.getName().toUpperCase();
         }
-        ImmutableList<String> keys = ImmutableList.of(Strings.join(limitAnnotation.prefix(), key));
+        List<String> keys = new ArrayList<>();
+        keys.add(Strings.join(limitAnnotation.prefix(), key));
+
         try {
             String luaScript = limitingLuaScript();
             RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);

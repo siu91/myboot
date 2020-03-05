@@ -51,7 +51,7 @@ public class AuthRestController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         boolean rememberMe = (login.getRememberMe() == null) ? false : login.getRememberMe();
-        String jwt = tokenProvider.createToken(authentication, rememberMe);
+        String jwt = tokenProvider.buildJWT(authentication, rememberMe);
 
         //HttpHeaders httpHeaders = new HttpHeaders();
         //httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);

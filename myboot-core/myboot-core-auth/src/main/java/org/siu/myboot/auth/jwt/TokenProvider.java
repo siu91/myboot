@@ -54,7 +54,7 @@ public class TokenProvider implements InitializingBean {
     private long tokenValidityInSecondsForRememberMe;
 
     /**
-     *  签名key
+     * 签名key
      */
     private Key key;
 
@@ -70,7 +70,7 @@ public class TokenProvider implements InitializingBean {
      * @param rememberMe
      * @return
      */
-    public String createToken(Authentication authentication, boolean rememberMe) {
+    public String buildJWT(Authentication authentication, boolean rememberMe) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -94,39 +94,58 @@ public class TokenProvider implements InitializingBean {
                 .signWith(key, SignatureAlgorithm.HS512)
                 // 过期时间
                 .setExpiration(validity)
+                // 生效时间
+                .setNotBefore(new Date())
                 .compact();
     }
 
+
     /**
-     * 从token 中获取用户的权限
+     * 给快过期的token续期
      *
-     * @param token
+     * @param token 原token
      * @return
      */
-    public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(key)
-                .parseClaimsJws(token)
-                .getBody();
+    public String refresh(Token token) {
+        // 默认策略：续期为原有效时间的十分之一
+        if (token.isAuthorized()) {
+            Claims claims = token.getClaimsJws().getBody();
+            // 如果快失效了半小时
+            if ((claims.getExpiration().getTime() - System.currentTimeMillis()) < 30 * 60 * 1000) {
+                if (claims.getExpiration() != null && claims.getNotBefore() != null) {
 
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(Constant.Auth.AUTHORITIES_KEY).toString().split(Constant.Auth.AUTHORITIES_SPLIT))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+                    long addTime = System.currentTimeMillis() + (claims.getExpiration().getTime() - claims.getNotBefore().getTime()) / 10;
+                    Date validity = new Date(addTime);
+                    return Jwts.builder()
+                            // 放入用户信息（用户名）
+                            .setSubject(claims.getSubject())
+                            // 放入权限信息
+                            .claim(Constant.Auth.AUTHORITIES_KEY, claims.get(Constant.Auth.AUTHORITIES_KEY))
+                            // 签名
+                            .signWith(key, SignatureAlgorithm.HS512)
+                            // 过期时间
+                            .setExpiration(validity)
+                            // 生效时间
+                            .setNotBefore(new Date())
+                            .compact();
+                }
+            }
+        }
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return "";
     }
 
+
     /**
+     * 校验token
+     *
      * @param authToken
      * @return
      */
-    public boolean validateToken(String authToken) {
+    public Token validate(String authToken) {
+        Token token = new Token(authToken);
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
-            return true;
+            token.parser(key);
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature.");
             log.trace("Invalid JWT signature trace: ", e);
@@ -140,7 +159,7 @@ public class TokenProvider implements InitializingBean {
             log.info("JWT token compact of handler are invalid.");
             log.trace("JWT token compact of handler are invalid trace: ", e);
         }
-        return false;
+        return token;
     }
 
 }

@@ -23,7 +23,7 @@ public class JWTConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
 
     @Override
     public void configure(HttpSecurity http) {
-        JWTFilter customFilter = new JWTFilter(tokenProvider);
+        TokenCheckFilter customFilter = new TokenCheckFilter(tokenProvider);
         // 把JWTFilter 放在默认Spring Security UsernamePasswordAuthenticationFilter 前面
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
