@@ -41,7 +41,7 @@ COMMENT ON TABLE "ganxu"."role_authority" IS '角色权限表';
 -- Uniques structure for table user_authority
 -- ----------------------------
 ALTER TABLE "ganxu"."role_authority" ADD CONSTRAINT "c_role_perm" UNIQUE ("role", "perm");
-COMMENT ON CONSTRAINT "c_role_perm" ON "ganxu"."user_authority" IS '角色权限唯一键';
+COMMENT ON CONSTRAINT "c_role_perm" ON "ganxu"."role_authority" IS '角色权限唯一键';
 
 -- ----------------------------
 -- Primary Key structure for table user_authority
