@@ -72,6 +72,8 @@ myboot是一个基于springboot的项目脚手架。
 
 - MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
+- Spring Security + JWT 实现认证和授权、单点登录
+
   
 
 ## 项目结构
@@ -95,8 +97,7 @@ myboot是一个基于springboot的项目脚手架。
 ## 计划
 
 TODO:
-1. JWT + Spring Security 整合
-2. 消息队列选型
+1. 消息队列选型
 4. 前端技术选型 Vue/React
 5. 分库分表选型
 
