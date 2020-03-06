@@ -134,6 +134,7 @@ public class TokenProvider implements InitializingBean {
                     log.info("用户[{}]的token快失效了,自动续期", token.getClaimsJws().getBody().getSubject());
                     long addTime = System.currentTimeMillis() + (claims.getExpiration().getTime() - claims.getNotBefore().getTime()) / 10;
                     Date validity = new Date(addTime);
+                    log.info("用户[{}]的token快失效了,自动续期到[{}]", token.getClaimsJws().getBody().getSubject(), validity);
                     return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity);
                 }
             }
