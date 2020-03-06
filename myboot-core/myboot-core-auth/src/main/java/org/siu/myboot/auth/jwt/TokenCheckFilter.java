@@ -52,6 +52,7 @@ public class TokenCheckFilter extends GenericFilterBean {
             Authentication authentication = token.authentication();
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), uri);
+            log.info("Authenticated user access:[{}]-[{}]", token.getClaimsJws().getBody().getSubject(), uri);
         } else {
             log.debug("no valid JWT token found, uri: {}", uri);
         }
@@ -86,6 +87,8 @@ public class TokenCheckFilter extends GenericFilterBean {
         }
         return null;
     }
+
+
 }
 
 

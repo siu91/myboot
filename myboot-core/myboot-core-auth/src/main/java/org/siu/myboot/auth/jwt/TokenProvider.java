@@ -85,9 +85,25 @@ public class TokenProvider implements InitializingBean {
         }
 
         // 构建token信息
+        return buildJWT(authentication.getName(), authorities, validity);
+    }
+
+
+    /**
+     * @param subject
+     * @param authorities
+     * @param validity
+     * @return
+     */
+    public String buildJWT(String subject, String authorities, Date validity) {
+        // 构建token信息
         return Jwts.builder()
-                // 放入用户信息（用户名）
-                .setSubject(authentication.getName())
+                // 该JWT的签发者
+                .setIssuer("myboot TokenProvider")
+                // 该JWT所面向的用户:放入用户信息（用户名）
+                .setSubject(subject)
+                // 接收该JWT的一方
+                .setAudience("ganxu")
                 // 放入权限信息
                 .claim(Constant.Auth.AUTHORITIES_KEY, authorities)
                 // 签名
@@ -96,6 +112,8 @@ public class TokenProvider implements InitializingBean {
                 .setExpiration(validity)
                 // 生效时间
                 .setNotBefore(new Date())
+                // 在什么时候签发的
+                .setIssuedAt(new Date())
                 .compact();
     }
 
@@ -116,18 +134,7 @@ public class TokenProvider implements InitializingBean {
 
                     long addTime = System.currentTimeMillis() + (claims.getExpiration().getTime() - claims.getNotBefore().getTime()) / 10;
                     Date validity = new Date(addTime);
-                    return Jwts.builder()
-                            // 放入用户信息（用户名）
-                            .setSubject(claims.getSubject())
-                            // 放入权限信息
-                            .claim(Constant.Auth.AUTHORITIES_KEY, claims.get(Constant.Auth.AUTHORITIES_KEY))
-                            // 签名
-                            .signWith(key, SignatureAlgorithm.HS512)
-                            // 过期时间
-                            .setExpiration(validity)
-                            // 生效时间
-                            .setNotBefore(new Date())
-                            .compact();
+                    return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity);
                 }
             }
         }
