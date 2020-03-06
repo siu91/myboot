@@ -129,11 +129,11 @@ public class TokenProvider implements InitializingBean {
         if (token.isAuthorized()) {
             Claims claims = token.getClaimsJws().getBody();
             // 如果快失效了半小时
-            if ((claims.getExpiration().getTime() - System.currentTimeMillis()) < 30 * 60 * 1000) {
+            if ((claims.getExpiration().getTime() - System.currentTimeMillis()) < Constant.Auth.REFRESH_TOKEN_TIME_THRESHOLD_MS) {
                 if (claims.getExpiration() != null && claims.getNotBefore() != null) {
-                    long addTime = claims.getExpiration().getTime() +
-                            Math.max(60 * 60 * 1000, ((claims.getExpiration().getTime() - claims.getIssuedAt().getTime()) / 10));
-                    Date validity = new Date(addTime);
+                    long renewTime = claims.getExpiration().getTime() +
+                            Math.max(Constant.Auth.REFRESH_TOKEN_RENEW_TIME_MS, ((claims.getExpiration().getTime() - claims.getIssuedAt().getTime()) / 10));
+                    Date validity = new Date(renewTime);
                     log.info("用户[{}]的token快失效了-原失效时间[{}],自动续期到[{}]", token.getClaimsJws().getBody().getSubject(), claims.getExpiration(), validity);
                     return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity);
                 }

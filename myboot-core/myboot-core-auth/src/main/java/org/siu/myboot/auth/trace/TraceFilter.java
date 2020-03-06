@@ -32,18 +32,18 @@ public class TraceFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         // 追踪ID
-        String traceId = httpServletRequest.getHeader(Constant.TRACE_ID);
+        String traceId = httpServletRequest.getHeader(Constant.Trace.TRACE_ID);
         if (StringUtils.isEmpty(traceId)) {
             traceId = UUID.randomUUID().toString().replace("-", "");
         }
-        MDC.put(Constant.TRACE_ID, traceId);
+        MDC.put(Constant.Trace.TRACE_ID, traceId);
 
         // 父追踪ID
-        String pTraceId = httpServletRequest.getHeader(Constant.PARENT_TRACE_ID);
+        String pTraceId = httpServletRequest.getHeader(Constant.Trace.PARENT_TRACE_ID);
         if (!StringUtils.isEmpty(pTraceId)) {
-            MDC.put(Constant.PARENT_TRACE_ID, pTraceId);
+            MDC.put(Constant.Trace.PARENT_TRACE_ID, pTraceId);
         } else {
-            MDC.put(Constant.PARENT_TRACE_ID, Constant.DEFAULT_PARENT_TRACE_ID);
+            MDC.put(Constant.Trace.PARENT_TRACE_ID, Constant.Trace.DEFAULT_PARENT_TRACE_ID);
         }
 
 
