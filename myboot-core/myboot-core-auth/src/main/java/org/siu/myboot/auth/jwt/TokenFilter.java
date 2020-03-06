@@ -24,12 +24,12 @@ import java.io.IOException;
  * @Version 0.0.1
  */
 @Slf4j
-public class TokenCheckFilter extends GenericFilterBean {
+public class TokenFilter extends GenericFilterBean {
 
 
     private TokenProvider tokenProvider;
 
-    public TokenCheckFilter(TokenProvider tokenProvider) {
+    public TokenFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
     }
 

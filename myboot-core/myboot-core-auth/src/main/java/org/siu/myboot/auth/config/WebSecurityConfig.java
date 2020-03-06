@@ -1,12 +1,9 @@
 package org.siu.myboot.auth.config;
 
-import org.siu.myboot.auth.jwt.JWTConfigurer;
 import org.siu.myboot.auth.jwt.JwtAccessDeniedHandler;
 import org.siu.myboot.auth.jwt.JwtAuthenticationEntryPoint;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -135,7 +132,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
+    private BaseSecurityConfigurerAdapter securityConfigurerAdapter() {
+        return new BaseSecurityConfigurerAdapter(tokenProvider);
     }
 }
