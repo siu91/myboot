@@ -73,7 +73,7 @@ public class TokenProvider implements InitializingBean {
     public String buildJWT(Authentication authentication, boolean rememberMe) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(Constant.Auth.AUTHORITIES_SPLIT));
 
         // 过期时间处理
         long now = (new Date()).getTime();
@@ -131,8 +131,8 @@ public class TokenProvider implements InitializingBean {
             // 如果快失效了半小时
             if ((claims.getExpiration().getTime() - System.currentTimeMillis()) < 30 * 60 * 1000) {
                 if (claims.getExpiration() != null && claims.getNotBefore() != null) {
-                    log.info("用户[{}]的token快失效了,自动续期", token.getClaimsJws().getBody().getSubject());
-                    long addTime = System.currentTimeMillis() + (claims.getExpiration().getTime() - claims.getNotBefore().getTime()) / 10;
+                    long addTime = claims.getExpiration().getTime() +
+                            Math.max(60 * 60 * 1000, ((claims.getExpiration().getTime() - claims.getIssuedAt().getTime()) / 10));
                     Date validity = new Date(addTime);
                     log.info("用户[{}]的token快失效了-原失效时间[{}],自动续期到[{}]", token.getClaimsJws().getBody().getSubject(), claims.getExpiration(), validity);
                     return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity);
