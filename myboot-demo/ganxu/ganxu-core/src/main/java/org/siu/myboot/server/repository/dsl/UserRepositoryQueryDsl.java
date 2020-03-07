@@ -113,7 +113,7 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
      * @param username
      * @param newPassword
      * @param version
-     * @return
+     * @return 更新后的版本号
      */
     @Modifying
     @Transactional(rollbackOn = Exception.class)
@@ -129,7 +129,12 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
                     .where(qUser.userName.eq(username));
         }
 
+        long result = update.execute();
+        if (result > 0 && version >= 0) {
+            return version + 1;
+        } else {
+            return -1;
+        }
 
-        return update.execute();
     }
 }

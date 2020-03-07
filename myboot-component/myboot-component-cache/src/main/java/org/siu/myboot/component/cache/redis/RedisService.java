@@ -3,6 +3,7 @@ package org.siu.myboot.component.cache.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @Version 0.0.1
  */
 @Service
-public class RedisService {
+public class RedisService implements InitializingBean {
     private Logger logger = LoggerFactory.getLogger(RedisService.class);
 
     @Autowired
@@ -211,5 +212,10 @@ public class RedisService {
     public Set<Object> rangeByScore(String key, double scoure, double scoure1) {
         ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
         return zset.rangeByScore(key, scoure, scoure1);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 }

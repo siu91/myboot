@@ -3,6 +3,7 @@ package org.siu.myboot.auth.config;
 import org.siu.myboot.auth.jwt.JwtAccessDeniedHandler;
 import org.siu.myboot.auth.jwt.JwtAuthenticationEntryPoint;
 import org.siu.myboot.auth.jwt.TokenProvider;
+import org.siu.myboot.component.cache.redis.RedisService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -30,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private final TokenProvider tokenProvider;
 
+    private final RedisService redisService;
+
     /**
      * 认证入口点
      */
@@ -40,8 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    public WebSecurityConfig(TokenProvider tokenProvider, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
+    public WebSecurityConfig(TokenProvider tokenProvider, RedisService redisService, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
         this.tokenProvider = tokenProvider;
+        this.redisService = redisService;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
@@ -106,6 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 开放权限的接口（登录/注册等）
                 .antMatchers("/v1/api/auth").permitAll()
+                .antMatchers("/v1/api/auth/error").permitAll()
                 // 开放注册
                 .antMatchers("/v1/admin/user/register").permitAll()
                 // 开发放swagger
@@ -133,6 +138,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     private BaseSecurityConfigurerAdapter securityConfigurerAdapter() {
-        return new BaseSecurityConfigurerAdapter(tokenProvider);
+        return new BaseSecurityConfigurerAdapter(tokenProvider, redisService);
     }
 }

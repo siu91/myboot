@@ -1,6 +1,7 @@
 package org.siu.myboot.auth.jwt;
 
 import lombok.SneakyThrows;
+import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.exception.RequestForbidden;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -30,7 +31,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
         // 认证成功，但无权限访问
         String uri = request.getRequestURI();
-        throw new RequestForbidden("无权限访问[" + uri + "]");
+        request.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + "无权限访问[" + uri + "]").forward(request, response);
     }
 }
 

@@ -92,8 +92,8 @@ public class AuthController {
                 // 1、先认证原密码
                 Authentication authentication = authentication(changePassword.getUsername(), changePassword.getPassword());
                 // 2、修改密码
-                User user = userService.changePassword(changePassword, currentUser.get().getVersion());
-                return new Result(user);
+                long result = userService.changePassword(changePassword, currentUser.get().getVersion());
+                return new Result(result);
 
             } else {
                 throw new AuthenticateFail("当前用户不匹配");
@@ -119,6 +119,13 @@ public class AuthController {
         return new Result(data);
     }
 
+
+    @PostMapping("/auth/error")
+    public void error(String msg) throws AuthenticateFail {
+        throw new AuthenticateFail(msg);
+
+    }
+
     /**
      * 验证登录
      *
@@ -140,5 +147,6 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return authentication;
     }
+
 
 }

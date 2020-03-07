@@ -1,6 +1,7 @@
 package org.siu.myboot.auth.jwt;
 
 import lombok.SneakyThrows;
+import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.exception.AuthenticateFail;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -36,9 +37,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
 
         // 认证失败
-        String uri = request.getRequestURI();
-        throw new AuthenticateFail("认证失败：无法获取[" + uri + "]");
-
+        request.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + authException.getMessage()).forward(request, response);
 
     }
 }

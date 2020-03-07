@@ -35,6 +35,11 @@ public class Token {
     private String token;
 
     /**
+     * 用户名
+     */
+    private String username;
+
+    /**
      * 解析后的token
      */
     private Jws<Claims> claimsJws;
@@ -42,7 +47,12 @@ public class Token {
     /**
      * 权限标识
      */
-    Authentication authenticationToken;
+    private Authentication authenticationToken;
+
+    /**
+     * 认证授权版本
+     */
+    private long authVersion = -1;
 
 
     public Token(String token) {
@@ -56,6 +66,8 @@ public class Token {
      */
     public void parser(Key key) {
         this.claimsJws = Jwts.parser().setSigningKey(key).parseClaimsJws(this.token);
+        this.authVersion = Long.parseLong(this.claimsJws.getBody().get(Constant.Auth.VERSION_KEY).toString());
+        this.username = this.claimsJws.getBody().getSubject();
         this.authorized = true;
     }
 

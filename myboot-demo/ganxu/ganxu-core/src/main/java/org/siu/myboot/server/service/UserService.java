@@ -1,6 +1,8 @@
 package org.siu.myboot.server.service;
 
 import com.querydsl.core.types.OrderSpecifier;
+import org.siu.myboot.component.cache.redis.RedisService;
+import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
 import org.siu.myboot.core.data.utils.QueryBuilder;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +60,9 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RedisService redisService;
+
 
     // region custom
 
@@ -67,11 +73,14 @@ public class UserService {
      * @param version
      * @return
      */
-    public User changePassword(ChangePassword changePassword, long version) {
+    public long changePassword(ChangePassword changePassword, long version) {
         String newPassword = passwordEncoder.encode(changePassword.getNewPassword());
-        repositoryQueryDsl.changePassword(changePassword.getUsername(), newPassword, version);
-        User user = repository.findByUserNameOrPhone(changePassword.getUsername(), changePassword.getUsername());
-        return user.setPassword("");
+        long newVersion = repositoryQueryDsl.changePassword(changePassword.getUsername(), newPassword, version);
+        if (newVersion > 0) {
+            redisService.set(Constant.RedisKey.USER_AUTH_KEY + changePassword.getUsername(), newVersion);
+        }
+
+        return newVersion;
     }
 
     /**

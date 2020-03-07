@@ -17,6 +17,18 @@ public class Constant {
 
 
     /**
+     * redis key
+     */
+    public static class RedisKey {
+
+        /**
+         * 用于认证授权版本号
+         */
+        public static final String USER_AUTH_KEY = "SYS:AUTH:USER_AUTH_VERSION:";
+    }
+
+
+    /**
      * 追踪常量
      */
     public static class Trace {
@@ -69,6 +81,11 @@ public class Constant {
          * 每次刷新token最小增加续租时间（毫米）
          */
         public static final int REFRESH_TOKEN_RENEW_TIME_MS = 60 * 60 * 1000;
+
+        /**
+         * 认证失败处理接口
+         */
+        public static final String AUTH_ERROR_API = "/v1/api/auth/error?msg=";
     }
 
 }
