@@ -50,6 +50,11 @@ public class Constant {
          * token中权限信息key
          */
         public static final String AUTHORITIES_KEY = "auth";
+
+        /**
+         * token用户的版本信息key
+         */
+        public static final String VERSION_KEY = "version";
         /**
          * token中权限信息分割符
          */

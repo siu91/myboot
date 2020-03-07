@@ -2,6 +2,7 @@ package org.siu.myboot.auth.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.Getter;
+import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.core.constant.Constant;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -86,7 +87,7 @@ public class Token {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        AuthUser principal = new AuthUser(claims.getSubject(), "", authorities, Long.parseLong(claims.get(Constant.Auth.VERSION_KEY).toString()));
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

@@ -2,6 +2,7 @@ package org.siu.myboot.server.service.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.core.exception.UserNotActivatedException;
 import org.siu.myboot.server.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -53,7 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @param user
      * @return
      */
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) throws UserNotActivatedException {
+    private AuthUser createSpringSecurityUser(String lowercaseLogin, User user) throws UserNotActivatedException {
         // 用户未激活
         if (user.getDeleteStatus() > 0) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
@@ -69,6 +70,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
+        return new AuthUser(user.getUserName(), user.getPassword(), grantedAuthorities, user.getVersion());
     }
 }

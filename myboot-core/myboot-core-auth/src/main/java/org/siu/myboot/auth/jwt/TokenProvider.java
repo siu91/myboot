@@ -4,19 +4,15 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.core.constant.Constant;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -84,8 +80,14 @@ public class TokenProvider implements InitializingBean {
             validity = new Date(now + this.tokenValidityInSeconds * 1000);
         }
 
+        long version = -1;
+        // 获取用户的版本信息
+        if (authentication.getPrincipal() instanceof AuthUser) {
+            version = ((AuthUser) authentication.getPrincipal()).getVersion();
+        }
+
         // 构建token信息
-        return buildJWT(authentication.getName(), authorities, validity);
+        return buildJWT(authentication.getName(), authorities, validity, version);
     }
 
 
@@ -95,7 +97,7 @@ public class TokenProvider implements InitializingBean {
      * @param validity
      * @return
      */
-    public String buildJWT(String subject, String authorities, Date validity) {
+    public String buildJWT(String subject, String authorities, Date validity, long version) {
         // 构建token信息
         return Jwts.builder()
                 // 该JWT的签发者
@@ -106,6 +108,8 @@ public class TokenProvider implements InitializingBean {
                 .setAudience("ganxu")
                 // 放入权限信息
                 .claim(Constant.Auth.AUTHORITIES_KEY, authorities)
+                // 用户信息版本
+                .claim(Constant.Auth.VERSION_KEY, version)
                 // 签名
                 .signWith(key, SignatureAlgorithm.HS512)
                 // 过期时间
@@ -135,7 +139,7 @@ public class TokenProvider implements InitializingBean {
                             Math.max(Constant.Auth.REFRESH_TOKEN_RENEW_TIME_MS, ((claims.getExpiration().getTime() - claims.getIssuedAt().getTime()) / 10));
                     Date validity = new Date(renewTime);
                     log.info("用户[{}]的token快失效了-原失效时间[{}],自动续期到[{}]", token.getClaimsJws().getBody().getSubject(), claims.getExpiration(), validity);
-                    return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity);
+                    return buildJWT(claims.getSubject(), claims.get(Constant.Auth.AUTHORITIES_KEY).toString(), validity, Long.parseLong(claims.get(Constant.Auth.VERSION_KEY).toString()));
                 }
             }
         }

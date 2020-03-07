@@ -116,10 +116,20 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
      * @return
      */
     @Modifying
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public long changePassword(String username, String newPassword, long version) {
-        JPAUpdateClause update = jpaQueryFactory.update(qUser).set(qUser.password, newPassword).set(qUser.version, version + 1)
-                .where(qUser.userName.eq(username).and(qUser.version.eq(version)));
+        JPAUpdateClause update;
+
+        if (version >= 0) {
+            update = jpaQueryFactory.update(qUser).set(qUser.password, newPassword)
+                    .set(qUser.version, version + 1)
+                    .where(qUser.userName.eq(username).and(qUser.version.eq(version)));
+        } else {
+            update = jpaQueryFactory.update(qUser).set(qUser.password, newPassword)
+                    .where(qUser.userName.eq(username));
+        }
+
+
         return update.execute();
     }
 }

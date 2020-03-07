@@ -64,12 +64,13 @@ public class UserService {
      * 修改密码
      *
      * @param changePassword
+     * @param version
      * @return
      */
-    public User changePassword(ChangePassword changePassword) {
-        User user = repository.findByUserNameOrPhone(changePassword.getUsername(), changePassword.getUsername());
+    public User changePassword(ChangePassword changePassword, long version) {
         String newPassword = passwordEncoder.encode(changePassword.getNewPassword());
-        repositoryQueryDsl.changePassword(changePassword.getUsername(), newPassword, user.getVersion());
+        repositoryQueryDsl.changePassword(changePassword.getUsername(), newPassword, version);
+        User user = repository.findByUserNameOrPhone(changePassword.getUsername(), changePassword.getUsername());
         return user.setPassword("");
     }
 

@@ -2,6 +2,7 @@ package org.siu.myboot.server.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.siu.myboot.auth.SecurityUtils;
+import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.entity.vo.Result;
@@ -83,15 +84,15 @@ public class AuthController {
     @PostMapping("/password")
     public Result changePassword(@Validated @RequestBody ChangePassword changePassword) throws WrongUsernameOrPasswordException, AuthenticateFail {
         // 0、验证当前用户与修改密码用户匹配
-        Optional<String> currentUser = SecurityUtils.getCurrentUsername();
+        Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
         if (!currentUser.isPresent()) {
             throw new AuthenticateFail("当前用户不存在");
         } else {
-            if (currentUser.get().equals(changePassword.getUsername())) {
+            if (currentUser.get().getUsername().equals(changePassword.getUsername())) {
                 // 1、先认证原密码
                 Authentication authentication = authentication(changePassword.getUsername(), changePassword.getPassword());
                 // 2、修改密码
-                User user = userService.changePassword(changePassword);
+                User user = userService.changePassword(changePassword, currentUser.get().getVersion());
                 return new Result(user);
 
             } else {
