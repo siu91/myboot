@@ -8,6 +8,7 @@ import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.exception.UserRegisterException;
 import org.siu.myboot.server.entity.po.*;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
+import org.siu.myboot.server.entity.qo.ChangePassword;
 import org.siu.myboot.server.repository.RoleRepository;
 import org.siu.myboot.server.repository.UserRepository;
 import org.siu.myboot.server.repository.UserRoleRepository;
@@ -59,6 +60,27 @@ public class UserService {
 
     // region custom
 
+    /**
+     * 修改密码
+     *
+     * @param changePassword
+     * @return
+     */
+    public User changePassword(ChangePassword changePassword) {
+        User user = repository.findByUserNameOrPhone(changePassword.getUsername(), changePassword.getUsername());
+        String newPassword = passwordEncoder.encode(changePassword.getNewPassword());
+        repositoryQueryDsl.changePassword(changePassword.getUsername(), newPassword, user.getVersion());
+        return user.setPassword("");
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param entity
+     * @param userType
+     * @return
+     * @throws UserRegisterException
+     */
     public User register(User entity, int userType) throws UserRegisterException {
         // 判断用户是否存在
         User userExist = repository.findByUserNameOrPhone(entity.getUserName(), entity.getPhone());
@@ -69,14 +91,14 @@ public class UserService {
         return doRegister(entity, userType);
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     User doRegister(User entity, int userType) {
         // 添加用户
         String pass = passwordEncoder.encode(entity.getPassword());
         entity.setPassword(pass);
         entity.setDeleteStatus(0);
         entity.setVersion(0L);
-         User user = repository.save(entity);
+        User user = repository.save(entity);
         // TODO 添加用户信息 userInfo
 
         // 添加默认角色

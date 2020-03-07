@@ -37,7 +37,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         // 认证失败
         String uri = request.getRequestURI();
-        throw new AuthenticateFail("无法获取[" + uri + "]");
+        throw new AuthenticateFail("认证失败：无法获取[" + uri + "]");
 
 
     }

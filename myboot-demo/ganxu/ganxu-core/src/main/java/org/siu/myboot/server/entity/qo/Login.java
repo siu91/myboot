@@ -1,4 +1,4 @@
-package org.siu.myboot.core.entity.qo;
+package org.siu.myboot.server.entity.qo;
 
 import lombok.Data;
 

@@ -3,6 +3,7 @@ package org.siu.myboot.server.repository.dsl;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.core.data.utils.QueryBuilder;
 import org.siu.myboot.server.entity.po.QUser;
@@ -11,9 +12,11 @@ import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -86,7 +89,7 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
     /**
      * 通过登录ID（用户名、手机）、密码查找用户信息
      *
-     * @param ids 用户名/手机
+     * @param ids  用户名/手机
      * @param pass 密码
      * @return
      */
@@ -102,5 +105,21 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
                 .where(qUser.userName.eq(ids).or(qUser.phone.eq(ids))).where(qUser.password.eq(pass)).where(qUser.id.eq(qUserInfo.userId));
 
         return query.fetchOne();
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param username
+     * @param newPassword
+     * @param version
+     * @return
+     */
+    @Modifying
+    @Transactional
+    public long changePassword(String username, String newPassword, long version) {
+        JPAUpdateClause update = jpaQueryFactory.update(qUser).set(qUser.password, newPassword).set(qUser.version, version + 1)
+                .where(qUser.userName.eq(username).and(qUser.version.eq(version)));
+        return update.execute();
     }
 }
