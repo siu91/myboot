@@ -1,0 +1,20 @@
+# redis 配置
+spring:
+  redis:
+    # Standalone 单机配置
+    host: localhost
+    port: 6379
+    timeout: 20000
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 10
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+    # 集群配置
+#    cluster:
+#      nodes: redis01:7005,redis01:7004,redis02:7003,redis02:7002,redis03:7001,redis03:7000

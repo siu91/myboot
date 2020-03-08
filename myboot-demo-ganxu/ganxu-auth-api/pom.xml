@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siu</groupId>
+        <artifactId>myboot-demo-ganxu</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <groupId>org.siu</groupId>
+    <artifactId>ganxu-auth-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ganxu-auth-api</name>
+    <description>ganxu-auth-api</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-component-swagger</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>ganxu-core</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,6 +1,7 @@
 package org.siu.myboot.server.controller;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.auth.SecurityUtils;
 import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.auth.jwt.TokenProvider;
@@ -34,14 +35,15 @@ import java.util.Optional;
  * @Date 2020/3/4 16:23
  * @Version 0.0.1
  */
+@Slf4j
 @RestController
 @RequestMapping("/v1/api")
 public class AuthController {
 
-    @Autowired
+    @Resource
     private TokenProvider tokenProvider;
 
-    @Autowired
+    @Resource
     private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @Resource
@@ -63,9 +65,7 @@ public class AuthController {
         // 颁发token
         boolean rememberMe = (login.getRememberMe() == null) ? false : login.getRememberMe();
         String jwt = tokenProvider.buildJWT(authentication, rememberMe);
-
-        //HttpHeaders httpHeaders = new HttpHeaders();
-        //httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        log.info("认证通过，给用户[{}],颁发token[{}]", login.getUsername(), jwt);
 
         return new Result(Constant.Auth.TOKEN_PREFIX + jwt);
 
@@ -143,6 +143,12 @@ public class AuthController {
     }
 
 
+    /**
+     * 认证、授权异常处理
+     *
+     * @param msg
+     * @throws AuthenticateFail
+     */
     @GetMapping("/auth/error")
     public void error(String msg) throws AuthenticateFail {
         throw new AuthenticateFail(msg);

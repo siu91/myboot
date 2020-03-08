@@ -19,6 +19,7 @@
     <modules>
         <module>ganxu-core</module>
         <module>ganxu-admin-api</module>
+        <module>ganxu-auth-api</module>
     </modules>
 
     <dependencies>

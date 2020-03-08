@@ -6,9 +6,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.siu.myboot.core.data.querydsljpa.BaseJpaRepository;
 import org.siu.myboot.core.data.utils.QueryBuilder;
-import org.siu.myboot.server.entity.po.QUser;
-import org.siu.myboot.server.entity.po.QUserInfo;
-import org.siu.myboot.server.entity.po.User;
+import org.siu.myboot.server.entity.dto.UserAuthorities;
+import org.siu.myboot.server.entity.po.*;
 import org.siu.myboot.server.entity.dto.LoginUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +42,17 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
      * QUserInfo QueryDSL Object: Use jpaQueryFactory build JPAQuery
      */
     private static final QUserInfo qUserInfo = QUserInfo.userInfo;
+
+    /**
+     * QUserRole QueryDSL Object: Use jpaQueryFactory build JPAQuery
+     */
+    private static final QUserRole qUserRole = QUserRole.userRole;
+
+    /**
+     * QRoleAuthority QueryDSL Object: Use jpaQueryFactory build JPAQuery
+     */
+    private static final QRoleAuthority qRoleAuthority = QRoleAuthority.roleAuthority;
+
 
     /**
      * queryExample
@@ -136,5 +146,25 @@ public class UserRepositoryQueryDsl extends BaseJpaRepository<User, Long> {
             return -1;
         }
 
+    }
+
+
+    /**
+     * 获取用户的权限
+     *
+     * @return
+     */
+    public List<UserAuthorities> findUserAuthorities(String username) {
+        JPAQuery<UserAuthorities> query = jpaQueryFactory.
+                select(Projections.bean(
+                        // 映射类型
+                        UserAuthorities.class,
+                        // 查询字段
+                        qUserRole.id.as("roleId"), qUserRole.role, qRoleAuthority.perm.as("permit")))
+                .from(qUser, qUserInfo)
+                .innerJoin(qUserRole).on(qUser.id.eq(qUserRole.userId).and(qUser.userName.eq(username).or(qUser.phone.eq(username))))
+                .leftJoin(qRoleAuthority).on(qUserRole.id.eq(qRoleAuthority.roleId));
+
+        return query.fetch();
     }
 }
