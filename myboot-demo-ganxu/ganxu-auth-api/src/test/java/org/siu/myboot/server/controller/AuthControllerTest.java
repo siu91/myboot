@@ -1,19 +1,14 @@
 package org.siu.myboot.server.controller;
 
 import com.alibaba.fastjson.JSON;
-import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.entity.vo.Result;
-import org.siu.myboot.core.exception.AuthenticateFail;
-import org.siu.myboot.core.exception.BaseException;
-import org.siu.myboot.server.entity.qo.Login;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.util.NestedServletException;
 
 import static org.hamcrest.Matchers.containsString;
@@ -91,7 +86,7 @@ public class AuthControllerTest extends AbstractMockMvcTest {
         //this.getExpectedException().expect(BaseException.class);
         //this.getExpectedException().expect(AuthenticateFail.class);
         this.getExpectedException().expectMessage(containsString("用户名或密码错误"));
-       String  mvcResult = this.getMockMvc().perform(MockMvcRequestBuilders.post("/v1/api/password")
+        String mvcResult = this.getMockMvc().perform(MockMvcRequestBuilders.post("/v1/api/password")
                 .header(Constant.Auth.AUTHORIZATION_HEADER, token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"newPassword\": \"admin123456\",\"password\": \"admin1234599999999\", \"username\": \"string\"}"))
@@ -102,5 +97,17 @@ public class AuthControllerTest extends AbstractMockMvcTest {
 
     }
 
+    @Test
+    public void testSignOut() throws Exception {
+        String mvcResult = this.getMockMvc().perform(MockMvcRequestBuilders.get("/v1/api/signout/string")
+                .header(Constant.Auth.AUTHORIZATION_HEADER, token)
+                .accept(MediaType.APPLICATION_JSON))/*.andDo(print())*/
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("true")))
+                .andReturn().getResponse().getContentAsString();
+
+
+        System.out.println("Result:\n" + mvcResult);
+
+    }
 
 }
