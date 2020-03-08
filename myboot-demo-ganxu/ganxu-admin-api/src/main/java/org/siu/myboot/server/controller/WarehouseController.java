@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/warehouse")
+@RequestMapping(value = "/v1/warehouse")
 @Slf4j
 @Api(tags = {"Warehouse related API"})
 @RestController
@@ -33,48 +33,48 @@ public class WarehouseController {
 
     @PostMapping
     @ApiOperation(value = "Warehouse:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) Warehouse params) {
+    public Result<Warehouse> create(@RequestBody @Validated(Valid.CREATE.class) Warehouse params) {
         Warehouse data = warehouseService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Warehouse:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         warehouseService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "Warehouse:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) Warehouse params) {
+    public Result<Warehouse> update(@RequestBody @Validated(Valid.UPDATE.class) Warehouse params) {
         Warehouse data = warehouseService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Warehouse:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<Warehouse> retrieve(@PathVariable Long id) {
         Optional<Warehouse> data = warehouseService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "Warehouse:PAGE")
-    public Result page(@RequestBody PageParams<Warehouse> params) {
+    public Result<PageData> page(@RequestBody PageParams<Warehouse> params) {
         PageData data = warehouseService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "Warehouse:LIST")
-    public Result list(@RequestBody Warehouse params) {
+    public Result<List<Warehouse>> list(@RequestBody Warehouse params) {
         List<Warehouse> data = warehouseService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

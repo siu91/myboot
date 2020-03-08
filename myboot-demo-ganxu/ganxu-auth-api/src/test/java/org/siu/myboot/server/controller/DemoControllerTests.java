@@ -30,7 +30,7 @@ public class DemoControllerTests {
 
     @Test
     public void getHello() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/hello?name=小明")
+        mockMvc.perform(MockMvcRequestBuilders.get("/hello?name=小明")
                 .accept(MediaType.APPLICATION_JSON_UTF8))/*.andDo(print())*/
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("小明")));
     }

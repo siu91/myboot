@@ -58,7 +58,7 @@ public class AuthController {
      * @throws WrongUsernameOrPasswordException
      */
     @PostMapping("/auth")
-    public Result authorize(@Validated @RequestBody Login login) throws WrongUsernameOrPasswordException {
+    public Result<String> authorize(@Validated @RequestBody Login login) throws WrongUsernameOrPasswordException {
         // 认证，通过并返回权限
         Authentication authentication = authentication(login.getUsername(), login.getPassword());
 
@@ -67,7 +67,7 @@ public class AuthController {
         String jwt = tokenProvider.buildJWT(authentication, rememberMe);
         log.info("认证通过，给用户[{}],颁发token[{}]", login.getUsername(), jwt);
 
-        return new Result(Constant.Auth.TOKEN_PREFIX + jwt);
+        return Result.ok(Constant.Auth.TOKEN_PREFIX + jwt);
 
     }
 
@@ -79,7 +79,7 @@ public class AuthController {
      * @throws WrongUsernameOrPasswordException
      */
     @PostMapping("/password")
-    public Result changePassword(@Validated @RequestBody ChangePassword changePassword) throws WrongUsernameOrPasswordException, AuthenticateFail {
+    public Result<Long> changePassword(@Validated @RequestBody ChangePassword changePassword) throws WrongUsernameOrPasswordException, AuthenticateFail {
         // 0、验证当前用户与修改密码用户匹配
         Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
         if (!currentUser.isPresent()) {
@@ -90,7 +90,7 @@ public class AuthController {
                 Authentication authentication = authentication(changePassword.getUsername(), changePassword.getPassword());
                 // 2、修改密码
                 long result = userService.changePassword(changePassword, currentUser.get().getVersion());
-                return new Result(result);
+                return Result.ok(result);
 
             } else {
                 throw new AuthenticateFail("当前用户不匹配");
@@ -109,7 +109,7 @@ public class AuthController {
      * @throws AuthenticateFail
      */
     @GetMapping("/signout/{username}")
-    public Result signOut(@PathVariable String username) throws AuthenticateFail {
+    public Result<Boolean> signOut(@PathVariable String username) throws AuthenticateFail {
         // 0、验证当前用户与修改密码用户匹配
         Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
         if (!currentUser.isPresent()) {
@@ -117,7 +117,7 @@ public class AuthController {
         } else {
             if (currentUser.get().getUsername().equals(username)) {
                 boolean signOut = userService.signOut(username);
-                return new Result(signOut);
+                return Result.ok(signOut);
             } else {
                 throw new AuthenticateFail("当前用户不匹配[" + username + "]");
             }
@@ -135,11 +135,11 @@ public class AuthController {
      */
     @PostMapping("/register")
     @ApiOperation(value = "User:REGISTER")
-    public Result register(@RequestBody @Validated(Valid.CREATE.class) RegisteredUser params) throws UserRegisterException {
+    public Result<User> register(@RequestBody @Validated(Valid.CREATE.class) RegisteredUser params) throws UserRegisterException {
         User data = userService.register(
                 new User().setPassword(params.getPassword()).setUserName(params.getUserName()).setPhone(params.getPhone()),
                 params.getUserType());
-        return new Result(data);
+        return Result.ok(data);
     }
 
 

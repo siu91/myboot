@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/user_oauths")
+@RequestMapping(value = "/v1/user_oauths")
 @Slf4j
 @Api(tags = {"UserOauths related API"})
 @RestController
@@ -33,48 +33,48 @@ public class UserOauthsController {
 
     @PostMapping
     @ApiOperation(value = "UserOauths:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserOauths params) {
+    public Result<UserOauths> create(@RequestBody @Validated(Valid.CREATE.class) UserOauths params) {
         UserOauths data = userOauthsService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "UserOauths:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         userOauthsService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "UserOauths:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserOauths params) {
+    public Result<UserOauths> update(@RequestBody @Validated(Valid.UPDATE.class) UserOauths params) {
         UserOauths data = userOauthsService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "UserOauths:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<UserOauths> retrieve(@PathVariable Long id) {
         Optional<UserOauths> data = userOauthsService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "UserOauths:PAGE")
-    public Result page(@RequestBody PageParams<UserOauths> params) {
+    public Result<PageData> page(@RequestBody PageParams<UserOauths> params) {
         PageData data = userOauthsService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserOauths:LIST")
-    public Result list(@RequestBody UserOauths params) {
+    public Result<List<UserOauths>> list(@RequestBody UserOauths params) {
         List<UserOauths> data = userOauthsService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

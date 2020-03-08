@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/product_comment")
+@RequestMapping(value = "/v1/product_comment")
 @Slf4j
 @Api(tags = {"ProductComment related API"})
 @RestController
@@ -33,48 +33,48 @@ public class ProductCommentController {
 
     @PostMapping
     @ApiOperation(value = "ProductComment:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) ProductComment params) {
+    public Result<ProductComment> create(@RequestBody @Validated(Valid.CREATE.class) ProductComment params) {
         ProductComment data = productCommentService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductComment:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         productCommentService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "ProductComment:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ProductComment params) {
+    public Result<ProductComment> update(@RequestBody @Validated(Valid.UPDATE.class) ProductComment params) {
         ProductComment data = productCommentService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductComment:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<ProductComment> retrieve(@PathVariable Long id) {
         Optional<ProductComment> data = productCommentService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "ProductComment:PAGE")
-    public Result page(@RequestBody PageParams<ProductComment> params) {
+    public Result<PageData> page(@RequestBody PageParams<ProductComment> params) {
         PageData data = productCommentService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "ProductComment:LIST")
-    public Result list(@RequestBody ProductComment params) {
+    public Result<List<ProductComment>> list(@RequestBody ProductComment params) {
         List<ProductComment> data = productCommentService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

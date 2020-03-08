@@ -1,3 +1,4 @@
+/*
 package org.siu.myboot.core.web.handlers;
 
 import com.alibaba.fastjson.JSON;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Objects;
 
+*/
 /**
  * @Author Siu
  * @Date 2020/2/23 16:48
  * @Version 0.0.1
- */
+ *//*
+
 @Slf4j
 public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
 
@@ -41,7 +44,9 @@ public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
         modelAndViewContainer.setRequestHandled(true);
         HttpServletResponse response = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        /**  返回值不为空时，把返回值转化为标准的globalResult形式*/
+        */
+/**  返回值不为空时，把返回值转化为标准的globalResult形式*//*
+
         Result returnResult = null;
         if (null != result) {
             if (result instanceof Result) {
@@ -82,4 +87,4 @@ public class JsonReturnHandler implements HandlerMethodReturnValueHandler {
         }
     }
 
-}
+}*/

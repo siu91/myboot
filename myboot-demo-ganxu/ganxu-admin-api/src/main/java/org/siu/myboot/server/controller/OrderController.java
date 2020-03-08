@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/order")
+@RequestMapping(value = "/v1/order")
 @Slf4j
 @Api(tags = {"Order related API"})
 @RestController
@@ -33,48 +33,48 @@ public class OrderController {
 
     @PostMapping
     @ApiOperation(value = "Order:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) Order params) {
+    public Result<Order> create(@RequestBody @Validated(Valid.CREATE.class) Order params) {
         Order data = orderService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Order:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         orderService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "Order:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) Order params) {
+    public Result<Order> update(@RequestBody @Validated(Valid.UPDATE.class) Order params) {
         Order data = orderService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Order:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<Order> retrieve(@PathVariable Long id) {
         Optional<Order> data = orderService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "Order:PAGE")
-    public Result page(@RequestBody PageParams<Order> params) {
+    public Result<PageData> page(@RequestBody PageParams<Order> params) {
         PageData data = orderService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "Order:LIST")
-    public Result list(@RequestBody Order params) {
+    public Result<List<Order>> list(@RequestBody Order params) {
         List<Order> data = orderService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

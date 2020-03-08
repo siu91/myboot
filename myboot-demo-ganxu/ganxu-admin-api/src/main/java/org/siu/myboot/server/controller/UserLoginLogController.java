@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/user_login_log")
+@RequestMapping(value = "/v1/user_login_log")
 @Slf4j
 @Api(tags = {"UserLoginLog related API"})
 @RestController
@@ -33,48 +33,48 @@ public class UserLoginLogController {
 
     @PostMapping
     @ApiOperation(value = "UserLoginLog:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserLoginLog params) {
+    public Result<UserLoginLog> create(@RequestBody @Validated(Valid.CREATE.class) UserLoginLog params) {
         UserLoginLog data = userLoginLogService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "UserLoginLog:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         userLoginLogService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "UserLoginLog:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserLoginLog params) {
+    public Result<UserLoginLog> update(@RequestBody @Validated(Valid.UPDATE.class) UserLoginLog params) {
         UserLoginLog data = userLoginLogService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "UserLoginLog:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<UserLoginLog> retrieve(@PathVariable Long id) {
         Optional<UserLoginLog> data = userLoginLogService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "UserLoginLog:PAGE")
-    public Result page(@RequestBody PageParams<UserLoginLog> params) {
+    public Result<PageData> page(@RequestBody PageParams<UserLoginLog> params) {
         PageData data = userLoginLogService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserLoginLog:LIST")
-    public Result list(@RequestBody UserLoginLog params) {
+    public Result<List<UserLoginLog>> list(@RequestBody UserLoginLog params) {
         List<UserLoginLog> data = userLoginLogService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

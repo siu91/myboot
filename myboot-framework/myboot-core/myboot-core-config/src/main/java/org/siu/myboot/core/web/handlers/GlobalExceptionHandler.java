@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
-        return new Result().paramsError(e.getBindingResult().getFieldError().getDefaultMessage());
+        return Result.error(e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
 
@@ -50,9 +50,8 @@ public class GlobalExceptionHandler {
      * @throws Exception
      */
     @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, UndeclaredThrowableException.class, Throwable.class})
-    public Result exceptionHandler(HttpServletRequest req, HttpServletResponse response, Exception e) throws Exception {
+    public Result<String> exceptionHandler(HttpServletRequest req, HttpServletResponse response, Exception e) throws Exception {
         log.error(e.getMessage(), e);
-        Result result = new Result();
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
         if (e instanceof BaseException || ((UndeclaredThrowableException) e).getUndeclaredThrowable() instanceof BaseException) {
             BaseException baseException;
@@ -62,11 +61,11 @@ public class GlobalExceptionHandler {
                 baseException = (BaseException) e;
             }
             // TODO 定以各异常，统一格式返回给前端
-            result.innerError(baseException, debug);
+            return Result.error(baseException.getErrorMsg());
         } else {
-            result.unknownError(e, debug);
+            return Result.error("未知系统错误");
         }
 
-        return result;
     }
+
 }

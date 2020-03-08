@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/user_level")
+@RequestMapping(value = "/v1/user_level")
 @Slf4j
 @Api(tags = {"UserLevel related API"})
 @RestController
@@ -33,48 +33,48 @@ public class UserLevelController {
 
     @PostMapping
     @ApiOperation(value = "UserLevel:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserLevel params) {
+    public Result<UserLevel> create(@RequestBody @Validated(Valid.CREATE.class) UserLevel params) {
         UserLevel data = userLevelService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "UserLevel:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         userLevelService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "UserLevel:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserLevel params) {
+    public Result<UserLevel> update(@RequestBody @Validated(Valid.UPDATE.class) UserLevel params) {
         UserLevel data = userLevelService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "UserLevel:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<UserLevel> retrieve(@PathVariable Long id) {
         Optional<UserLevel> data = userLevelService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "UserLevel:PAGE")
-    public Result page(@RequestBody PageParams<UserLevel> params) {
+    public Result<PageData> page(@RequestBody PageParams<UserLevel> params) {
         PageData data = userLevelService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserLevel:LIST")
-    public Result list(@RequestBody UserLevel params) {
+    public Result<List<UserLevel>> list(@RequestBody UserLevel params) {
         List<UserLevel> data = userLevelService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

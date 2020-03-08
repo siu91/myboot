@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/user_addr")
+@RequestMapping(value = "/v1/user_addr")
 @Slf4j
 @Api(tags = {"UserAddr related API"})
 @RestController
@@ -33,48 +33,48 @@ public class UserAddrController {
 
     @PostMapping
     @ApiOperation(value = "UserAddr:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserAddr params) {
+    public Result<UserAddr> create(@RequestBody @Validated(Valid.CREATE.class) UserAddr params) {
         UserAddr data = userAddrService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "UserAddr:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         userAddrService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "UserAddr:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserAddr params) {
+    public Result<UserAddr> update(@RequestBody @Validated(Valid.UPDATE.class) UserAddr params) {
         UserAddr data = userAddrService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "UserAddr:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<UserAddr> retrieve(@PathVariable Long id) {
         Optional<UserAddr> data = userAddrService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "UserAddr:PAGE")
-    public Result page(@RequestBody PageParams<UserAddr> params) {
+    public Result<PageData> page(@RequestBody PageParams<UserAddr> params) {
         PageData data = userAddrService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserAddr:LIST")
-    public Result list(@RequestBody UserAddr params) {
+    public Result<List<UserAddr>> list(@RequestBody UserAddr params) {
         List<UserAddr> data = userAddrService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

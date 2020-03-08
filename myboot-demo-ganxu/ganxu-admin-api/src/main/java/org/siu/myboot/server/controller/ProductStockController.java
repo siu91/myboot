@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/product_stock")
+@RequestMapping(value = "/v1/product_stock")
 @Slf4j
 @Api(tags = {"ProductStock related API"})
 @RestController
@@ -33,48 +33,48 @@ public class ProductStockController {
 
     @PostMapping
     @ApiOperation(value = "ProductStock:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) ProductStock params) {
+    public Result<ProductStock> create(@RequestBody @Validated(Valid.CREATE.class) ProductStock params) {
         ProductStock data = productStockService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductStock:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         productStockService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "ProductStock:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ProductStock params) {
+    public Result<ProductStock> update(@RequestBody @Validated(Valid.UPDATE.class) ProductStock params) {
         ProductStock data = productStockService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductStock:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<ProductStock> retrieve(@PathVariable Long id) {
         Optional<ProductStock> data = productStockService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "ProductStock:PAGE")
-    public Result page(@RequestBody PageParams<ProductStock> params) {
+    public Result<PageData> page(@RequestBody PageParams<ProductStock> params) {
         PageData data = productStockService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "ProductStock:LIST")
-    public Result list(@RequestBody ProductStock params) {
+    public Result<List<ProductStock>> list(@RequestBody ProductStock params) {
         List<ProductStock> data = productStockService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

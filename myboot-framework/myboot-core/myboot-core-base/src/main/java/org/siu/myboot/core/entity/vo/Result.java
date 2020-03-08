@@ -1,85 +1,75 @@
 package org.siu.myboot.core.entity.vo;
 
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.Accessors;
-import org.siu.myboot.core.constant.ResultConstant;
-import org.siu.myboot.core.exception.BaseException;
 
+import java.io.Serializable;
 
 /**
- * TODO 1、空值返回格式处理 2、debug 信息处理
- *
  * @Author Siu
- * @Date 2020/2/23 16:47
+ * @Date 2020/3/8 21:32
  * @Version 0.0.1
  */
-@Data
+
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
-public class Result {
+public class Result<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
     private int code;
-    private String message;
-    private Object data;
-    private Object debug;
+
+    @Getter
+    @Setter
+    private String msg;
 
 
-    public Result() {
+    @Getter
+    @Setter
+    private T data;
+
+    public static <T> Result<T> ok() {
+        return build(null, 0, null);
     }
 
-    public Result(Object data) {
-        this.code = ResultConstant.SUCCESS;
-        this.message = ResultConstant.SUCCESS_MSG;
-        this.data = data;
+    public static <T> Result<T> ok(T data) {
+        return build(data, 0, null);
     }
 
-    public Result success() {
-        this.code = ResultConstant.SUCCESS;
-        this.message = ResultConstant.SUCCESS_MSG;
-        this.data = ResultConstant.EMPTY_OBJECT;
-        return this;
+    public static <T> Result<T> ok(T data, String msg) {
+        return build(data, 0, msg);
     }
 
-    /**
-     * 参数校验错误返回
-     *
-     * @param msg
-     * @return
-     */
-    public Result paramsError(String msg) {
-        this.code = ResultConstant.SUCCESS;
-        this.message = msg;
-        this.data = ResultConstant.EMPTY_OBJECT;
-        return this;
+    public static <T> Result<T> failed() {
+        return build(null, -1, null);
     }
 
-    /**
-     * 未知错误
-     *
-     * @param e
-     * @return
-     */
-    public Result unknownError(Exception e, boolean debug) {
-        this.code = ResultConstant.UNKNOWN_ERROR;
-        this.message = "未知错误,请联系管理员.";
-        if (debug) {
-            this.debug = e.getMessage();
-        }
-        this.data = ResultConstant.EMPTY_OBJECT;
-        return this;
+    public static <T> Result<T> failed(String msg) {
+        return build(null, -1, msg);
     }
 
-    /**
-     * 内部错误
-     *
-     * @param e
-     * @return
-     */
-    public Result innerError(BaseException e, boolean debug) {
-        this.code = e.getHttpStatus();
-        this.message = e.getErrorMsg();
-        if (debug) {
-            this.debug = e.getStackTrace();
-        }
-        this.data = ResultConstant.EMPTY_OBJECT;
-        return this;
+    public static <T> Result<T> failed(T data) {
+        return build(data, -1, null);
+    }
+
+    public static <T> Result<T> failed(T data, String msg) {
+        return build(data, -1, msg);
+    }
+
+    public static <T> Result<T> error(String msg) {
+        return build(null, -1, msg);
+    }
+
+    private static <T> Result<T> build(T data, int code, String msg) {
+        Result<T> apiResult = new Result<>();
+        apiResult.setCode(code);
+        apiResult.setData(data);
+        apiResult.setMsg(msg);
+        return apiResult;
     }
 }
+
+

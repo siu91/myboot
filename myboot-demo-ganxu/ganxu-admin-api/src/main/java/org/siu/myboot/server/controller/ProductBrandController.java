@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/product_brand")
+@RequestMapping(value = "/v1/product_brand")
 @Slf4j
 @Api(tags = {"ProductBrand related API"})
 @RestController
@@ -33,48 +33,48 @@ public class ProductBrandController {
 
     @PostMapping
     @ApiOperation(value = "ProductBrand:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) ProductBrand params) {
+    public Result<ProductBrand> create(@RequestBody @Validated(Valid.CREATE.class) ProductBrand params) {
         ProductBrand data = productBrandService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductBrand:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         productBrandService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "ProductBrand:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ProductBrand params) {
+    public Result<ProductBrand> update(@RequestBody @Validated(Valid.UPDATE.class) ProductBrand params) {
         ProductBrand data = productBrandService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductBrand:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<ProductBrand> retrieve(@PathVariable Long id) {
         Optional<ProductBrand> data = productBrandService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "ProductBrand:PAGE")
-    public Result page(@RequestBody PageParams<ProductBrand> params) {
+    public Result<PageData> page(@RequestBody PageParams<ProductBrand> params) {
         PageData data = productBrandService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "ProductBrand:LIST")
-    public Result list(@RequestBody ProductBrand params) {
+    public Result<List<ProductBrand>> list(@RequestBody ProductBrand params) {
         List<ProductBrand> data = productBrandService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

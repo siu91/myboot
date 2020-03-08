@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/user_info")
+@RequestMapping(value = "/v1/user_info")
 @Slf4j
 @Api(tags = {"UserInfo related API"})
 @RestController
@@ -33,48 +33,48 @@ public class UserInfoController {
 
     @PostMapping
     @ApiOperation(value = "UserInfo:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) UserInfo params) {
+    public Result<UserInfo> create(@RequestBody @Validated(Valid.CREATE.class) UserInfo params) {
         UserInfo data = userInfoService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "UserInfo:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         userInfoService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "UserInfo:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) UserInfo params) {
+    public Result<UserInfo> update(@RequestBody @Validated(Valid.UPDATE.class) UserInfo params) {
         UserInfo data = userInfoService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "UserInfo:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<UserInfo> retrieve(@PathVariable Long id) {
         Optional<UserInfo> data = userInfoService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "UserInfo:PAGE")
-    public Result page(@RequestBody PageParams<UserInfo> params) {
+    public Result<PageData> page(@RequestBody PageParams<UserInfo> params) {
         PageData data = userInfoService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "UserInfo:LIST")
-    public Result list(@RequestBody UserInfo params) {
+    public Result<List<UserInfo>> list(@RequestBody UserInfo params) {
         List<UserInfo> data = userInfoService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

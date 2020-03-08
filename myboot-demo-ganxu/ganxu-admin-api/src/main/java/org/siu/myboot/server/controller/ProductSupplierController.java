@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/product_supplier")
+@RequestMapping(value = "/v1/product_supplier")
 @Slf4j
 @Api(tags = {"ProductSupplier related API"})
 @RestController
@@ -33,48 +33,48 @@ public class ProductSupplierController {
 
     @PostMapping
     @ApiOperation(value = "ProductSupplier:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) ProductSupplier params) {
+    public Result<ProductSupplier> create(@RequestBody @Validated(Valid.CREATE.class) ProductSupplier params) {
         ProductSupplier data = productSupplierService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "ProductSupplier:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         productSupplierService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "ProductSupplier:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ProductSupplier params) {
+    public Result<ProductSupplier> update(@RequestBody @Validated(Valid.UPDATE.class) ProductSupplier params) {
         ProductSupplier data = productSupplierService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "ProductSupplier:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<ProductSupplier> retrieve(@PathVariable Long id) {
         Optional<ProductSupplier> data = productSupplierService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "ProductSupplier:PAGE")
-    public Result page(@RequestBody PageParams<ProductSupplier> params) {
+    public Result<PageData> page(@RequestBody PageParams<ProductSupplier> params) {
         PageData data = productSupplierService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "ProductSupplier:LIST")
-    public Result list(@RequestBody ProductSupplier params) {
+    public Result<List<ProductSupplier>> list(@RequestBody ProductSupplier params) {
         List<ProductSupplier> data = productSupplierService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

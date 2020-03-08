@@ -21,7 +21,7 @@ import java.util.Optional;
  * @Date 2020/2/25 15:44
  * @Version 0.0.1
  */
-@RequestMapping(value = "/v1/admin/order_detail")
+@RequestMapping(value = "/v1/order_detail")
 @Slf4j
 @Api(tags = {"OrderDetail related API"})
 @RestController
@@ -33,48 +33,48 @@ public class OrderDetailController {
 
     @PostMapping
     @ApiOperation(value = "OrderDetail:CREATE")
-    public Result create(@RequestBody @Validated(Valid.CREATE.class) OrderDetail params) {
+    public Result<OrderDetail> create(@RequestBody @Validated(Valid.CREATE.class) OrderDetail params) {
         OrderDetail data = orderDetailService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "OrderDetail:DELETE")
-    public Result delete(@PathVariable Long id) {
+    public Result<Integer> delete(@PathVariable Long id) {
         orderDetailService.delete(id);
-        return new Result().success();
+        return Result.ok(0);
     }
 
 
     @PutMapping()
     @ApiOperation(value = "OrderDetail:UPDATE")
-    public Result update(@RequestBody @Validated(Valid.UPDATE.class) OrderDetail params) {
+    public Result<OrderDetail> update(@RequestBody @Validated(Valid.UPDATE.class) OrderDetail params) {
         OrderDetail data = orderDetailService.save(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "OrderDetail:RETRIEVE")
-    public Result retrieve(@PathVariable Long id) {
+    public Result<OrderDetail> retrieve(@PathVariable Long id) {
         Optional<OrderDetail> data = orderDetailService.findById(id);
-        return data.map(Result::new).orElseGet(() -> new Result().success());
+        return data.map(Result::ok).orElseGet(Result::ok);
 
     }
 
     @GetMapping
     @ApiOperation(value = "OrderDetail:PAGE")
-    public Result page(@RequestBody PageParams<OrderDetail> params) {
+    public Result<PageData> page(@RequestBody PageParams<OrderDetail> params) {
         PageData data = orderDetailService.getPage(params);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 
     @GetMapping("/list")
     @ApiOperation(value = "OrderDetail:LIST")
-    public Result list(@RequestBody OrderDetail params) {
+    public Result<List<OrderDetail>> list(@RequestBody OrderDetail params) {
         List<OrderDetail> data = orderDetailService.getList(params, null);
-        return new Result(data);
+        return Result.ok(data);
     }
 
 }

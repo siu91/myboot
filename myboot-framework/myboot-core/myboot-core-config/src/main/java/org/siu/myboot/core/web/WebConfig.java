@@ -8,7 +8,7 @@ package org.siu.myboot.core.web;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.siu.myboot.core.web.handlers.JsonReturnHandler;
+//import org.siu.myboot.core.web.handlers.JsonReturnHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -143,7 +143,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> list) {
-        list.add(new JsonReturnHandler());
+       // list.add(new JsonReturnHandler());
     }
 
     @Override
