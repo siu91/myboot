@@ -64,11 +64,11 @@ public class Result<T> implements Serializable {
     }
 
     private static <T> Result<T> build(T data, int code, String msg) {
-        Result<T> apiResult = new Result<>();
-        apiResult.setCode(code);
-        apiResult.setData(data);
-        apiResult.setMsg(msg);
-        return apiResult;
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setData(data);
+        result.setMsg(msg);
+        return result;
     }
 }
 
