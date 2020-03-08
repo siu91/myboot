@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>org.siu</groupId>
-        <artifactId>ganxu</artifactId>
+        <artifactId>myboot-demo-ganxu</artifactId>
         <version>0.0.1</version>
     </parent>
 
