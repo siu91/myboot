@@ -9,7 +9,7 @@ myboot是一个基于springboot的项目脚手架。
 
 ## 技术栈
 
-- 主要技术如下表：
+- Spring Boot 相关基础：
 
 | 技术                 | 说明                | 官网                                                         |
 | -------------------- | ------------------- | ------------------------------------------------------------ |
@@ -36,7 +36,19 @@ myboot是一个基于springboot的项目脚手架。
 
 
 
-- 技术栈首选Spring 内成熟的技术
+- **Spring Cloud**
+
+  ![spring-cloud](./assets/spring-cloud.png)
+
+  - Eureka 服务发现框架
+  - Ribbon 进程内负载均衡器
+  - Open Feign 服务调用映射
+  - Hystrix 服务降级熔断器
+  - Zuul 微服务网关
+  - Config 微服务统一配置中心
+  - Bus 消息总线
+
+- 其它技术栈首选Spring 内成熟的技术
 
 ![spring-stack](./assets/spring-stack.png)
 
@@ -97,9 +109,10 @@ myboot是一个基于springboot的项目脚手架。
 ## 计划
 
 TODO:
-1. 消息队列选型
-4. 前端技术选型 Vue/React
-5. 分库分表选型
+1. 引入Spring Coud
+2. 消息队列选型
+3. 前端技术选型 Vue/React
+4. 分库分表选型
 
 
 ## Feedback
