@@ -1,3 +1,0 @@
-spring:
-  profiles:
-    include: datasource-dev,redis-dev,minio-dev,sbaclient-dev,p6spy

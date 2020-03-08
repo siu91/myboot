@@ -10,14 +10,15 @@
     </parent>
 
     <groupId>org.siu</groupId>
-    <artifactId>myboot-demo</artifactId>
+    <artifactId>myboot-demo-ganxu</artifactId>
     <packaging>pom</packaging>
 
-    <name>myboot-demo</name>
+    <name>myboot-demo-ganxu</name>
     <description>后台系统示例模块</description>
 
     <modules>
-        <module>ganxu</module>
+        <module>ganxu-core</module>
+        <module>ganxu-admin-api</module>
     </modules>
 
     <dependencies>
@@ -107,10 +108,10 @@
 
     <build>
         <plugins>
-         <!--   <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>-->
+            <!--   <plugin>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-maven-plugin</artifactId>
+               </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

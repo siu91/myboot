@@ -59,7 +59,7 @@
 
     <modules>
         <module>myboot-framework</module>
-		<module>myboot-demo</module>
+		<module>myboot-demo-ganxu</module>
     </modules>
 
     <!--	<distributionManagement>

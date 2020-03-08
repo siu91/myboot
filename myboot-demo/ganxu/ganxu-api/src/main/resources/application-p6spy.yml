@@ -1,6 +1,0 @@
-# p6spy 配置，详见 org.siu.myboot.autoconfigure.p6spy.P6spyProperties
-p6spy:
-    config:
-      appender: com.p6spy.engine.spy.appender.Slf4JLogger
-      logMessageFormat: org.siu.myboot.core.data.p6spy.P6SpyMessageFormat
-      customLogMessageFormat: "executionTime:%(executionTime)| 执行sql:%(sqlSingleLine)"
