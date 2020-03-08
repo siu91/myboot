@@ -42,32 +42,31 @@ public class TokenFilter extends GenericFilterBean {
         this.tokenProvider = tokenProvider;
     }
 
-    @SneakyThrows
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         String jwt = getToken(httpServletRequest);
         String uri = httpServletRequest.getRequestURI();
 
-        if (!"/error".equals(uri) && !"/v1/api/auth".equals(uri) && !"/v1/api/auth/error".equals(uri)) {
+        if (!Constant.Auth.NO_CHECK_API.contains(uri)) {
             // 验证token
             Token token = tokenProvider.validate(jwt);
+
             // 验证token版本
-            long authVersion = Long.parseLong(redisService.get(Constant.RedisKey.USER_AUTH_KEY + token.getUsername()).toString());
-            if (token.getAuthVersion() >= 0) {
+            Object oToken = redisService.get(Constant.RedisKey.USER_AUTH_KEY + token.getUsername());
+            if (oToken != null && token.getAuthVersion() >= 0) {
+                long authVersion = Long.parseLong(oToken.toString());
                 if (token.getAuthVersion() < authVersion) {
                     log.warn("用户认证信息版本过期，请重新登录");
                     httpServletRequest.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + "用户认证信息版本过期，请重新登录").forward(httpServletRequest, servletResponse);
                     return;
-                    //throw new AuthenticateFail("用户认证信息版本过期，请重新登录");
                 }
             }
 
-            if (StringUtils.hasText(jwt) && token.isAuthorized()) {
+            if (token.isAuthorized()) {
+                // 校验通过，如果token接近过期，可以在这里重新根据业务情况颁发新的token给客户端
                 refreshToken(httpServletResponse, token);
-                // TODO token 校验通过，如果token接近过期，可以在这里重新根据业务情况颁发新的token给客户端
                 // token 验证通过
                 // 1、提取token中携带的权限标识
                 // 2、把token中携带的用户权限放入SecurityContextHolder交由  Spring Security管理

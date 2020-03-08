@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 //import org.siu.myboot.core.exception.AuthenticateFail;
 
 import java.security.Key;
@@ -65,10 +66,12 @@ public class Token {
      * @param key
      */
     public void parser(Key key) {
-        this.claimsJws = Jwts.parser().setSigningKey(key).parseClaimsJws(this.token);
-        this.authVersion = Long.parseLong(this.claimsJws.getBody().get(Constant.Auth.VERSION_KEY).toString());
-        this.username = this.claimsJws.getBody().getSubject();
-        this.authorized = true;
+        if (StringUtils.hasText(this.token)) {
+            this.claimsJws = Jwts.parser().setSigningKey(key).parseClaimsJws(this.token);
+            this.authVersion = Long.parseLong(this.claimsJws.getBody().get(Constant.Auth.VERSION_KEY).toString());
+            this.username = this.claimsJws.getBody().getSubject();
+            this.authorized = true;
+        }
     }
 
 

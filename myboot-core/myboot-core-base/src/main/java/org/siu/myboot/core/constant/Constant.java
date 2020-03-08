@@ -2,6 +2,8 @@ package org.siu.myboot.core.constant;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 常量
@@ -82,10 +84,56 @@ public class Constant {
          */
         public static final int REFRESH_TOKEN_RENEW_TIME_MS = 60 * 60 * 1000;
 
+
+        /**
+         * 无需token校验的接口
+         */
+        public static final String PERMIT_ALL_API1 = "/v1/api/auth";
+        public static final String PERMIT_ALL_API2 = "/v1/api/register";
+        public static final String PERMIT_ALL_API10 = "/v1/api/auth/error";
+        public static final String PERMIT_ALL_API20 = "/error";
+
+        // 开发放swagger
+        public static final String PERMIT_ALL_SWAGGER_API0 = "**/swagger*/**";
+        public static final String PERMIT_ALL_SWAGGER_API1 = "/v2/api-docs";
+        public static final String PERMIT_ALL_SWAGGER_API2 = "/webjars/springfox-swagger-ui/**/**";
+
+
+        /**
+         * 无需权限的接口
+         */
+        public static final Set<String> PERMIT_ALL_API = new HashSet<String>() {
+            {
+                add(PERMIT_ALL_API1);
+                add(PERMIT_ALL_API2);
+                add(PERMIT_ALL_API10);
+                add(PERMIT_ALL_API20);
+
+                add(PERMIT_ALL_SWAGGER_API0);
+                add(PERMIT_ALL_SWAGGER_API1);
+                add(PERMIT_ALL_SWAGGER_API2);
+            }
+        };
+
+        /**
+         * 无需校验token
+         */
+        public static final Set<String> NO_CHECK_API = new HashSet<String>() {
+            {
+                add(PERMIT_ALL_API1);
+                add(PERMIT_ALL_API2);
+                add(PERMIT_ALL_API10);
+                add(PERMIT_ALL_API20);
+
+            }
+        };
+
         /**
          * 认证失败处理接口
          */
-        public static final String AUTH_ERROR_API = "/v1/api/auth/error?msg=";
+        public static final String AUTH_ERROR_API = PERMIT_ALL_API10 + "?msg=";
+
+
     }
 
 }

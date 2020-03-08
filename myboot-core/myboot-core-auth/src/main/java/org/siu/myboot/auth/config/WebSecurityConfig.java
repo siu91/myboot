@@ -4,6 +4,7 @@ import org.siu.myboot.auth.jwt.JwtAccessDeniedHandler;
 import org.siu.myboot.auth.jwt.JwtAuthenticationEntryPoint;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.component.cache.redis.RedisService;
+import org.siu.myboot.core.constant.Constant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -83,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        final int permitSize = Constant.Auth.PERMIT_ALL_API.size();
         httpSecurity
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
@@ -109,18 +111,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 开放权限的接口（登录/注册等）
-                .antMatchers("/v1/api/auth").permitAll()
-                .antMatchers("/v1/api/auth/error").permitAll()
-                // 开放注册
-                .antMatchers("/v1/admin/user/register").permitAll()
-                // 开发放swagger
-                .antMatchers("**/swagger*/**").permitAll()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/webjars/springfox-swagger-ui/**/**").permitAll()
-                // .antMatchers("/api/activate").permitAll()
-                // .antMatchers("/api/account/reset-password/init").permitAll()
-                // .antMatchers("/api/account/reset-password/finish").permitAll()
-
+                .antMatchers(Constant.Auth.PERMIT_ALL_API.toArray(new String[permitSize])).permitAll()
                 // 设置API接口对应的权限
                 // TODO 动态加载权限如何实现？
                 .antMatchers("/api/普通用户的接口xxxx").hasAuthority("ROLE_USER")
@@ -129,6 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .apply(securityConfigurerAdapter());
+
     }
 
 
