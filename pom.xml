@@ -58,9 +58,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>myboot-commonbiz</module>
-        <module>myboot-component</module>
-        <module>myboot-core</module>
+        <module>myboot-framework</module>
 		<module>myboot-demo</module>
     </modules>
 
