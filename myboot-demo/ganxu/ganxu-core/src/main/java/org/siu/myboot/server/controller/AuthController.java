@@ -22,10 +22,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -105,6 +102,32 @@ public class AuthController {
 
 
     /**
+     * 注销
+     *
+     * @param username
+     * @return
+     * @throws AuthenticateFail
+     */
+    @GetMapping("/signout/{username}")
+    public Result signOut(@PathVariable String username) throws AuthenticateFail {
+        // 0、验证当前用户与修改密码用户匹配
+        Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
+        if (!currentUser.isPresent()) {
+            throw new AuthenticateFail("当前用户不存在");
+        } else {
+            if (currentUser.get().getUsername().equals(username)) {
+                boolean signOut = userService.signOut(username);
+                return new Result(signOut);
+            } else {
+                throw new AuthenticateFail("当前用户不匹配[" + username + "]");
+            }
+        }
+
+
+    }
+
+
+    /**
      * 用户注册/添加用户
      *
      * @param params
@@ -120,7 +143,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/auth/error")
+    @GetMapping("/auth/error")
     public void error(String msg) throws AuthenticateFail {
         throw new AuthenticateFail(msg);
 

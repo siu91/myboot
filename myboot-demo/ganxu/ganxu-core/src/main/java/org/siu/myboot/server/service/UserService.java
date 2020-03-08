@@ -84,6 +84,18 @@ public class UserService {
     }
 
     /**
+     * 注销
+     * <p>
+     * （暂时只在缓存中标记注销）
+     *
+     * @param username
+     * @return
+     */
+    public boolean signOut(String username) {
+        return redisService.set(Constant.RedisKey.USER_AUTH_KEY + username, 0);
+    }
+
+    /**
      * 用户注册
      *
      * @param entity
@@ -107,7 +119,7 @@ public class UserService {
         String pass = passwordEncoder.encode(entity.getPassword());
         entity.setPassword(pass);
         entity.setDeleteStatus(0);
-        entity.setVersion(0L);
+        entity.setVersion(1L);
         User user = repository.save(entity);
         // TODO 添加用户信息 userInfo
 

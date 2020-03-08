@@ -55,9 +55,15 @@ public class TokenFilter extends GenericFilterBean {
 
             // 验证token版本
             Object oToken = redisService.get(Constant.RedisKey.USER_AUTH_KEY + token.getUsername());
-            if (oToken != null && token.getAuthVersion() >= 0) {
-                long authVersion = Long.parseLong(oToken.toString());
-                if (token.getAuthVersion() < authVersion) {
+            if (oToken != null) {
+                long currentAuthVersion = Long.parseLong(oToken.toString());
+                if (currentAuthVersion == 0) {
+                    log.warn("用户已退出登录，请重新登录");
+                    httpServletRequest.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + "用户已退出登录，请重新登录").forward(httpServletRequest, servletResponse);
+                    return;
+                }
+                // token中存在auth 版本，但版本过期了
+                if (token.getAuthVersion() >= 0 && token.getAuthVersion() < currentAuthVersion) {
                     log.warn("用户认证信息版本过期，请重新登录");
                     httpServletRequest.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + "用户认证信息版本过期，请重新登录").forward(httpServletRequest, servletResponse);
                     return;
