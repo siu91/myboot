@@ -40,17 +40,17 @@ config = [
         // 自动生成开关
         generate      : [
                 // 实体对象，对应 DO/PO
-                entity            : true,
+                entity            : false,
                 // JPA QueryDSL 工具实体对象
-                entityQueryDSL    : true,
+                entityQueryDSL    : false,
                 // 数据访问对象 DAO
-                repository        : true,
+                repository        : false,
                 // JPA QueryDSL 数据访问对象
-                repositoryQueryDSL: true,
+                repositoryQueryDSL: false,
                 // 服务层对象
-                service           : true,
+                service           : false,
                 // API 层
-                controller        : false
+                controller        : true
         ],
         // 实体生成设置
         entity        : [
@@ -912,48 +912,48 @@ class Gen {
                 "\n" +
                 "    @PostMapping\n" +
                 "    @ApiOperation(value = \"${entityName}:CREATE\")\n" +
-                "    public Result create(@RequestBody @Validated(Valid.CREATE.class) ${entityName} params) {\n" +
+                "    public Result<${entityName}> create(@RequestBody @Validated(Valid.CREATE.class) ${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
-                "        return new Result(data);\n" +
+                "        return Result.ok(data);\n" +
                 "    }\n" +
                 "\n" +
                 "\n" +
                 "    @DeleteMapping(\"/{id}\")\n" +
                 "    @ApiOperation(value = \"${entityName}:DELETE\")\n" +
-                "    public Result delete(@PathVariable ${pkType} id) {\n" +
+                "    public Result<Integer> delete(@PathVariable ${pkType} id) {\n" +
                 "        ${lEntityName}Service.delete(id);\n" +
-                "        return new Result().success();\n" +
+                "        return Result.ok(0);\n" +
                 "    }\n" +
                 "\n" +
                 "\n" +
                 "    @PutMapping()\n" +
                 "    @ApiOperation(value = \"${entityName}:UPDATE\")\n" +
-                "    public Result update(@RequestBody @Validated(Valid.UPDATE.class) ${entityName} params) {\n" +
+                "    public Result<${entityName}> update(@RequestBody @Validated(Valid.UPDATE.class) ${entityName} params) {\n" +
                 "        ${entityName} data = ${lEntityName}Service.save(params);\n" +
-                "        return new Result(data);\n" +
+                "        return Result.ok(data);\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping(\"/{id}\")\n" +
                 "    @ApiOperation(value = \"${entityName}:RETRIEVE\")\n" +
-                "    public Result retrieve(@PathVariable ${pkType} id) {\n" +
+                "    public Result<${entityName}> retrieve(@PathVariable ${pkType} id) {\n" +
                 "        Optional<${entityName}> data = ${lEntityName}Service.findById(id);\n" +
-                "        return data.map(Result::new).orElseGet(() -> new Result().success());\n" +
+                "        return data.map(Result::ok).orElseGet(Result::ok);\n" +
                 "\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping\n" +
                 "    @ApiOperation(value = \"${entityName}:PAGE\")\n" +
-                "    public Result page(@RequestBody PageParams<${entityName}> params) {\n" +
+                "    public Result<PageData> page(@RequestBody PageParams<${entityName}> params) {\n" +
                 "        PageData data = ${lEntityName}Service.getPage(params);\n" +
-                "        return new Result(data);\n" +
+                "        return Result.ok(data);\n" +
                 "    }\n" +
                 "\n" +
                 "\n" +
                 "    @GetMapping(\"/list\")\n" +
                 "    @ApiOperation(value = \"${entityName}:LIST\")\n" +
-                "    public Result list(@RequestBody ${entityName} params) {\n" +
+                "    public Result<List<${entityName}>> list(@RequestBody ${entityName} params) {\n" +
                 "        List<${entityName}> data = ${lEntityName}Service.getList(params, null);\n" +
-                "        return new Result(data);\n" +
+                "        return Result.ok(data);\n" +
                 "    }\n" +
                 "\n" +
                 "}\n"
