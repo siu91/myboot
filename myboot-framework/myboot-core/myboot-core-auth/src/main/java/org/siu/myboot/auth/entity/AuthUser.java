@@ -13,10 +13,6 @@ import java.util.Date;
  */
 public class AuthUser extends User {
 
-    /**
-     * 用户名
-     */
-    //  private String username;
 
     /**
      * 更新版本
@@ -31,13 +27,11 @@ public class AuthUser extends User {
     public AuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities, long version) {
         super(username, password, authorities);
         this.version = version;
-        //  this.username = username;
     }
 
     public AuthUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, long version) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.version = version;
-        //this.username = username;
     }
 
     public long getVersion() {
