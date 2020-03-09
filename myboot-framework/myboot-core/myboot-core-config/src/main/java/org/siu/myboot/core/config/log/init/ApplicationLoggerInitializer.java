@@ -22,11 +22,15 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import java.io.File;
+
 /**
  * @author Siu
- *
+ * <p>
  * 通过环境变量的形式注入 logging.file
  * 自动维护 Spring Boot Admin Logger Viewer
+ *
+ * 2.2 中这样配置无效果
  */
 @Slf4j
 public class ApplicationLoggerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -37,9 +41,16 @@ public class ApplicationLoggerInitializer implements ApplicationContextInitializ
         String appName = environment.getProperty("spring.application.name");
 
         String logBase = environment.getProperty("LOGGING_PATH", "logs");
-        String file = String.format("%s/%s/debug.log", logBase, appName);
+
+
+        String userDir = environment.getProperty("user.dir");
+        String file = userDir + File.separator + logBase + File.separator + appName + File.separator + "debug.log";
 
         // spring boot admin 直接加载日志
-        System.setProperty("logging.file", file);
+       // System.setProperty("logging.file", file);
+        //System.setProperty("logging.file.name", file);
+        //System.setProperty("logging.file.name", "logs/test.log");
+        //System.setProperty("logging.file.path", file);
+        // System.setProperty("logging.file", file);
     }
 }

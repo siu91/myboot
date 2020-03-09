@@ -49,17 +49,12 @@ public class GlobalExceptionHandler {
      * @return
      * @throws Exception
      */
-    @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, UndeclaredThrowableException.class, Throwable.class})
+    @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, Throwable.class})
     public Result<String> exceptionHandler(HttpServletRequest req, HttpServletResponse response, Exception e) throws Exception {
         log.error(e.getMessage(), e);
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
-        if (e instanceof BaseException || ((UndeclaredThrowableException) e).getUndeclaredThrowable() instanceof BaseException) {
-            BaseException baseException;
-            if (e instanceof UndeclaredThrowableException) {
-                baseException = (BaseException) ((UndeclaredThrowableException) e).getUndeclaredThrowable();
-            } else {
-                baseException = (BaseException) e;
-            }
+        if (e instanceof BaseException) {
+            BaseException baseException = (BaseException) e;
             // TODO 定以各异常，统一格式返回给前端
             return Result.error(baseException.getErrorMsg());
         } else {

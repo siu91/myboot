@@ -114,6 +114,10 @@ public class Constant {
         public static final String PERMIT_ALL_SWAGGER_API2 = "/webjars/springfox-swagger-ui/**/**";
 
 
+        public static final String PERMIT_ALL_SBA0 = "/actuator/**";
+        public static final String PERMIT_ALL_SBA1 = "/actuator/health/**";
+
+
         /**
          * 无需权限的接口
          */
@@ -127,6 +131,9 @@ public class Constant {
                 add(PERMIT_ALL_SWAGGER_API0);
                 add(PERMIT_ALL_SWAGGER_API1);
                 add(PERMIT_ALL_SWAGGER_API2);
+
+                add(PERMIT_ALL_SBA0);
+                add(PERMIT_ALL_SBA1);
             }
         };
 

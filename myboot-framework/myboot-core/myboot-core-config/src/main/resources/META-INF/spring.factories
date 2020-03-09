@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+    org.siu.myboot.core.config.log.init.ApplicationLoggerInitializer
