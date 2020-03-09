@@ -18,6 +18,7 @@
         <module>myboot-commonbiz</module>
         <module>myboot-component</module>
         <module>myboot-core</module>
+        <module>myboot-cloud</module>
 
     </modules>
 
