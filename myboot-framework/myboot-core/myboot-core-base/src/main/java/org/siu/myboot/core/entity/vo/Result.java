@@ -2,6 +2,7 @@ package org.siu.myboot.core.entity.vo;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.siu.myboot.core.constant.Constant;
 
 import java.io.Serializable;
 
@@ -32,35 +33,35 @@ public class Result<T> implements Serializable {
     private T data;
 
     public static <T> Result<T> ok() {
-        return build(null, 0, null);
+        return build(null, Constant.Result.SUCCESS, Constant.Result.SUCCESS_MSG);
     }
 
     public static <T> Result<T> ok(T data) {
-        return build(data, 0, null);
+        return build(data, Constant.Result.SUCCESS, Constant.Result.SUCCESS_MSG);
     }
 
     public static <T> Result<T> ok(T data, String msg) {
-        return build(data, 0, msg);
+        return build(data, Constant.Result.SUCCESS, msg);
     }
 
     public static <T> Result<T> failed() {
-        return build(null, -1, null);
+        return build(null, Constant.Result.FAIL, Constant.Result.FAIL_MSG);
     }
 
     public static <T> Result<T> failed(String msg) {
-        return build(null, -1, msg);
+        return build(null, Constant.Result.FAIL, msg);
     }
 
     public static <T> Result<T> failed(T data) {
-        return build(data, -1, null);
+        return build(data, Constant.Result.FAIL, Constant.Result.FAIL_MSG);
     }
 
     public static <T> Result<T> failed(T data, String msg) {
-        return build(data, -1, msg);
+        return build(data, Constant.Result.FAIL, msg);
     }
 
     public static <T> Result<T> error(String msg) {
-        return build(null, -1, msg);
+        return build(null, Constant.Result.FAIL, msg);
     }
 
     private static <T> Result<T> build(T data, int code, String msg) {

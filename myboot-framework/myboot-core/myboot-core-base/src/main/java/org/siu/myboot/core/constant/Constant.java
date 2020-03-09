@@ -1,7 +1,5 @@
 package org.siu.myboot.core.constant;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +15,23 @@ public class Constant {
 
     public static final String UNKNOWN = "unknown";
 
+
+
+    public static class Result{
+        /**
+         * 成功返回码
+         */
+        public static final int SUCCESS = 0;
+        public static final int UNKNOWN_ERROR = 11500;
+        public static final int INNER_ERROR = 11501;
+        /**
+         * 默认失败返回码 未知错误
+         */
+        public static final int FAIL = -1;
+
+        public static final String SUCCESS_MSG = "SUCCESS";
+        public static final String FAIL_MSG = "FAIL";
+    }
 
     /**
      * redis key
