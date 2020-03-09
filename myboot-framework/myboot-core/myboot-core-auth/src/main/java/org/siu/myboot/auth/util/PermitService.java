@@ -21,8 +21,13 @@ import java.util.Collection;
 @Component("pms")
 public class PermitService {
 
-    public boolean hasPermit(String permission) {
-        if (!StringUtils.hasText(permission)) {
+    /**
+     * 超级管理员拥有最高权限
+     */
+    private static final String SUPER_USER = "SUPERUSER";
+
+    public boolean hasPermit(String perm) {
+        if (!StringUtils.hasText(perm)) {
             return false;
         }
         // 获取用户权限
@@ -35,7 +40,7 @@ public class PermitService {
         return authorities.stream()
                 .map(GrantedAuthority::getAuthority)
                 .filter(StringUtils::hasText)
-                .anyMatch(x -> PatternMatchUtils.simpleMatch(permission, x));
+                .anyMatch(x -> SUPER_USER.equals(x) || PatternMatchUtils.simpleMatch(perm, x));
     }
 }
 

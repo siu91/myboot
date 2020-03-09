@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
      * 方法参数校验异常统一处理
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         return Result.error(e.getBindingResult().getFieldError().getDefaultMessage());
     }

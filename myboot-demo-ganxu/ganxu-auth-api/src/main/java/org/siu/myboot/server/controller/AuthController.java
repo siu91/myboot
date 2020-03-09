@@ -156,7 +156,7 @@ public class AuthController {
      * @param msg
      * @throws AuthenticateFail
      */
-    @GetMapping("/auth/error")
+    @RequestMapping(value = "/auth/error",method = {RequestMethod.POST, RequestMethod.GET})
     public void error(String msg) throws AuthenticateFail {
         throw new AuthenticateFail(msg);
 

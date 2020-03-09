@@ -7,6 +7,7 @@ import org.siu.myboot.core.exception.UserNotActivatedException;
 import org.siu.myboot.server.entity.dto.UserAuthorities;
 import org.siu.myboot.server.repository.UserRepository;
 import org.siu.myboot.server.repository.dsl.UserRepositoryQueryDsl;
+import org.siu.myboot.server.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +37,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource
     private UserRepositoryQueryDsl userRepositoryQueryDsl;
 
+    @Resource
+    private UserService userService;
+
     /**
      * @param userLoginId 用户登录的ID（用户、手机等）
      * @return
@@ -48,13 +52,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User user = repository.findByUserNameOrPhone(userLoginId, userLoginId);
         List<UserAuthorities> userAuthoritiesList = userRepositoryQueryDsl.findUserAuthorities(userLoginId);
+        userService.signIn(userLoginId, user.getVersion());
         String lowercaseLogin = userLoginId.toLowerCase(Locale.ENGLISH);
         return createSpringSecurityUser(lowercaseLogin, user, userAuthoritiesList);
 
     }
 
     /**
-     *
      * @param lowercaseLogin
      * @param user
      * @param userAuthoritiesList

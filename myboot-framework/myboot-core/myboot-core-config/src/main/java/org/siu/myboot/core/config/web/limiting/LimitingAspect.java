@@ -48,12 +48,6 @@ public class LimitingAspect {
     public void whenMethodsAnnotationLimiting() {
     }
 
-    /**
-     * 定义切入点:所有 controllers（必须命名为Controller）
-     */
-    /*@Pointcut("execution(* org.siu.myboot.server.controller.*Controller.*(..))")
-    private void controllers() {
-    }*/
 
 
     /**
@@ -63,7 +57,7 @@ public class LimitingAspect {
      * @return
      */
     @Around("whenMethodsAnnotationLimiting()")
-    public Object interceptor(ProceedingJoinPoint pjp) throws OverLimitException {
+    public Object interceptor(ProceedingJoinPoint pjp) throws Throwable {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
         Limiting limitAnnotation = method.getAnnotation(Limiting.class);
@@ -90,23 +84,15 @@ public class LimitingAspect {
         List<String> keys = new ArrayList<>();
         keys.add(Strings.join(limitAnnotation.prefix(), key));
 
-        try {
-            String luaScript = limitingLuaScript();
-            RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-            Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
-            if (count != null && count.intValue() <= limitCount) {
-                return pjp.proceed();
-            } else {
-                throw new OverLimitException("超出流量-当前流量[" + count + "],限流[" + limitCount + "],限制[每" + limitPeriod + "秒" + limitCount + "个请求]");
-            }
-        } catch (Throwable e) {
-            if (e instanceof OverLimitException) {
-                throw new OverLimitException(e.getMessage());
-            } else {
-                throw new RuntimeException("server exception");
-            }
-
+        String luaScript = limitingLuaScript();
+        RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
+        Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
+        if (count != null && count.intValue() <= limitCount) {
+            return pjp.proceed();
+        } else {
+            throw new OverLimitException("超出流量-当前流量[" + count + "],限流[" + limitCount + "],限制[每" + limitPeriod + "秒" + limitCount + "个请求]");
         }
+
     }
 
     /**

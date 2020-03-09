@@ -95,6 +95,19 @@ public class UserService {
         return redisService.set(Constant.RedisKey.USER_AUTH_KEY + username, 0);
     }
 
+
+    /**
+     * 登录
+     * <p>
+     * （暂时只在缓存中标记注销）
+     *
+     * @param username
+     * @return
+     */
+    public boolean signIn(String username, long version) {
+        return redisService.set(Constant.RedisKey.USER_AUTH_KEY + username, version);
+    }
+
     /**
      * 用户注册
      *
