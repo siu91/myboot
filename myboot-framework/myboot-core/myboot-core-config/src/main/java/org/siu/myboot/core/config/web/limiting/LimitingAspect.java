@@ -1,4 +1,4 @@
-package org.siu.myboot.core.web.limiting;
+package org.siu.myboot.core.config.web.limiting;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class LimitingAspect {
     /**
      * 定义切入点:匹配带Log注解的方法
      */
-    @Pointcut("@annotation(org.siu.myboot.core.web.limiting.Limiting)")
+    @Pointcut("@annotation(org.siu.myboot.core.config.web.limiting.Limiting)")
     public void whenMethodsAnnotationLimiting() {
     }
 

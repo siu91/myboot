@@ -1,4 +1,4 @@
-package org.siu.myboot.core.web.handlers;
+package org.siu.myboot.core.config.web.handlers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.entity.vo.Result;

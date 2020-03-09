@@ -1,4 +1,4 @@
-package org.siu.myboot.core.web.limiting;
+package org.siu.myboot.core.config.web.limiting;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

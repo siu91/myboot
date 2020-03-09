@@ -2,9 +2,10 @@ package org.siu.myboot.server.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.SecurityUtils;
+import org.siu.myboot.auth.util.SecurityUtils;
 import org.siu.myboot.auth.entity.AuthUser;
 import org.siu.myboot.auth.jwt.TokenProvider;
+import org.siu.myboot.core.config.web.limiting.Limiting;
 import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.entity.vo.Result;
 import org.siu.myboot.core.exception.AuthenticateFail;
@@ -16,7 +17,7 @@ import org.siu.myboot.server.entity.qo.ChangePassword;
 import org.siu.myboot.server.entity.qo.Login;
 import org.siu.myboot.server.entity.qo.RegisteredUser;
 import org.siu.myboot.server.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -57,6 +58,7 @@ public class AuthController {
      * @return
      * @throws WrongUsernameOrPasswordException
      */
+    @Limiting(limit = 1)
     @PostMapping("/auth")
     public Result<String> authorize(@Validated @RequestBody Login login) throws WrongUsernameOrPasswordException {
         // 认证，通过并返回权限
@@ -78,7 +80,9 @@ public class AuthController {
      * @return
      * @throws WrongUsernameOrPasswordException
      */
+    @Limiting(limit = 1)
     @PostMapping("/password")
+    @PreAuthorize("@pms.hasPermit('USER')")
     public Result<Long> changePassword(@Validated @RequestBody ChangePassword changePassword) throws WrongUsernameOrPasswordException, AuthenticateFail {
         // 0、验证当前用户与修改密码用户匹配
         Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
@@ -108,7 +112,9 @@ public class AuthController {
      * @return
      * @throws AuthenticateFail
      */
+    @Limiting(limit = 1)
     @GetMapping("/signout/{username}")
+    @PreAuthorize("@pms.hasPermit('USER')")
     public Result<Boolean> signOut(@PathVariable String username) throws AuthenticateFail {
         // 0、验证当前用户与修改密码用户匹配
         Optional<AuthUser> currentUser = SecurityUtils.getCurrentUser();
@@ -133,6 +139,7 @@ public class AuthController {
      * @param params
      * @return
      */
+    @Limiting(limit = 1)
     @PostMapping("/register")
     @ApiOperation(value = "User:REGISTER")
     public Result<User> register(@RequestBody @Validated(Valid.CREATE.class) RegisteredUser params) throws UserRegisterException {

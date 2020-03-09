@@ -1,4 +1,4 @@
-package org.siu.myboot.core.web.limiting;
+package org.siu.myboot.core.config.web.limiting;
 
 /**
  * 限流类型

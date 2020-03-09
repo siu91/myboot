@@ -3,12 +3,12 @@
  *
  * Copyright 2018 CEC(Fujian) Healthcare Big Data Operation Service Co., Ltd. All rights reserved.
  */
-package org.siu.myboot.core.web;
+package org.siu.myboot.core.config.web;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-//import org.siu.myboot.core.web.handlers.JsonReturnHandler;
+//import org.siu.myboot.core.config.web.handlers.JsonReturnHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;

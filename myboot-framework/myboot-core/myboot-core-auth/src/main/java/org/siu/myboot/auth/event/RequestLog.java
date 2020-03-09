@@ -1,4 +1,4 @@
-package org.siu.myboot.auth.jwt;
+package org.siu.myboot.auth.event;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -1,6 +1,7 @@
 package org.siu.myboot.core.utils;
 
 
+import lombok.experimental.UtilityClass;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
@@ -13,6 +14,7 @@ import java.util.StringJoiner;
  * @author gsw
  * @since 2019-08-16
  */
+@UtilityClass
 public class Strings {
 
 

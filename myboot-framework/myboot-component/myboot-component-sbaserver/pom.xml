@@ -20,11 +20,6 @@
 
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>

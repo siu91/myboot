@@ -3,9 +3,12 @@ package org.siu.myboot.auth.jwt;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.siu.myboot.auth.event.RequestEvent;
+import org.siu.myboot.auth.event.RequestLog;
 import org.siu.myboot.component.cache.redis.RedisService;
 import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.exception.AuthenticateFail;
+import org.siu.myboot.core.utils.SpringContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -52,6 +55,10 @@ public class TokenFilter extends GenericFilterBean {
         if (!Constant.Auth.NO_CHECK_API.contains(uri)) {
             // 验证token
             Token token = tokenProvider.validate(jwt);
+
+            // 记录系统请求事件：其它具体操作接口的行为也可以用【切面+注解+事件】方式记录
+            RequestLog requestLog = new RequestLog();
+            SpringContextHolder.publishEvent(new RequestEvent(requestLog));
 
             // 验证token版本
             Object oToken = redisService.get(Constant.RedisKey.USER_AUTH_KEY + token.getUsername());
