@@ -17,7 +17,7 @@ spring:
   #        read-timeout: 10000  #读取超时时间
   application:
     #应用名
-    name: myboot-demo
+    name: ganxu-auth-api
 
 
 #公开所有的端点
