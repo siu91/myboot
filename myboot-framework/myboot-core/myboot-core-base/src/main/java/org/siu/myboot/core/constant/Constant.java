@@ -16,8 +16,7 @@ public class Constant {
     public static final String UNKNOWN = "unknown";
 
 
-
-    public static class Result{
+    public static class Result {
         /**
          * 成功返回码
          */
@@ -146,6 +145,19 @@ public class Constant {
                 add(PERMIT_ALL_API2);
                 add(PERMIT_ALL_API10);
                 add(PERMIT_ALL_API20);
+
+            }
+        };
+
+        /**
+         * 不拦截工具的API
+         * swagger、eureka、spring boot admin
+         */
+        public static final Set<String> NO_CHECK_TOOLS_API = new HashSet<String>() {
+            {
+                add("swagger");
+                add("eureka");
+                add("actuator");
 
             }
         };
