@@ -1,0 +1,22 @@
+# 指定运行端口
+server:
+  port: 8001
+
+# 指定服务名称
+spring:
+  application:
+    name: eureka-server
+
+# 指定主机地址
+eureka:
+  instance:
+    hostname: eureka-replica1
+    preferIpAddress: false
+  server:
+    enableSelfPreservation: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      # 注册到另一个Eureka注册中心
+      defaultZone: http://eureka-replica2:8002/eureka/,http://eureka-replica0:8000/eureka/

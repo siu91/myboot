@@ -1,0 +1,38 @@
+# 指定运行端口
+server:
+  port: 8000
+
+# 指定服务名称
+spring:
+  application:
+    name: eureka-server
+
+# 指定主机地址
+eureka:
+  instance:
+    hostname: eureka-replica0
+    preferIpAddress: false
+  server:
+    enableSelfPreservation: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      # 注册到另一个Eureka注册中心
+      defaultZone: http://eureka-replica2:8002/eureka/,http://eureka-replica1:8001/eureka/
+
+#    # 指定是否从注册中心获取服务(注册中心不需要开启)
+#    fetch-registry: true
+#    # 指定是否将服务注册到注册中心，即是否向服务注册中心注册自己(注册中心不需要开启)
+#    register-with-eureka: true
+#    service-url:
+#      # 注册到另一个Eureka注册中心
+#      defaultZone: http://eureka-replica1:8001/eureka/,http://eureka-replica2:8002/eureka/
+#
+# 服务注册到Eureka Server后，会维护一个心跳连接，告诉Eureka Server自己还活着。
+# Eureka Server在运行期间会统计心跳失败的比例在15分钟以之内是否低于85%
+# 如果出现低于的情况，Eureka Server会将当前实例注册信息保护起来，让这些实例不会过期。
+# 这样做会使客户端很容易拿到实际已经不存在的服务实例，会出现调用失败的情况。因此客户端要有容错机制，比如请求重试、断路器。
+#
+# 以下是自我保护相关的属性：
+# eureka.server.enableSelfPreservation=true. 可以设置改参数值为false，以确保注册中心将不可用的实例删除

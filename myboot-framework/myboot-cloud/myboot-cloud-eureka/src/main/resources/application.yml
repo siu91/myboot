@@ -1,0 +1,4 @@
+spring:
+  # 指定环境
+  profiles:
+    active: master
