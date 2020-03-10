@@ -1,5 +1,5 @@
 server:
-  port: 8201 # 监听端口
+  port: 9200 # 监听端口
 
 #spring:
 #  security:
