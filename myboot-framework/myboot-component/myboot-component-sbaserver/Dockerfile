@@ -10,7 +10,9 @@ RUN mkdir -p /myboot-component-sbaserver
 
 WORKDIR /myboot-component-sbaserver
 
-EXPOSE 9000
+ENV PORT_TO_EXPOSE=8201
+
+EXPOSE $PORT_TO_EXPOSE 9000
 
 ADD ./target/myboot-component-sbaserver-0.0.1.jar ./
 
