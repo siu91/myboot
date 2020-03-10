@@ -15,8 +15,7 @@
     <url>https://github.com/siu91/myboot</url>
 
     <modules>
-
-
+        <module>myboot-cloud-eureka</module>
     </modules>
 
     <properties>

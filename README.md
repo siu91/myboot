@@ -47,6 +47,11 @@ myboot是一个基于springboot的项目脚手架。
   - Zuul 微服务网关
   - Config 微服务统一配置中心
   - Bus 消息总线
+  - Nacos（Spring Cloud Alibaba）
+    - Nacos = Spring Cloud Eureka + Spring Cloud Config
+    - Nacos 可以与 Spring, Spring Boot, Spring Cloud 集成，并能代替  Eureka, Config。
+    - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-config 实现配置的动态变更。
+    - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-discovery 实现服务的注册与发现
 
 - 其它技术栈首选Spring 内成熟的技术
 
