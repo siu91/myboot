@@ -37,7 +37,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
 
         // 认证失败
-        request.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + authException.getMessage()).forward(request, response);
+        String uri = request.getRequestURI();
+        request.getRequestDispatcher(Constant.Auth.AUTH_ERROR_API + "认证失败-[" + uri + "]").forward(request, response);
 
     }
 }

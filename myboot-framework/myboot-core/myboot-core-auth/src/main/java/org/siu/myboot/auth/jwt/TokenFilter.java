@@ -1,13 +1,11 @@
 package org.siu.myboot.auth.jwt;
 
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.auth.event.RequestEvent;
 import org.siu.myboot.auth.event.RequestLog;
 import org.siu.myboot.component.cache.redis.RedisService;
 import org.siu.myboot.core.constant.Constant;
-import org.siu.myboot.core.exception.AuthenticateFail;
 import org.siu.myboot.core.utils.SpringContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,7 +50,7 @@ public class TokenFilter extends GenericFilterBean {
         String jwt = getToken(httpServletRequest);
         String uri = httpServletRequest.getRequestURI();
 
-        if (!Constant.Auth.NO_CHECK_API.contains(uri)) {
+        if (!Constant.Auth.NO_CHECK_API.contains(uri) && !ignoreCheckTokenWhenUriAnyMatch(uri)) {
             // 验证token
             Token token = tokenProvider.validate(jwt);
 
@@ -93,6 +91,19 @@ public class TokenFilter extends GenericFilterBean {
         }
 
         filterChain.doFilter(servletRequest, httpServletResponse);
+    }
+
+    /**
+     * 忽略token校验，当uri匹配时
+     *
+     * @param uri
+     * @return
+     */
+    private boolean ignoreCheckTokenWhenUriAnyMatch(String uri) {
+        if (StringUtils.hasText(uri)) {
+            return Constant.Auth.NO_CHECK_TOOLS_API.stream().anyMatch(uri::contains);
+        }
+        return false;
     }
 
     /**
