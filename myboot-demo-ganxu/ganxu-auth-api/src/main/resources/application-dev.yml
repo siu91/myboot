@@ -1,3 +1,7 @@
 spring:
   profiles:
     include: datasource-dev,redis-dev,minio-dev,sbaclient-dev,p6spy,security
+
+siu:
+  test:
+    config1: "c1"

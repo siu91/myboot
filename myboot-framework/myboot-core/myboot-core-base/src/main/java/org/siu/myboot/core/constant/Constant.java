@@ -133,6 +133,7 @@ public class Constant {
 
                 add(PERMIT_ALL_SBA0);
                 add(PERMIT_ALL_SBA1);
+                add("/config/get");
             }
         };
 
