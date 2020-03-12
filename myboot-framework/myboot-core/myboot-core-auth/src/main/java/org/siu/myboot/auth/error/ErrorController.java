@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/v1/api")
-public class AuthController {
+public class ErrorController {
 
     /**
      * 认证、授权异常处理
