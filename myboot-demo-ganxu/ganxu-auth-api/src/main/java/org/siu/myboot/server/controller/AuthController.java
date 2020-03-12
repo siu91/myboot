@@ -150,18 +150,18 @@ public class AuthController {
     }
 
 
-    /**
+   /* *//**
      * 认证、授权异常处理
      *
      * @param msg
      * @throws AuthenticateFail
-     */
+     *//*
     @RequestMapping(value = "/auth/error", method = {RequestMethod.POST, RequestMethod.GET})
     public void error(String msg) throws AuthenticateFail {
         log.warn("AuthenticateFail:{}", msg);
         throw new AuthenticateFail(msg);
 
-    }
+    }*/
 
     /**
      * 验证登录
