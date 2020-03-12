@@ -1,7 +1,7 @@
 package org.siu.myboot.auth.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.entity.AuthUser;
+import org.siu.myboot.core.entity.AuthUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

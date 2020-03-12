@@ -3,7 +3,7 @@ package org.siu.myboot.server.controller;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.auth.util.SecurityUtils;
-import org.siu.myboot.auth.entity.AuthUser;
+import org.siu.myboot.core.entity.AuthUser;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.core.config.web.limiting.Limiting;
 import org.siu.myboot.core.constant.Constant;

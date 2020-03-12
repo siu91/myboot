@@ -3,8 +3,13 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS-HOST:nacos.host}:${NACOS-PORT:8848}
+        group: myboot
+        # 对应 nacos 【命名空间ID】
+        namespace: siu
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
- #       shared-configs:
+        group: myboot
+        namespace: siu
+  #       shared-configs:
   #        - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

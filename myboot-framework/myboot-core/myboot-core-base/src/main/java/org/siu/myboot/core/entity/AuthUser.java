@@ -1,4 +1,4 @@
-package org.siu.myboot.auth.entity;
+package org.siu.myboot.core.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

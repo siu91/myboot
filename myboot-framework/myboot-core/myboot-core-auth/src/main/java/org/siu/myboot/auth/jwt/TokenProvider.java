@@ -4,7 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.entity.AuthUser;
+import org.siu.myboot.core.entity.AuthUser;
 import org.siu.myboot.core.constant.Constant;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
