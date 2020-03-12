@@ -21,26 +21,8 @@
             <groupId>org.siu</groupId>
             <artifactId>ganxu-core</artifactId>
             <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.siu</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
+            <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.siu</groupId>
-            <artifactId>myboot-component-swagger</artifactId>
-            <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.siu</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <dependency>
             <groupId>org.siu</groupId>
             <artifactId>myboot-core-config</artifactId>
@@ -52,25 +34,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
 
         <dependency>
-            <groupId>org.siu</groupId>
-            <artifactId>myboot-core-auth</artifactId>
-            <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.siu</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-plugin-core</artifactId>
-                    <groupId>org.springframework.plugin</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+        <!--负载均衡-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
 
     </dependencies>
-
 
     <build>
         <plugins>
@@ -79,50 +65,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!--QueryDSL 插件-->
-            <!--https://mvnrepository.com/artifact/com.mysema.maven/maven-apt-plugin/1.0.4-->
-            <!--https://github.com/querydsl/apt-maven-plugin-->
-            <!--<plugin>
-                <groupId>com.mysema.maven</groupId>
-                <artifactId>apt-maven-plugin</artifactId>
-                <version>1.0.4</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.querydsl</groupId>
-                        <artifactId>querydsl-apt</artifactId>
-                        <version>4.2.2</version>
-                    </dependency>
-                </dependencies>
-            </plugin>-->
-            <!-- Docker maven plugin -->
-            <!-- <plugin>
-                 <groupId>com.spotify</groupId>
-                 <artifactId>docker-maven-plugin</artifactId>
-                 <version>1.0.0</version>
-                 <configuration>
-                     <imageName>${project.name}/${project.artifactId}</imageName>
-                     <dockerDirectory>src/main/docker</dockerDirectory>
-                     <resources>
-                         <resource>
-                             <targetPath>/</targetPath>
-                             <directory>${project.build.directory}</directory>
-                             <include>${project.build.finalName}.jar</include>
-                         </resource>
-                     </resources>
-                 </configuration>
-             </plugin>-->
-            <!-- Docker maven plugin -->
         </plugins>
     </build>
 

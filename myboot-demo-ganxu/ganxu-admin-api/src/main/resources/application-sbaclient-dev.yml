@@ -3,7 +3,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:8000  #监控-服务器地址
+        url: http://sba.host:9100  #监控-服务器地址
         instance:
           # service-base-url: http://127.0.0.1:8080  #自定义节点的ip地址
           prefer-ip: true  #是否显示真实的ip地址
@@ -17,7 +17,7 @@ spring:
   #        read-timeout: 10000  #读取超时时间
   application:
     #应用名
-    name: myboot-demo
+    name: @project.artifactId@
 
 
 #公开所有的端点
@@ -46,3 +46,7 @@ info:
   version: @project.version@
   groupId: @project.groupId@
   artifactId: @project.artifactId@
+
+logging:
+  file:
+    name: "logs/@project.artifactId@/debug.log"

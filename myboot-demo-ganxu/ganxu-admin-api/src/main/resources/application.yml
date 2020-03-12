@@ -4,4 +4,4 @@ spring:
     active: dev
 # 服务启动的端口
 server:
-  port: 9501
+  port: 9502

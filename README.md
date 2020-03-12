@@ -40,12 +40,12 @@ myboot是一个基于springboot的项目脚手架。
 
   ![spring-cloud](./assets/spring-cloud.png)
 
-  - Eureka 服务发现框架
+  - Eureka 服务发现框架 （使用Nacos代替）
   - Ribbon 进程内负载均衡器
   - Open Feign 服务调用映射
   - Hystrix 服务降级熔断器
   - Zuul 微服务网关
-  - Config 微服务统一配置中心
+  - Config 微服务统一配置中心 （使用Nacos代替）
   - Bus 消息总线
   - Nacos（Spring Cloud Alibaba）
     - Nacos = Spring Cloud Eureka + Spring Cloud Config
