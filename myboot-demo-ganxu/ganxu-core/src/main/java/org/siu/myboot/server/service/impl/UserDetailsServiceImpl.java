@@ -2,7 +2,8 @@ package org.siu.myboot.server.service.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.siu.myboot.auth.entity.AuthUser;
+
+import org.siu.myboot.core.entity.AuthUser;
 import org.siu.myboot.core.exception.UserNotActivatedException;
 import org.siu.myboot.server.entity.dto.UserAuthorities;
 import org.siu.myboot.server.repository.UserRepository;

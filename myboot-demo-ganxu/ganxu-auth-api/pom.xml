@@ -25,17 +25,6 @@
         </dependency>
         <dependency>
             <groupId>org.siu</groupId>
-            <artifactId>myboot-core-config</artifactId>
-            <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.siu</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.siu</groupId>
             <artifactId>myboot-core-auth</artifactId>
             <version>0.0.1</version>
             <scope>compile</scope>

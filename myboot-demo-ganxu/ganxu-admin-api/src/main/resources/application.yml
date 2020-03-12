@@ -2,6 +2,11 @@ spring:
   # 指定环境
   profiles:
     active: dev
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
 # 服务启动的端口
 server:
   port: 9502

@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <parent>
         <groupId>org.siu</groupId>
         <artifactId>myboot-demo-ganxu</artifactId>
@@ -19,10 +20,20 @@
     <dependencies>
         <dependency>
             <groupId>org.siu</groupId>
-            <artifactId>myboot-core-auth</artifactId>
+            <artifactId>myboot-core-config</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.siu</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>
