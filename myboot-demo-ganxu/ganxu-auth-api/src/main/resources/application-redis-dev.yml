@@ -2,7 +2,7 @@
 spring:
   redis:
     # Standalone 单机配置
-    host: 192.168.31.175
+    host: redis.host
     port: 6379
     timeout: 20000
     lettuce:

@@ -19,17 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>org.siu</groupId>
-            <artifactId>myboot-component-swagger</artifactId>
-            <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.siu</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.siu</groupId>
             <artifactId>ganxu-core</artifactId>
             <version>0.0.1</version>
             <scope>compile</scope>
@@ -59,6 +48,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+        <!--负载均衡-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
 
     </dependencies>
