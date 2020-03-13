@@ -11,5 +11,40 @@ spring:
         file-extension: yml
         group: myboot
         namespace: siu
-  #       shared-configs:
-  #        - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+    #       shared-configs:
+    #        - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+
+    # sentinel 配置(实现熔断降级)
+    sentinel:
+      eager: true
+      enabled: true
+      transport:
+        dashboard: sentinel.host:8858
+      # 使用nacos存储sentinel规则
+      datasource:
+        # 此命名随意
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: @project.artifactId@-sentinel-flow
+            groupId: DEFAULT_GROUP
+            rule-type: FLOW
+            namespace: siu
+        # 此命名随意
+        degarde:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: @project.artifactId@-sentinel-degarde
+            groupId: DEFAULT_GROUP
+            rule-type: DEGRADE
+            namespace: siu
+
+#  rule-type：com.alibaba.cloud.sentinel.datasource.RuleType
+
+#  FLOW("flow", FlowRule.class),
+#  DEGRADE("degrade", DegradeRule.class),
+#  PARAM_FLOW("param-flow", ParamFlowRule.class),
+#  SYSTEM("system", SystemRule.class),
+#  AUTHORITY("authority", AuthorityRule.class),
+#  GW_FLOW("gw-flow", "com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule"),
+#  GW_API_GROUP("gw-api-group", "com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition");

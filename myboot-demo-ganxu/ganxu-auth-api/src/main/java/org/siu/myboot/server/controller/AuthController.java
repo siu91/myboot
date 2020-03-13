@@ -1,5 +1,6 @@
 package org.siu.myboot.server.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.auth.util.SecurityUtils;
@@ -12,6 +13,7 @@ import org.siu.myboot.core.exception.AuthenticateFail;
 import org.siu.myboot.core.exception.UserRegisterException;
 import org.siu.myboot.core.exception.WrongUsernameOrPasswordException;
 import org.siu.myboot.core.valid.Valid;
+import org.siu.myboot.server.controller.fallback.AuthControllerSentinelFallback;
 import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.qo.ChangePassword;
 import org.siu.myboot.server.entity.qo.Login;
@@ -60,7 +62,13 @@ public class AuthController {
      */
     @Limiting(limit = 1)
     @PostMapping("/auth")
+    @SentinelResource(value = "AuthControllerSentinelFallback", blockHandler = "exceptionHandler", blockHandlerClass = AuthControllerSentinelFallback.class,
+            fallback = "fallbackHandler", fallbackClass = AuthControllerSentinelFallback.class)
     public Result<String> authorize(@Validated @RequestBody Login login) throws WrongUsernameOrPasswordException {
+        if (System.currentTimeMillis() % 2 == 0) {
+            //模拟随机异常
+            int i = 1 / 0;
+        }
         // 认证，通过并返回权限
         Authentication authentication = authentication(login.getUsername(), login.getPassword());
 
@@ -150,7 +158,7 @@ public class AuthController {
     }
 
 
-   /* *//**
+    /* *//**
      * 认证、授权异常处理
      *
      * @param msg
