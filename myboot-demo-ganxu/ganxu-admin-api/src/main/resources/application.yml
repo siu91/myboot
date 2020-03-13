@@ -10,3 +10,8 @@ spring:
 # 服务启动的端口
 server:
   port: 9502
+
+
+
+permitall:
+      test: "t123"

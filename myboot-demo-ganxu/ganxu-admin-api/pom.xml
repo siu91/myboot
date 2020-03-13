@@ -23,6 +23,12 @@
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-auth</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!--注册中心客户端-->
         <dependency>

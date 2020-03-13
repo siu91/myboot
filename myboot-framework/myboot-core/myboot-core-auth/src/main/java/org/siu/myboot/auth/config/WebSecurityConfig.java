@@ -5,7 +5,7 @@ import org.siu.myboot.auth.jwt.JwtAuthenticationEntryPoint;
 import org.siu.myboot.auth.jwt.TokenProvider;
 import org.siu.myboot.component.cache.redis.RedisService;
 import org.siu.myboot.core.constant.Constant;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * WebSecurity 配置
@@ -23,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @Date 2020/3/4 16:13
  * @Version 0.0.1
  */
+@EnableConfigurationProperties(SpringSecurityProperties.class)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -44,13 +43,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    public WebSecurityConfig(TokenProvider tokenProvider, RedisService redisService, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
+    private final SpringSecurityProperties springSecurityProperties;
+
+    public WebSecurityConfig(TokenProvider tokenProvider, RedisService redisService, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler, SpringSecurityProperties springSecurityProperties) {
         this.tokenProvider = tokenProvider;
         this.redisService = redisService;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+        this.springSecurityProperties = springSecurityProperties;
     }
-
 
 
     @Override
@@ -75,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        final int permitSize = Constant.Auth.PERMIT_ALL_API.size();
+        final int permitSize = springSecurityProperties.getPermitAll().size();
         httpSecurity
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
@@ -102,11 +103,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 开放权限的接口（登录/注册等）
-                .antMatchers(Constant.Auth.PERMIT_ALL_API.toArray(new String[permitSize])).permitAll()
-                // 设置API接口对应的权限
-                // TODO 动态加载权限如何实现？
+                .antMatchers(springSecurityProperties.getPermitAll().toArray(new String[permitSize])).permitAll()
+                /* 设置API接口对应的权限
                 .antMatchers("/api/普通用户的接口xxxx").hasAuthority("ROLE_USER")
-                .antMatchers("/api/管理员接口xxx").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/管理员接口xxx").hasAuthority("ROLE_ADMIN")*/
                 // 要求所有进入应用的HTTP请求都要进行认证
                 .anyRequest().authenticated()
                 .and()

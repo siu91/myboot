@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
             // TODO 定以各异常，统一格式返回给前端
             return Result.error(baseException.getErrorMsg());
         } else {
-            return Result.error("未知系统错误");
+            return Result.error("未知系统错误:" + e.getMessage());
         }
 
     }

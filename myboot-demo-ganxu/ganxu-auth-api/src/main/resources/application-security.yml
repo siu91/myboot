@@ -1,0 +1,23 @@
+spring:
+  # better readable jackson serialization format
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  security:
+    # 开放无需认证的接口
+    permit-all:
+      - "/v1/api/auth"
+      - "/v1/api/register"
+      - "/v1/api/password"
+      - "/v1/api/signout/**"
+
+
+#jwt:
+#  header: Authorization
+#  # This token must be encoded using Base64 with mininum 88 Bits (you can type `echo 'secret-key'|base64` on your command line)
+#  base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
+#  # token is valid 24 hours
+#  token-validity-in-seconds: 86400
+#  # valid 30 hours
+#  token-validity-in-seconds-for-remember-me: 108000
+

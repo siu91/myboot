@@ -1,8 +1,16 @@
-# better readable jackson serialization format
 spring:
+  # better readable jackson serialization format
   jackson:
     serialization:
       INDENT_OUTPUT: true
+  security:
+    # 开放无需认证的接口
+    permit-all:
+      - "/admin/auth"
+      - "/admin/register"
+      - "/admin/password"
+      - "/admin/signout/**"
+
 
 #jwt:
 #  header: Authorization
