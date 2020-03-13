@@ -52,6 +52,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class, BaseException.class, RuntimeException.class, Throwable.class})
     public Result<String> exceptionHandler(HttpServletRequest req, HttpServletResponse response, Exception e) throws Exception {
         log.error(e.getMessage(), e);
+        if (e instanceof UndeclaredThrowableException) {
+            UndeclaredThrowableException ex = (UndeclaredThrowableException) e;
+            if (ex.getUndeclaredThrowable() instanceof BaseException) {
+                return Result.error(ex.getUndeclaredThrowable().getMessage());
+            }
+        }
         // 除了 内部定义的exception(继承BaseException) 其它都是未知错误
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
