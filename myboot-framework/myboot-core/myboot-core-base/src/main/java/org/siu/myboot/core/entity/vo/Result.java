@@ -64,6 +64,10 @@ public class Result<T> implements Serializable {
         return build(null, Constant.Result.FAIL, msg);
     }
 
+    public static <T> Result<T> error(T data, String msg) {
+        return build(data, Constant.Result.FAIL, msg);
+    }
+
     private static <T> Result<T> build(T data, int code, String msg) {
         Result<T> result = new Result<>();
         result.setCode(code);

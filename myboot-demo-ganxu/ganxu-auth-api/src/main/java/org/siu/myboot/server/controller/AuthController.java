@@ -13,7 +13,7 @@ import org.siu.myboot.core.exception.AuthenticateFail;
 import org.siu.myboot.core.exception.UserRegisterException;
 import org.siu.myboot.core.exception.WrongUsernameOrPasswordException;
 import org.siu.myboot.core.valid.Valid;
-import org.siu.myboot.server.controller.fallback.AuthControllerSentinelFallback;
+import org.siu.myboot.server.controller.fallback.AuthBlockAndFallbackHandler;
 import org.siu.myboot.server.entity.po.User;
 import org.siu.myboot.server.entity.qo.ChangePassword;
 import org.siu.myboot.server.entity.qo.Login;
@@ -56,19 +56,54 @@ public class AuthController {
     /**
      * 认证、授权
      *
+     * nacos 中熔断降级配置
+     *
+     *  [timeWindow]秒内发生[count]次异常，触发熔断降级，grade:0-RT，1-异常比例，2-异常次数
+     *
+     * [
+     *   {
+     *     "resource": "/v1/api/auth",
+     *     "count": 20.0,
+     *     "grade": 0,
+     *     "passCount": 0,
+     *     "timeWindow": 10
+     *   },
+     *   {
+     *     "resource": "AuthControllerSentinelResource",
+     *     "count": 1,
+     *     "grade": 2,
+     *     "passCount": 0,
+     *     "timeWindow": 10
+     *   }
+     * ]
+     *
+     * nacos 中限流配置
+     *
+     * [
+     *     {
+     *         "resource": "AuthControllerSentinelResource",
+     *         "limitApp": "default",
+     *         "grade": 1,
+     *         "count": 5,
+     *         "strategy": 0,
+     *         "controlBehavior": 0,
+     *         "clusterMode": false
+     *     }
+     * ]
+     *
      * @param login
      * @return
      * @throws WrongUsernameOrPasswordException
      */
-    @Limiting(limit = 1)
+    //@Limiting(limit = 1)
     @PostMapping("/auth")
-    @SentinelResource(value = "AuthControllerSentinelFallback", blockHandler = "exceptionHandler", blockHandlerClass = AuthControllerSentinelFallback.class,
-            fallback = "fallbackHandler", fallbackClass = AuthControllerSentinelFallback.class)
+    @SentinelResource(value = "AuthControllerSentinelResource", blockHandler = "blockHandler", blockHandlerClass = AuthBlockAndFallbackHandler.class,
+            fallback = "fallbackHandler", fallbackClass = AuthBlockAndFallbackHandler.class)
     public Result<String> authorize(@Validated @RequestBody Login login) throws WrongUsernameOrPasswordException {
-        if (System.currentTimeMillis() % 2 == 0) {
+        /*if (System.currentTimeMillis() % 2 == 0) {
             //模拟随机异常
             int i = 1 / 0;
-        }
+        }*/
         // 认证，通过并返回权限
         Authentication authentication = authentication(login.getUsername(), login.getPassword());
 

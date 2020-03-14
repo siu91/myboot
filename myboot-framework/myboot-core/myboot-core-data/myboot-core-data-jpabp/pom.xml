@@ -24,12 +24,12 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>4.2.1</version>
+            <version>${querydsl-jpa.version}</version>
         </dependency>
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-            <version>3.8.7</version>
+            <version>${p6spy.version}</version>
         </dependency>
         <!--postgres 驱动-->
         <dependency>

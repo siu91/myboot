@@ -26,7 +26,7 @@ import java.util.List;
  * @Date 2020/3/13 21:34
  * @Version 0.0.1
  */
-public class FileDataSourceInit implements InitFunc {
+/*public class FileDataSourceInit implements InitFunc {
     @Override
     public void init() throws Exception {
 
@@ -154,4 +154,4 @@ public class FileDataSourceInit implements InitFunc {
     private <T> String encodeJson(T t) {
         return JSON.toJSONString(t);
     }
-}
+}*/

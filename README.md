@@ -2,7 +2,7 @@
 
 
 ## 简介
-myboot是一个基于springboot的项目脚手架。
+myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 <img src="./LOGO.png" alt="myboot" style="zoom:75%;" />
 
 
@@ -40,18 +40,24 @@ myboot是一个基于springboot的项目脚手架。
 
   ![spring-cloud](./assets/spring-cloud.png)
 
-  - Eureka 服务发现框架 （使用Nacos代替）
+  - ~~Eureka 服务注册&发现框架~~ （使用Nacos代替）
   - Ribbon 进程内负载均衡器
   - Open Feign 服务调用映射
-  - Hystrix 服务降级熔断器
+  - ~~Hystrix 服务降级熔断器~~（使用Sentinel代替）
   - Zuul 微服务网关
   - Config 微服务统一配置中心 （使用Nacos代替）
-  - Bus 消息总线
-  - Nacos（Spring Cloud Alibaba）
-    - Nacos = Spring Cloud Eureka + Spring Cloud Config
-    - Nacos 可以与 Spring, Spring Boot, Spring Cloud 集成，并能代替  Eureka, Config。
-    - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-config 实现配置的动态变更。
-    - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-discovery 实现服务的注册与发现
+  - ~~Bus 消息总线~~
+  - **集成Spring Cloud Alibaba 补充相关功能:**
+    - 服务限流降级：使用 Sentinel 进行流量控制，熔断降级以及系统保护等多个维度保护服务稳定性（**完成**）
+    - 服务注册与发现：使用 Nacos 适配 Spring Cloud 服务注册与发现标准，默认集成了 Ribbon 这个客户端负载均衡组件（**完成**）
+      - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-discovery 实现服务的注册与发现
+    - 分布式配置管理：以 Nacos 作为数据存储支持分布式系统中的外部化配置，配置更改时自动刷新（**完成**）
+      - 通过 Nacos Server 和 spring-cloud-starter-alibaba-nacos-config 实现配置的动态变更。
+    - 事件驱动：使用 Spring Cloud Stream RocketMQ Binder 来构建事件驱动的微服务实例（**进行中**）
+    - 消息总线：使用 Spring Cloud Bus RocketMQ 连接分布式系统中的各个节点（**进行中**）
+    - 分布式事务：使用 Seata 高效并且对业务零侵入地解决分布式事务问题（**进行中**）
+    - Dubbo RPC：扩展 Spring Cloud 服务调用协议，可使用 Spring Cloud 客户端调用 Dubbo 服务（未计划集成）
+    - 阿里云 OSS 集成: 使用阿里云 OSS 服务集成 Spring Resource 资源（未计划集成）
 
 - 其它技术栈首选Spring 内成熟的技术
 
@@ -115,9 +121,10 @@ myboot是一个基于springboot的项目脚手架。
 
 TODO:
 1. 引入Spring Coud
-2. 消息队列选型
-3. 前端技术选型 Vue/React
-4. 分库分表选型
+2. 集成 Spring Coud Alibaba
+3. 消息队列选型
+4. 前端技术选型 Vue/React
+5. 分库分表选型
 
 
 ## Feedback
