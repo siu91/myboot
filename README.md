@@ -75,7 +75,7 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 
 - p6spy 监控sql，自定义日志
 
-- redis + aop 实现限流
+- [redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
 
 - 全局的参数校验处理
 
