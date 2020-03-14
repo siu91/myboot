@@ -67,35 +67,27 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 
 主要功能：
 
-- 结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装
+- [结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/core/data)
 
 - 多数据源自动配置
 
-- p6spy 自动配置
-
-- p6spy 监控sql，自定义日志
+- [p6spy 自动配置&p6spy 监控sql，自定义日志](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
 
 - [redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
 
-- 全局的参数校验处理
+- [全局的参数校验处理&全局异常处理](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/handlers/GlobalExceptionHandler.java)
 
-- 全局异常处理
+- [接口统一格式返回](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/vo/Result.java)
 
-- 接口统一格式返回
+- [分页封装](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/qo)
 
-- 分页封装
+- [minio OSS autoconfig&API封装](./myboot-framework/myboot-component/myboot-component-oss/src/main/java/org/siu/myboot)
 
-- minio 对象存储封装
-
-- flyway 数据库脚本管理
-
-- IDEA + groovy 自动代码生成
-
-- Swagger 生成API 文档
+- [IDEA + groovy 自动代码生成](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
 
 - MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
-- Spring Security + JWT 实现认证和授权、单点登录
+- [Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
 
   
 
@@ -105,10 +97,9 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
  .
 ├── LICENSE					license 文件
 ├── README.md					README
-├── myboot-demo	         			后台系统demo
-├── myboot-commonbiz				通用业务模块
-├── myboot-component			        组件模块
-└── myboot-core					核心模块
+├── autogenerate 代码生成	         		
+├── myboot-demo-ganxu demo		
+└── myboot-framework 框架
 ~~~
 
 ## 使用
