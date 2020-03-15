@@ -99,7 +99,7 @@ config = [
                 implement: [
                         enable : true,
                         name   : "QBuiler",
-                        package: "org.siu.myboot.core.data.querydsljpa"
+                        package: "org.siu.myboot.core.datasource.jpa.querydsljpa"
                 ]
         ],
         // repository 生成设置
@@ -108,7 +108,7 @@ config = [
                 parent: [
                         enable : true,
                         name   : "BaseJpaRepository",
-                        package: "org.siu.myboot.core.data.querydsljpa"
+                        package: "org.siu.myboot.core.datasource.jpa.querydsljpa"
                 ]
         ],
         // service 生成设置
@@ -569,7 +569,7 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.PageParams;"
         writer.writeLine "import org.siu.myboot.core.entity.qo.Sort;"
-        writer.writeLine "import org.siu.myboot.core.data.utils.QueryBuilder;"
+        writer.writeLine "import org.siu.myboot.core.datasource.jpa.utils.QueryBuilder;"
         writer.writeLine "import org.siu.myboot.core.entity.vo.PageData;"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
@@ -794,7 +794,7 @@ class Gen {
         writer.writeLine "import com.querydsl.core.types.OrderSpecifier;"
         writer.writeLine "import com.querydsl.jpa.impl.JPAQuery;"
         writer.writeLine "import $parentConfig.package.$parentConfig.name;"
-        writer.writeLine "import org.siu.myboot.core.data.utils.QueryBuilder;"
+        writer.writeLine "import org.siu.myboot.core.datasource.jpa.utils.QueryBuilder;"
         writer.writeLine "import ${basePackage}.entity.po.Q${entityName};"
         writer.writeLine "import ${basePackage}.entity.po.${entityName};"
         writer.writeLine "import org.springframework.data.domain.Page;"

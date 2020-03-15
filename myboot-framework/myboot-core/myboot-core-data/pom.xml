@@ -10,16 +10,50 @@
 
     <groupId>org.siu</groupId>
     <artifactId>myboot-core-data</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <name>myboot-core-data</name>
     <description>核心数据模块，包括：数据源配置（多数据源）、Mybatis ORM框架、Spring Data JPA/Hibernate等</description>
     <url>https://github.com/siu91/myboot</url>
 
-    <modules>
-        <module>myboot-core-data-multids</module>
-        <module>myboot-core-data-multijpaem</module>
-        <module>myboot-core-data-multimbss</module>
-        <module>myboot-core-data-jpabp</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+        <!-- aop依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl-jpa.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>${p6spy.version}</version>
+        </dependency>
+        <!--postgres 驱动-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <!--依赖核心模块-->
+        <dependency>
+            <groupId>org.siu</groupId>
+            <artifactId>myboot-core-base</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package org.siu.myboot.autoconfigure.p6spy;
+package org.siu.myboot.core.datasource.config.p6spy;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

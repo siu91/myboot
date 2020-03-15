@@ -5,7 +5,7 @@ import org.siu.myboot.component.cache.redis.RedisService;
 import org.siu.myboot.core.constant.Constant;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
-import org.siu.myboot.core.data.utils.QueryBuilder;
+import org.siu.myboot.core.datasource.jpa.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.core.exception.UserRegisterException;
 import org.siu.myboot.server.entity.po.*;

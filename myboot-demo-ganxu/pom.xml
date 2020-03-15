@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>org.siu</groupId>
-            <artifactId>myboot-core-data-jpabp</artifactId>
+            <artifactId>myboot-core-data</artifactId>
             <version>0.0.1</version>
             <exclusions>
                 <exclusion>

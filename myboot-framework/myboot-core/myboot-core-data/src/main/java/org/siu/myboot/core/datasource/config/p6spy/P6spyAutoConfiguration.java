@@ -1,5 +1,8 @@
-package org.siu.myboot.autoconfigure.p6spy;
+package org.siu.myboot.core.datasource.config.p6spy;
 
+import com.p6spy.engine.spy.P6ModuleManager;
+import com.p6spy.engine.spy.P6SpyDriver;
+import com.p6spy.engine.spy.P6SpyOptions;
 import com.p6spy.engine.spy.option.SystemProperties;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -7,7 +10,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import com.p6spy.engine.spy.*;
 import org.springframework.core.env.Environment;
 
 import java.lang.reflect.Field;
