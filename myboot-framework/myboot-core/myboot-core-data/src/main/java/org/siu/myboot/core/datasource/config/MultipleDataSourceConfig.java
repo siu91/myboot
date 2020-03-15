@@ -1,14 +1,15 @@
-package org.siu.myboot.autoconfigure.datasource;
+package org.siu.myboot.core.datasource.config;
 
-import org.siu.myboot.autoconfigure.datasource.peoperties.DataSourceProperties;
-import org.siu.myboot.autoconfigure.datasource.peoperties.PrimaryDataSourceProperties;
-import org.siu.myboot.autoconfigure.datasource.peoperties.SecondaryDataSourceProperties;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.siu.myboot.core.datasource.config.peoperties.DataSourceProperties;
+import org.siu.myboot.core.datasource.config.peoperties.PrimaryDataSourceProperties;
+import org.siu.myboot.core.datasource.config.peoperties.SecondaryDataSourceProperties;
+import org.siu.myboot.core.datasource.dds.DynamicDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -26,6 +27,7 @@ import javax.sql.DataSource;
 @Configuration
 @ConditionalOnProperty(name = {"spring.datasource.primary.url", "spring.datasource.secondary.url"})
 public class MultipleDataSourceConfig {
+
     @Resource
     PrimaryDataSourceProperties primaryDataSourceProperties;
 
@@ -34,21 +36,31 @@ public class MultipleDataSourceConfig {
 
     @Primary
     @Bean(name = "primaryDataSource")
-    @Qualifier("primaryDataSource")
     public DataSource primaryDataSource() {
         return createDataSourceBuilder(primaryDataSourceProperties).build();
     }
 
     /**
      * 使用 ConfigurationProperties 配置出现问题，暂未找到原因（可能时配置前缀时，所有相关的配置只能放一个配置文件？？？）
+     * //@ConfigurationProperties(prefix = "spring.datasource.secondary")
      *
      * @return
      */
     @Bean(name = "secondaryDataSource")
-    @Qualifier("secondaryDataSource")
-    //@ConfigurationProperties(prefix = "spring.datasource.secondary")
     public DataSource secondaryDataSource() {
         return createDataSourceBuilder(secondaryDataSourceProperties).build();
+    }
+
+
+    @Bean(name = "dynamicDataSource")
+    public DataSource dynamicDataSource() {
+        return new DynamicDataSource(primaryDataSource(), secondaryDataSource());
+    }
+
+
+    @Bean
+    public DataSource dataSource() {
+        return new LazyConnectionDataSourceProxy(dynamicDataSource());
     }
 
     /**

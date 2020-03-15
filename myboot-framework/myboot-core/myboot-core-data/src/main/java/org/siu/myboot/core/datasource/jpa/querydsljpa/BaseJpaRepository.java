@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.querydsljpa;
+package org.siu.myboot.core.datasource.jpa.querydsljpa;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.OrderSpecifier;
@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformationSuppo
 import org.springframework.data.jpa.repository.support.Querydsl;
 import org.springframework.data.jpa.repository.support.QuerydslJpaPredicateExecutor;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.data.querydsl.QSort;
 import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.repository.support.PageableExecutionUtils;
