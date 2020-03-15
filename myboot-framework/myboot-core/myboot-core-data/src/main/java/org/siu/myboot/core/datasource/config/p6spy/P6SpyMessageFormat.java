@@ -17,7 +17,7 @@ public class P6SpyMessageFormat implements MessageFormattingStrategy {
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
         return
                 "[ " + LocalDateTime.now() + " ] [ took " + elapsed + "ms | " + category.toUpperCase() + " | connection " + connectionId + "]"
-                        // + "\n" + url // 不打印url配置
+                         + "\n" + url // 不打印url配置
                         + (!"".equals(sql.trim()) ? "\n" + sql + ";" : "");
     }
 }

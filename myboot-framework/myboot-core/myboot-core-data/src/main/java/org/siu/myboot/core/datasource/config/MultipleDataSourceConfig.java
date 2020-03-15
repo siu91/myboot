@@ -1,18 +1,29 @@
 package org.siu.myboot.core.datasource.config;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.siu.myboot.core.datasource.config.p6spy.P6spyProperties;
 import org.siu.myboot.core.datasource.config.peoperties.DataSourceProperties;
 import org.siu.myboot.core.datasource.config.peoperties.PrimaryDataSourceProperties;
 import org.siu.myboot.core.datasource.config.peoperties.SecondaryDataSourceProperties;
 import org.siu.myboot.core.datasource.dds.DynamicDataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 /**
  * DataSource 多数据源配置
@@ -62,6 +73,69 @@ public class MultipleDataSourceConfig {
     public DataSource dataSource() {
         return new LazyConnectionDataSourceProxy(dynamicDataSource());
     }
+
+
+    // region 配置jpa和mybatis，默认jpa 配置生效
+
+    /**
+     * 配置jpa
+     *
+     * @param builder
+     * @return
+     */
+    @Bean(name = "entityManagerFactory")
+    @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "jpa", matchIfMissing = true)
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
+        return builder
+                .dataSource(dataSource())
+                .packages("org.siu.myboot.server.entity.po")
+                .build();
+    }
+
+    /**
+     * 配置jpa
+     *
+     * @param builder
+     * @return
+     * @throws IOException
+     */
+    @Bean(name = "transactionManager")
+    @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "jpa", matchIfMissing = true)
+    JpaTransactionManager transactionManager(EntityManagerFactoryBuilder builder) throws IOException {
+        return new JpaTransactionManager(entityManagerFactory(builder).getObject());
+    }
+    // endregion
+
+    // region mybatis
+
+    /**
+     * 数据源添加到事务(mybatis)
+     *
+     * @return
+     */
+    @Bean(name = "transactionManager")
+    @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "mybatis", matchIfMissing = false)
+    public DataSourceTransactionManager primaryTransactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
+
+    @Bean(name = "sqlSessionFactory")
+    @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "mybatis", matchIfMissing = false)
+    public SqlSessionFactory buildSqlSessionFactory() throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dataSource());
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/*.xml"));
+        return bean.getObject();
+    }
+
+
+    @Bean(name = "primarySqlSessionTemplate")
+    @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "mybatis", matchIfMissing = false)
+    public SqlSessionTemplate buildSqlSessionTemplate(@Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+    // endregion
+
 
     /**
      * 设置 DataSourceBuilder 参数，创建 DataSourceBuilder
