@@ -1,10 +1,8 @@
 [![License](https://img.shields.io/github/license/apache/incubator-streampipes.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
+# myboot <img src="./LOGO.png" style="zoom:45%;" align="right" />
 
-## 简介
-myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
-
-<img src="./LOGO.png" alt="myboot" style="zoom:75%;" />
+> myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo
 
 
 
