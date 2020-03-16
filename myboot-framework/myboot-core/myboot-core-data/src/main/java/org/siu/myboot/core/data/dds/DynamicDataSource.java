@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.dds;
+package org.siu.myboot.core.data.dds;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;

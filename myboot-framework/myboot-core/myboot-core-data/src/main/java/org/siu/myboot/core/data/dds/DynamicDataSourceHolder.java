@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.dds;
+package org.siu.myboot.core.data.dds;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;

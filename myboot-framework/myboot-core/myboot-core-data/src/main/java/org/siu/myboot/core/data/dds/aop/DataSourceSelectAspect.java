@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.dds.aop;
+package org.siu.myboot.core.data.dds.aop;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.siu.myboot.core.datasource.dds.DynamicDataSourceHolder;
+import org.siu.myboot.core.data.dds.DynamicDataSourceHolder;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +46,7 @@ public class DataSourceSelectAspect {
      * @param joinPoint
      * @return
      */
-    @After("@annotation(org.siu.myboot.core.datasource.dds.aop.DataSource))")
+    @After("@annotation(org.siu.myboot.core.data.dds.aop.DataSource))")
     public void resetDataSource(JoinPoint joinPoint) {
         DynamicDataSourceHolder.clear();
     }

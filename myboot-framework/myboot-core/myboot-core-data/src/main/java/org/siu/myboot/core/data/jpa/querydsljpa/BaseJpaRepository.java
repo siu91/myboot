@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.jpa.querydsljpa;
+package org.siu.myboot.core.data.jpa.querydsljpa;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.OrderSpecifier;

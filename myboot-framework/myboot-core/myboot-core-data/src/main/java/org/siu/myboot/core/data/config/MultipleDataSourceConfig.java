@@ -1,13 +1,12 @@
-package org.siu.myboot.core.datasource.config;
+package org.siu.myboot.core.data.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.siu.myboot.core.datasource.config.p6spy.P6spyProperties;
-import org.siu.myboot.core.datasource.config.peoperties.DataSourceProperties;
-import org.siu.myboot.core.datasource.config.peoperties.PrimaryDataSourceProperties;
-import org.siu.myboot.core.datasource.config.peoperties.SecondaryDataSourceProperties;
-import org.siu.myboot.core.datasource.dds.DynamicDataSource;
+import org.siu.myboot.core.data.config.peoperties.DataSourceProperties;
+import org.siu.myboot.core.data.config.peoperties.PrimaryDataSourceProperties;
+import org.siu.myboot.core.data.config.peoperties.SecondaryDataSourceProperties;
+import org.siu.myboot.core.data.dds.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;

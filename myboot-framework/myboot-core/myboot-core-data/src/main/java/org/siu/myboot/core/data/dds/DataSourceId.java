@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.dds;
+package org.siu.myboot.core.data.dds;
 
 /**
  * 标识数据库

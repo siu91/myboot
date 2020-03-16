@@ -1,4 +1,4 @@
-package org.siu.myboot.core.datasource.config.p6spy;
+package org.siu.myboot.core.data.config.p6spy;
 
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 

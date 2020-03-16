@@ -3,7 +3,7 @@ package org.siu.myboot.server.service;
 import com.querydsl.core.types.OrderSpecifier;
 import org.siu.myboot.core.entity.qo.PageParams;
 import org.siu.myboot.core.entity.qo.Sort;
-import org.siu.myboot.core.datasource.jpa.utils.QueryBuilder;
+import org.siu.myboot.core.data.jpa.utils.QueryBuilder;
 import org.siu.myboot.core.entity.vo.PageData;
 import org.siu.myboot.server.entity.po.UserAccountLog;
 import org.siu.myboot.server.entity.po.QUserAccountLog;

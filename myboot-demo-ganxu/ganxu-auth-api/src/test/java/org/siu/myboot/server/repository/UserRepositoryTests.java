@@ -2,8 +2,8 @@ package org.siu.myboot.server.repository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.siu.myboot.core.datasource.dds.DataSourceId;
-import org.siu.myboot.core.datasource.dds.DynamicDataSourceHolder;
+import org.siu.myboot.core.data.dds.DataSourceId;
+import org.siu.myboot.core.data.dds.DynamicDataSourceHolder;
 import org.siu.myboot.server.entity.po.User;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
