@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config.mp;
+package org.siu.myboot.core.data.config;
 
 
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;

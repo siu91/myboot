@@ -116,8 +116,6 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
   - 支持jpa+QueryDSL
   - todo 支持 mybatis/mybatis-plus
 
-- DockerFile + Dcoker server发布应用
-
 - MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
 - [Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
@@ -128,6 +126,7 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
       -  a. 规定角色可以对哪些资源进行哪些操作 
       - b. 规定主体拥有哪些角色当一个操作，同时满足a与b时，允许操作
     - [Spring Security @PreAuthorize("@pms.hasPermit('USER')") + 自定义PermitService](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth/util/PermitService.java)
+  - 注销/黑名单等实现方式，暂时没有想到好的方式，目前用redis 保存token的版本来注销，**token有状态**
 
 - [动态数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds)
 
@@ -147,6 +146,7 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
 
   - [Swagger 集成](./myboot-framework/myboot-component/myboot-component-swagger)
   - [Spring Boot Admin 集成](./myboot-framework/myboot-component/myboot-component-sbaserver)
+  - DockerFile + Dcoker server发布应用
 
 - 微服务：
 

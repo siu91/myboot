@@ -1,4 +1,4 @@
-package org.siu.myboot.core.data.config.mp.mapper;
+package org.siu.myboot.core.data.mp.mapper;
 
 
 /**

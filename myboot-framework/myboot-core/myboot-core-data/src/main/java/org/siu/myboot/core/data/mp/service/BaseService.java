@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.siu.myboot.core.data.config.mp.service;
+package org.siu.myboot.core.data.mp.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 

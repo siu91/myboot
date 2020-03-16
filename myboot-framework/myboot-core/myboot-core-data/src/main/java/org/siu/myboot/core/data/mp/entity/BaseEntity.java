@@ -3,7 +3,7 @@
  *
  * Copyright 2018 CEC(Fujian) Healthcare Big Data Operation Service Co., Ltd. All rights reserved.
  */
-package org.siu.myboot.core.data.config.mp.entity;
+package org.siu.myboot.core.data.mp.entity;
 
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
