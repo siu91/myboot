@@ -113,21 +113,40 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
 
 - [IDEA + groovy 自动代码生成](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
 
+  - 支持jpa+QueryDSL
+  - todo 支持 mybatis/mybatis-plus
+
+- DockerFile + Dcoker server发布应用
+
 - MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
 - [Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
 
+  - 认证（Authentication）基于JWT（Spring Security UserSever 登录换取token）
+  - 鉴权（Authorization）
+    - 设计采用RBAC
+      -  a. 规定角色可以对哪些资源进行哪些操作 
+      - b. 规定主体拥有哪些角色当一个操作，同时满足a与b时，允许操作
+    - [Spring Security @PreAuthorize("@pms.hasPermit('USER')") + 自定义PermitService](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth/util/PermitService.java)
+
 - [动态数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds)
 
-  - 基于Spring AbstractRoutingDataSource + ThreadLocal 持有当前数据源
-  - Mybatis Interceptor拦截器自动设置数据源（可实现如：应用层读写分离）
-  - 使用@DataSource(id = DataSourceId.PRIMARY) 手动设置数据源
+  - [基于Spring AbstractRoutingDataSource + ThreadLocal 持有当前数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/DynamicDataSource.java)
+  - [Mybatis Interceptor拦截器自动设置数据源（可实现如：应用层读写分离）](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/mybatis/DynamicDataSourcePlugin.java)
+  - [使用@DataSource(id = DataSourceId.PRIMARY) 手动设置数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/aop/DataSource.java)
   - 未优化配置模块，支持一主一从或两个数据源
   - **TODO 支持**：
     - 多主多从 、多库（>2)
     - @DataSource 在类上使用
   
 - 持久层配置：spring.datasource.persistence，可切换jpa/mybatis/mybatis-plus，默认jpa
+
+- 自定义CustomConditionalOnProperty 实现 ConditionalOnProperty支持多个 havingValue
+
+- 工具：
+
+  - [Swagger 集成](./myboot-framework/myboot-component/myboot-component-swagger)
+  - [Spring Boot Admin 集成](./myboot-framework/myboot-component/myboot-component-sbaserver)
 
 - 微服务：
 
@@ -139,6 +158,10 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
 
   - Zipkin + Sentinel 分布式调用链路追踪（**TODO保存调用日志到ES/其它** ）
 
+- 彩蛋，启动banner：
+
+  ![image-20200316152106234](./assets/banner.png)
+  
     
 
 ## 项目结构
@@ -163,10 +186,11 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
 TODO:
 1. 引入Spring Coud
 2. 集成 Spring Coud Alibaba
-3. 分布式事务集成
-4. 消息队列选型
-5. 前端技术选型 Vue/React
-6. 分库分表选型
+3. features 放到 CHANGELOG
+4. 分布式事务集成
+5. 消息队列选型
+6. 前端技术选型 Vue/React
+7. 分库分表选型
 
 
 ## Feedback
