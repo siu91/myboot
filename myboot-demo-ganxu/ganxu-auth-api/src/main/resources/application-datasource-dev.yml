@@ -5,7 +5,7 @@ spring:
     # 使用p6spy
     url: jdbc:p6spy:postgresql://postgres.host:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
     username: postgres
-    password: 1229
+    password: postgres
     #driver-class-name: org.postgresql.Driver
     # 使用p6spy 监控
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
@@ -14,12 +14,12 @@ spring:
 #    primary:
 #      url: jdbc:p6spy:postgresql://postgres.host:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
 #      username: postgres
-#      password: 1229
+#      password: postgres
 #      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 #    secondary:
 #      url: jdbc:p6spy:postgresql://postgres.host:5432/ganxu2?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
 #      username: postgres
-#      password: 1229
+#      password: postgres
 #      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     # Hikari 连接池配置
     hikari:
