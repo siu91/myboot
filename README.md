@@ -14,11 +14,11 @@
   - BaseJpaRepository 封装了基础的分页查询
   - BaseJpaRepository 封装可快速实现复杂多表查询
 
-- [p6spy 自动配置&p6spy 监控sql，自定义日志](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
+- SQL监控：[p6spy 自动配置&p6spy 监控sql，自定义日志](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
 
   - 定义监控日志的输出 P6SpyMessageFormat
 
-- [redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
+- 限流：[redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
 
   - 使用lua获取实时的流量（TODO优化支持redis cluster lua）
   - aop 获取注解流量配置和流量策略
@@ -29,16 +29,16 @@
 
 - [分页封装](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/qo)
 
-- [minio OSS autoconfig&API封装](./myboot-framework/myboot-component/myboot-component-oss/src/main/java/org/siu/myboot)
+- 对象存储：[minio OSS autoconfig&API封装](./myboot-framework/myboot-component/myboot-component-oss/src/main/java/org/siu/myboot)
 
-- [IDEA + groovy 自动代码生成](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
+- 代码生成：[IDEA + groovy 自动代码生成](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
 
   - 支持jpa+QueryDSL
   - todo 支持 mybatis/mybatis-plus
 
-- MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
+- 调用追踪：MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
-- [Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
+- 认证鉴权：[Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
 
   - 认证（Authentication）基于JWT（Spring Security UserSever 登录换取token）
   - 鉴权（Authorization）
