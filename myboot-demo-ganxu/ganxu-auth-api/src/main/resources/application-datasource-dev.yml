@@ -10,7 +10,7 @@ spring:
     # 使用p6spy 监控
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     #2、多数据源配置
-#    persistence: mybatis # 持久化方式 jpa/mybatis,默认不配置时为jpa
+#    persistence: mybatis # 持久化方式 jpa/mybatis/mybatis-plus,默认不配置时为jpa
 #    primary:
 #      url: jdbc:p6spy:postgresql://postgres.host:5432/ganxu?currentSchema=ganxu&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
 #      username: postgres

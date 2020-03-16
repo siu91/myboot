@@ -56,6 +56,7 @@
         <fastjsont.version>1.2.62</fastjsont.version>
         <querydsl-jpa.version>4.2.1</querydsl-jpa.version>
         <p6spy.version>3.8.7</p6spy.version>
+        <mybatis-starter.version>2.1.2</mybatis-starter.version>
 
     </properties>
 

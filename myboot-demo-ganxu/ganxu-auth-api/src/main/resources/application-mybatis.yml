@@ -1,4 +1,0 @@
-# 注解方式配置只需要指明实体类的包路径即可
-mybatis:
-  # 配置项目中实体类包路径 22222
-  type-aliases-package: org.siu.myboot.**.entity

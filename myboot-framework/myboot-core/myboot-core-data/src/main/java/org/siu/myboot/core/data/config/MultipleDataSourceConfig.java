@@ -128,7 +128,7 @@ public class MultipleDataSourceConfig {
     }
 
 
-    @Bean(name = "primarySqlSessionTemplate")
+    @Bean(name = "sqlSessionTemplate")
     @ConditionalOnProperty(prefix = "spring.datasource", name = "persistence", havingValue = "mybatis", matchIfMissing = false)
     public SqlSessionTemplate buildSqlSessionTemplate(@Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
