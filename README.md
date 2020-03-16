@@ -6,63 +6,66 @@
 
 
 
+:mask:疫情无情，人有情，来了就Star:star:一下吧 :point_up:
+
+
 
 ## Features
 
-- [结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/core/data)
+- :white_check_mark:[结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/core/data):link:
 
   - BaseJpaRepository 封装了基础的分页查询
   - BaseJpaRepository 封装可快速实现复杂多表查询
 
-- SQL监控：[p6spy 自动配置&p6spy 监控sql，自定义日志](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
+- :white_check_mark:SQL监控：[p6spy 自动配置&p6spy 监控sql，自定义日志:link:](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
 
   - 定义监控日志的输出 P6SpyMessageFormat
 
-- 限流：[redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
+- :white_check_mark:限流：[redis + aop 实现限流:link:](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
 
   - 使用lua获取实时的流量（TODO优化支持redis cluster lua）
   - aop 获取注解流量配置和流量策略
 
-- [全局的参数校验处理&全局异常处理](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/handlers/GlobalExceptionHandler.java)
+- :white_check_mark: [全局的参数校验处理&全局异常处理:link:](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/handlers/GlobalExceptionHandler.java)
 
-- [接口统一格式返回](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/vo/Result.java)
+- :white_check_mark:[接口统一格式返回:link:](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/vo/Result.java)
 
-- [分页封装](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/qo)
+- :white_check_mark:[分页封装:link:](./myboot-framework/myboot-core/myboot-core-base/src/main/java/org/siu/myboot/core/entity/qo)
 
-- 对象存储：[minio OSS autoconfig&API封装](./myboot-framework/myboot-component/myboot-component-oss/src/main/java/org/siu/myboot)
+- :white_check_mark:对象存储：[minio OSS autoconfig&API封装:link:](./myboot-framework/myboot-component/myboot-component-oss/src/main/java/org/siu/myboot)
 
-- 代码生成：[IDEA + groovy 自动代码生成](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
+- :white_check_mark:代码生成：[IDEA + groovy 自动代码生成:link:](./autogenerate/Generate%20JPA%20POJOs-REPOs-SERVICEs.groovy)
 
   - 支持jpa+QueryDSL
   - todo 支持 mybatis/mybatis-plus
 
-- 调用追踪：MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
+- :white_check_mark:调用追踪：MDC 实现日志追踪 traceId （RPC、Http、异步线程**待处理**）
 
-- 认证鉴权：[Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
+- :white_check_mark:认证鉴权：[Spring Security + JWT 实现认证和授权、单点登录:link:](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
 
   - 认证（Authentication）基于JWT（Spring Security UserSever 登录换取token）
   - 鉴权（Authorization）
     - 设计采用RBAC
       -  a. 规定角色可以对哪些资源进行哪些操作 
       - b. 规定主体拥有哪些角色当一个操作，同时满足a与b时，允许操作
-    - [Spring Security @PreAuthorize("@pms.hasPermit('USER')") + 自定义PermitService](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth/util/PermitService.java)
+    - [Spring Security @PreAuthorize("@pms.hasPermit('USER')") + 自定义PermitService:link:](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth/util/PermitService.java)
   - 注销/黑名单等实现方式，暂时没有想到好的方式，目前用redis 保存token的版本来注销，**token有状态**
 
-- [动态数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds)
+- :white_check_mark:[动态数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds:link:)
 
-  - [基于Spring AbstractRoutingDataSource + ThreadLocal 持有当前数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/DynamicDataSource.java)
-  - [Mybatis Interceptor拦截器自动设置数据源（可实现如：应用层读写分离）](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/mybatis/DynamicDataSourcePlugin.java)
-  - [使用@DataSource(id = DataSourceId.PRIMARY) 手动设置数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/aop/DataSource.java)
+  - [基于Spring AbstractRoutingDataSource + ThreadLocal 持有当前数据源:link:](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/DynamicDataSource.java)
+  - [Mybatis Interceptor拦截器自动设置数据源（可实现如：应用层读写分离）:link:](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/mybatis/DynamicDataSourcePlugin.java)
+  - [使用@DataSource(id = DataSourceId.PRIMARY) 手动设置数据源:link:](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds/aop/DataSource.java)
   - 未优化配置模块，支持一主一从或两个数据源
   - **TODO 支持**：
     - 多主多从 、多库（>2)
     - @DataSource 在类上使用
   
-- 持久层配置：spring.datasource.persistence，可切换jpa/mybatis/mybatis-plus，默认jpa
+- :white_check_mark:持久层配置：spring.datasource.persistence，可切换jpa/mybatis/mybatis-plus，默认jpa
 
-- 自定义CustomConditionalOnProperty 实现 ConditionalOnProperty支持多个 havingValue
+- :white_check_mark:自定义CustomConditionalOnProperty 实现 ConditionalOnProperty支持多个 havingValue
 
-- 工具：
+- :white_check_mark:工具：
 
   - [Swagger 集成](./myboot-framework/myboot-component/myboot-component-swagger)
   - [Spring Boot Admin 集成](./myboot-framework/myboot-component/myboot-component-sbaserver)
