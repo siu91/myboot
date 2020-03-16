@@ -2,7 +2,8 @@
 
 
 ## 简介
-myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
+myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo。
+
 <img src="./LOGO.png" alt="myboot" style="zoom:75%;" />
 
 
@@ -15,6 +16,7 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 | -------------------- | ------------------- | ------------------------------------------------------------ |
 | SpringBoot           | 容器+MVC框架        | https://spring.io/projects/spring-boot                       |
 | Spring Data JPA      | ORM框架             | https://spring.io/projects/spring-data-jpa                   |
+| mybatis-plus         | ORM框架工具         | https://mp.baomidou.com/                                     |
 | Hibernator-Validator | 验证框架            | http://hibernate.org/validator                               |
 | Spring Security      | 安全框架            | https://spring.io/projects/                                  |
 | JWT                  | Tokens方案          | https://jwt.io/                                              |
@@ -41,12 +43,21 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
   ![spring-cloud](./assets/spring-cloud.png)
 
   - ~~Eureka 服务注册&发现框架~~ （使用Nacos代替）
+
   - Ribbon 进程内负载均衡器
+
   - Open Feign 服务调用映射
+
   - ~~Hystrix 服务降级熔断器~~（使用Sentinel代替）
+
   - Zuul 微服务网关
+
   - Config 微服务统一配置中心 （使用Nacos代替）
+
   - ~~Bus 消息总线~~
+
+  - zipkin 调用链追踪
+
   - **集成Spring Cloud Alibaba 补充相关功能:**
     - 服务限流降级：使用 Sentinel 进行流量控制，熔断降级以及系统保护等多个维度保护服务稳定性（**完成**）
     
@@ -76,15 +87,21 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 
 
 
-主要功能：
+## Features
 
 - [结构化查询：Spring JPA + QueryDSL ，提供基础单表查询，复杂查询DSL封装](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/core/data)
 
-- 多数据源自动配置
+  - BaseJpaRepository 封装了基础的分页查询
+  - BaseJpaRepository 封装可快速实现复杂多表查询
 
 - [p6spy 自动配置&p6spy 监控sql，自定义日志](./myboot-framework/myboot-core/myboot-core-data/myboot-core-data-jpabp/src/main/java/org/siu/myboot/autoconfigure/p6spy/)
 
+  - 定义监控日志的输出 P6SpyMessageFormat
+
 - [redis + aop 实现限流](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/limiting/LimitingAspect.java)
+
+  - 使用lua获取实时的流量（TODO优化支持redis cluster lua）
+  - aop 获取注解流量配置和流量策略
 
 - [全局的参数校验处理&全局异常处理](./myboot-framework/myboot-core/myboot-core-config/src/main/java/org/siu/myboot/core/config/web/handlers/GlobalExceptionHandler.java)
 
@@ -100,14 +117,36 @@ myboot是一个基于Spring Boot/Spring Cloud的项目脚手架/Demo。
 
 - [Spring Security + JWT 实现认证和授权、单点登录](./myboot-framework/myboot-core/myboot-core-auth/src/main/java/org/siu/myboot/auth)
 
+- [动态数据源](./myboot-framework/myboot-core/myboot-core-data/src/main/java/org/siu/myboot/core/data/dds)
+
+  - 基于Spring AbstractRoutingDataSource + ThreadLocal 持有当前数据源
+  - Mybatis Interceptor拦截器自动设置数据源（可实现如：应用层读写分离）
+  - 使用@DataSource(id = DataSourceId.PRIMARY) 手动设置数据源
+  - 未优化配置模块，支持一主一从或两个数据源
+  - **TODO 支持**：
+    - 多主多从 、多库（>2)
+    - @DataSource 在类上使用
   
+- 持久层配置：spring.datasource.persistence，可切换jpa/mybatis/mybatis-plus，默认jpa
+
+- 微服务：
+
+  - Nacos 服务注册发现/配置中心（**TODO Nacos Server 高可用**）
+
+  - 集成Ribbon，远程服务调用
+
+  - 集成Sentinel，服务熔断&降级（使用nacos持久化配置）
+
+  - Zipkin + Sentinel 分布式调用链路追踪（**TODO保存调用日志到ES/其它** ）
+
+    
 
 ## 项目结构
 
 ~~~
  .
-├── LICENSE					license 文件
-├── README.md					README
+├── LICENSE	license 文件
+├── README.md README
 ├── autogenerate 代码生成	         		
 ├── myboot-demo-ganxu demo		
 └── myboot-framework 框架
