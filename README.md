@@ -2,11 +2,13 @@
 
 # myboot <img src="./assets/LOGO_300.png" align="right" />
 
-> myboot是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo
+> **myboot**是一个基于Spring Boot/Spring Cloud的项目脚手架+Demo
 
 
 
-:mask:疫情无情，人有情，来了就Star:star:一下吧 :point_up:
+
+
+:mask:疫情无情，人有情，来了就**Star**:star:一下吧 :point_up:
 
 
 
