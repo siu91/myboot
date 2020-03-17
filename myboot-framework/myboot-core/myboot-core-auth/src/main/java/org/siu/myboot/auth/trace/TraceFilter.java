@@ -3,6 +3,7 @@ package org.siu.myboot.auth.trace;
 
 import lombok.extern.slf4j.Slf4j;
 import org.siu.myboot.core.constant.Constant;
+import org.siu.myboot.core.utils.UUID;
 import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
@@ -13,7 +14,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * 追踪过滤器
@@ -34,7 +34,7 @@ public class TraceFilter extends GenericFilterBean {
         // 追踪ID
         String traceId = httpServletRequest.getHeader(Constant.Trace.TRACE_ID);
         if (StringUtils.isEmpty(traceId)) {
-            traceId = UUID.randomUUID().toString().replace("-", "");
+            traceId = UUID.nanoTimeUUID();
         }
         MDC.put(Constant.Trace.TRACE_ID, traceId);
 
