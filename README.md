@@ -62,6 +62,7 @@
   - **TODO 支持**：
     - 多主多从 、多库（>2)
     - @DataSource 在类上使用
+    - 通用动态数据模块正在实现中（结合之前业务场景的需求和实现），暂时放在 myboot-core-dds中孵化，未来会放到新的项目中（2020/03/19）
   
 - :white_check_mark:持久层配置：spring.datasource.persistence，可切换jpa/mybatis/mybatis-plus，默认jpa
 

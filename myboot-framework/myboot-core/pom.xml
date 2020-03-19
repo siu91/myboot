@@ -19,6 +19,7 @@
         <module>myboot-core-base</module>
         <module>myboot-core-data</module>
         <module>myboot-core-config</module>
+        <module>myboot-core-dds</module>
 
     </modules>
 
