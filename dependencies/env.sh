@@ -35,6 +35,7 @@ docker run -itd --name redis-test -p 6379:6379 redis
 
 # ali nacos
 docker pull nacos/nacos-server:latest
+docker run -d --name nacos -e PREFER_HOST_NAME=hostname -e MODE=standalone -e SPRING_DATASOURCE_PLATFORM=empty -p 8848:8848 nacos/nacos-server
 
 # 携程apollo https://github.com/ctripcorp/apollo/wiki/Apollo-Quick-Start-Docker%E9%83%A8%E7%BD%B2
 # docker-quick-start目录下执行docker-compose up
